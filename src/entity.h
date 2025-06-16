@@ -9,7 +9,7 @@ enum entity_directions {
 	ENTITY_DIR_RIGHT
 };
 
-struct entity {
+typedef struct {
 	unsigned char color[3];
 	unsigned char direction;
 	unsigned short size[2];
@@ -17,9 +17,7 @@ struct entity {
 	short speed;
 	
 	char visible;
-};
-
-typedef struct entity entity_t;
+} entity_t;
 
 unsigned char entity_collision(
 	entity_t *entity1,
