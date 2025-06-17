@@ -5,7 +5,6 @@ clang \
 	--target=wasm32 \
 	-O3 \
 	--no-standard-libraries \
-	-o "$OUTPUT" \
 	-DFONT_HEIGHT=16 \
 	-I ../src/BlockBreakC/src/impl \
 	-I ../src/BlockBreakC/src/random \
@@ -14,4 +13,7 @@ clang \
 	-Wl,-allow-undefined-file imports.syms \
 	../src/BlockBreakC/src/random/random.c \
 	../src/*.c \
-	../src/BlockBreakC/src/*.c
+	../src/BlockBreakC/src/*.c \
+	-o "$OUTPUT"
+
+wasm-strip "$OUTPUT"
