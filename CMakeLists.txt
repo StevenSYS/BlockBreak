@@ -36,6 +36,7 @@ elseif(NOT WIN32 AND BUILD_USING_MSVCRT20)
 endif()
 
 include_directories(
+	"src"
 	"src/random"
 	"src/impl"
 )
@@ -52,7 +53,6 @@ if(NOT BUILD_ONLY_LIBRARY)
 		add_library(${PROJECT_NAME} ${SOURCE_FILES})
 	else()
 		add_executable(${PROJECT_NAME} ${RESOURCE_FILES} ${SOURCE_FILES})
-		target_include_directories(${PROJECT_NAME} PRIVATE src)
 	endif()
 	target_link_libraries(
 		${PROJECT_NAME}

@@ -1,5 +1,3 @@
-include_directories("../")
-
 if(IMPL STREQUAL "SDL3")
 	find_package(SDL3 REQUIRED)
 	set(IMPL_FILES "sdl3.c")
