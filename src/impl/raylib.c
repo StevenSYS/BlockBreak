@@ -86,7 +86,6 @@ void impl_loopEnd() {
 	return;
 }
 
-
 void impl_init(
 	int argc, char *argv[],
 	char *timerStart, entity_t *player,
