@@ -56,6 +56,7 @@ static void drawLoop(int msecs) {
 	return;
 }
 
+/* Misc. */
 void impl_loopEnd() {
 	glFlush();
 	return;

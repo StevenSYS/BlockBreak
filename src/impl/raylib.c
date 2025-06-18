@@ -1,8 +1,8 @@
 /* raylib Implementation */
 #include <raylib.h>
+#include <random.h>
 
 #include "entity.h"
-#include "random.h"
 #include "progInfo.h"
 
 static void (*main_reset)();
@@ -39,17 +39,7 @@ static void input() {
 	return;
 }
 
-void impl_loopStart() {
-	BeginDrawing();
-	ClearBackground(BLACK);
-	return;
-}
-
-void impl_loopEnd() {
-	EndDrawing();
-	return;
-}
-
+/* Drawing */
 void impl_setColor(
 	unsigned char red,
 	unsigned char green,
@@ -59,29 +49,6 @@ void impl_setColor(
 	return;
 }
 
-void impl_init(
-	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
-) {
-	InitWindow(RENDER_WIDTH, RENDER_HEIGHT, PROGRAM_NAME " v" PROGRAM_VERSION " - raylib");
-	
-	SetTargetFPS(MAX_FPS);
-	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
-	
-	while (!WindowShouldClose()) {
-		input();
-		draw();
-	}
-	
-	CloseWindow();
-	return;
-}
-
-/* Drawing */
 void impl_drawNumber(
 	short x, short y,
 	unsigned int number
@@ -104,5 +71,40 @@ void impl_drawFillRect(
 		width, height,
 		currentColor
 	);
+	return;
+}
+
+/* Misc. */
+void impl_loopStart() {
+	BeginDrawing();
+	ClearBackground(BLACK);
+	return;
+}
+
+void impl_loopEnd() {
+	EndDrawing();
+	return;
+}
+
+
+void impl_init(
+	int argc, char *argv[],
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
+) {
+	InitWindow(RENDER_WIDTH, RENDER_HEIGHT, PROGRAM_NAME " v" PROGRAM_VERSION " - raylib");
+	
+	SetTargetFPS(MAX_FPS);
+	
+	main_timerStart = timerStart;
+	main_player = player;
+	main_reset = reset;
+	
+	while (!WindowShouldClose()) {
+		input();
+		draw();
+	}
+	
+	CloseWindow();
 	return;
 }

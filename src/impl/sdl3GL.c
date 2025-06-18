@@ -57,6 +57,7 @@ static void handleEvent() {
 	return;
 }
 
+/* Misc. */
 void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
 	return;

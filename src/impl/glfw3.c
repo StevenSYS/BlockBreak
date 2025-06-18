@@ -50,6 +50,7 @@ static void input(
 	return;
 }
 
+/* Misc. */
 void impl_loopEnd() {
 	glFlush();
 	glfwSwapBuffers(window);

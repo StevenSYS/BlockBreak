@@ -4,9 +4,9 @@
 #else
 	#include <SDL3/SDL.h>
 #endif
+#include <random.h>
 
 #include "entity.h"
-#include "random.h"
 #include "progInfo.h"
 
 static void (*main_reset)();
@@ -62,6 +62,7 @@ static void handleEvent() {
 	return;
 }
 
+/* Drawing */
 void impl_setColor(
 	unsigned char red,
 	unsigned char green,
@@ -71,6 +72,24 @@ void impl_setColor(
 	return;
 }
 
+void impl_drawNumber(
+	short x, short y,
+	unsigned int number
+) {
+	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
+	return;
+}
+
+void impl_drawFillRect(
+	short x, short y,
+	unsigned short width, unsigned short height
+) {
+	SDL_FRect rect = { x, y, width, height };
+	SDL_RenderFillRect(renderer, &rect);
+	return;
+}
+
+/* Misc. */
 void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
@@ -126,23 +145,5 @@ void impl_init(
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-	return;
-}
-
-/* Drawing */
-void impl_drawNumber(
-	short x, short y,
-	unsigned int number
-) {
-	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
-	return;
-}
-
-void impl_drawFillRect(
-	short x, short y,
-	unsigned short width, unsigned short height
-) {
-	SDL_FRect rect = { x, y, width, height };
-	SDL_RenderFillRect(renderer, &rect);
 	return;
 }

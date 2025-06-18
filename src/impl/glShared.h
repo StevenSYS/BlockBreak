@@ -59,11 +59,7 @@ static void glSharedInit(
 	return;
 }
 
-void impl_loopStart() {
-	glClear(GL_COLOR_BUFFER_BIT);
-	return;
-}
-
+/* Drawing */
 void impl_setColor(
 	unsigned char red,
 	unsigned char green,
@@ -73,7 +69,6 @@ void impl_setColor(
 	return;
 }
 
-/* Drawing */
 void impl_drawNumber(
 	short x, short y,
 	unsigned int number
@@ -96,5 +91,11 @@ void impl_drawFillRect(
 	unsigned short width, unsigned short height
 ) {
 	glRects(x, y, x + width, y + height);
+	return;
+}
+
+/* Misc. */
+void impl_loopStart() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	return;
 }
