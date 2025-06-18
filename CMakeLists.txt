@@ -50,7 +50,7 @@ if(NOT BUILD_ONLY_LIBRARY)
 	file(GLOB SOURCE_FILES "src/*.c")
 	
 	if(BUILD_AS_LIBRARY)
-		add_library(${PROJECT_NAME} ${SOURCE_FILES})
+		add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 	else()
 		add_executable(${PROJECT_NAME} ${RESOURCE_FILES} ${SOURCE_FILES})
 	endif()
