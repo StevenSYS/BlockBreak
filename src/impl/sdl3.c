@@ -19,6 +19,7 @@ static unsigned int lastTime;
 static SDL_Event event;
 static SDL_Window *window;
 static SDL_Renderer *renderer;
+static SDL_FRect rect;
 
 static entity_t *main_player;
 
@@ -84,7 +85,10 @@ void impl_drawFillRect(
 	short x, short y,
 	unsigned short width, unsigned short height
 ) {
-	SDL_FRect rect = { x, y, width, height };
+	rect.x = x;
+	rect.y = y;
+	rect.w = width,
+	rect.h = height;
 	SDL_RenderFillRect(renderer, &rect);
 	return;
 }

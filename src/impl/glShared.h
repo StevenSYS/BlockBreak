@@ -90,7 +90,10 @@ void impl_drawFillRect(
 	short x, short y,
 	unsigned short width, unsigned short height
 ) {
-	glRects(x, y, x + width, y + height);
+	glRects(
+		x, y,
+		x + width, y + height
+	);
 	return;
 }
 
