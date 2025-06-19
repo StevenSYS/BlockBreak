@@ -13,4 +13,7 @@ build*/
 *.dylib
 *.so
 
+# DOSBox-X Config File
+dosbox-x.conf
+
 .DS_Store
