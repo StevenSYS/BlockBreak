@@ -16,7 +16,6 @@ static const unsigned char table[256] = {
 	5, 0, 2, 1, 11, 2, 9, 11, 3, 8, 3, 2, 9, 9, 11, 0, 
 	0, 1, 6, 4, 5, 4, 0, 2, 2, 6, 6, 5, 3, 0, 10, 1
 };
-
 static unsigned char index = 0;
 
 void random_increase() {
