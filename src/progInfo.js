@@ -16,7 +16,7 @@ if (playerSpeed < 1) {
 if (playerWidth < 1) {
 	playerWidth = 1;
 }
-if (playerHeight < 1)
+if (playerHeight < 1) {
 	playerHeight = 1;
 }
 
