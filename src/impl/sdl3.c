@@ -138,6 +138,7 @@ void impl_init(
 	while (running) {
 		lastTime = SDL_GetTicks();
 		
+		handleEvent();
 		draw();
 		
 		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
