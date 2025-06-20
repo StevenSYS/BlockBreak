@@ -5,7 +5,7 @@ const renderHeight = 472;
 
 const fontHeight = 16;
 
-const playerSpeed = Math.round(renderHeight / 60);
+const playerSpeed = Math.round(renderHeight / 59);
 const playerWidth = Math.round(renderWidth / 40);
 const playerHeight = Math.round(renderWidth / 40);
 const playerStartX = Math.round((renderWidth / 2) - (playerWidth / 2));
