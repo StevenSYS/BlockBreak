@@ -15,6 +15,7 @@ static void (*main_reset)();
 static char running = 1;
 static char frameBuffer[RENDER_WIDTH * RENDER_HEIGHT];
 static char string[11];
+static char increased = 0;
 static char *main_timerStart;
 
 static unsigned char k;
@@ -166,8 +167,13 @@ static void setVideoMode(unsigned char videoMode) {
 static void handleInput() {
 	keyCode = inportb(0x60);
 	
-	if (!(keyCode & 0x80)) {
-		random_increase();
+	if (keyCode & 0x80) {
+		increased = 0;
+	} else {
+		if (!increased) {
+			random_increase();
+			increased = 1;
+		}
 		switch (keyCode & 0x7F) {
 			case 72: /* Up */
 				main_player->direction = ENTITY_DIR_UP;
