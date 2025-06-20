@@ -222,7 +222,7 @@ void impl_drawNumber(
 	for (k = 0; k < strlen(string); k++) {
 		for (i = 0; i < FONT_HEIGHT; i++) {
 			for (j = 0; j < FONT_WIDTH; j++) {
-				if (numberSheet[string[k] - 48][i][j] * currentColor) {
+				if (numberSheet[string[k] - 48][i][j]) {
 					frameBuffer[(y + i) * RENDER_WIDTH + ((x + j) + (k * FONT_WIDTH))] = numberSheet[string[k] - 48][i][j] * currentColor;
 				}
 			}
