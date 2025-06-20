@@ -120,7 +120,7 @@ static const unsigned char numberSheet[10][FONT_HEIGHT][FONT_WIDTH] = {
 		{ 0,1,1,1,1,1,0,0 },
 		{ 0,0,0,0,1,1,0,0 },
 		{ 1,1,0,0,1,1,0,0 },
-		{ 0,1,1,1,1,0,0,0 },
+		{ 0,1,1,1,1,0,0,0 }
 	}
 };
 static const unsigned char colorPalette[16][3] = {
