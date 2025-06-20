@@ -1,4 +1,4 @@
-/* MS-DOS Implementation - Incomplete */
+/* MS-DOS (DJGPP) Implementation */
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -14,10 +14,114 @@ static void (*main_reset)();
 
 static char running = 1;
 static char frameBuffer[RENDER_WIDTH * RENDER_HEIGHT];
+static char string[11];
 static char *main_timerStart;
 
+static unsigned char k;
 static unsigned char oldVideoMode;
 static unsigned char keyCode;
+static const unsigned char numberSheet[10][FONT_HEIGHT][FONT_WIDTH] = {
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,0,1,1,0,0,0,0,
+		0,1,1,1,0,0,0,0,
+		1,1,1,1,0,0,0,0,
+		0,0,1,1,0,0,0,0,
+		0,0,1,1,0,0,0,0,
+		0,0,1,1,0,0,0,0,
+		1,1,1,1,1,1,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,0,0,0,0,
+		1,1,0,0,0,0,0,0,
+		1,1,1,1,1,1,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		0,0,1,1,1,0,0,0,
+		0,0,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,0,0,1,1,0,0,0,
+		0,0,1,1,1,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,1,1,0,0,0,
+		1,1,1,1,1,1,0,0,
+		0,0,0,1,1,0,0,0,
+		0,0,0,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		1,1,1,1,1,1,0,0,
+		1,1,0,0,0,0,0,0,
+		1,1,0,0,0,0,0,0,
+		1,1,1,1,1,0,0,0,
+		0,0,0,0,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		1,1,1,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,0,0,0,0,
+		1,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		1,1,1,1,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		0,0,0,1,1,0,0,0,
+		0,0,0,1,1,0,0,0,
+		0,0,1,1,0,0,0,0,
+		0,0,1,1,0,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0
+	},
+	{
+		0,0,0,0,0,0,0,0,
+		0,1,1,1,1,0,0,0,
+		1,1,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,1,0,0,
+		0,0,0,0,1,1,0,0,
+		1,1,0,0,1,1,0,0,
+		0,1,1,1,1,0,0,0
+	}
+};
 static const unsigned char colorPalette[16][3] = {
 	{ 0x00, 0x00, 0x00 },
 	{ 0x00, 0x00, 0xAA },
@@ -114,6 +218,16 @@ void impl_drawNumber(
 	short x, short y,
 	unsigned int number
 ) {
+	sprintf(string, "%u", number);
+	for (k = 0; k < strlen(string); k++) {
+		for (i = 0; i < FONT_HEIGHT; i++) {
+			for (j = 0; j < FONT_WIDTH; j++) {
+				if (numberSheet[string[k] - 48][i][j] * currentColor) {
+					frameBuffer[(y + i) * RENDER_WIDTH + ((x + j) + (k * FONT_WIDTH))] = numberSheet[string[k] - 48][i][j] * currentColor;
+				}
+			}
+		}
+	}
 	return;
 }
 
@@ -123,7 +237,9 @@ void impl_drawFillRect(
 ) {
 	for (i = 0; i < height; i++) {
 		for (j = 0; j < width; j++) {
-			frameBuffer[(y + i) * RENDER_WIDTH + (x + j)] = currentColor;
+			if ((x + j) > -1 && (y + i) > -1) {
+				frameBuffer[(y + i) * RENDER_WIDTH + (x + j)] = currentColor;
+			}
 		}
 	}
 	return;
@@ -175,6 +291,6 @@ void impl_init(
 	}
 	
 	setVideoMode(oldVideoMode);
-	printf(PROGRAM_NAME " v" PROGRAM_VERSION " - MS-DOS\n");
+	printf(PROGRAM_NAME " v" PROGRAM_VERSION " - MS-DOS (DJGPP)\n");
 	return;
 }
