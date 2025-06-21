@@ -50,11 +50,12 @@ include_directories(
 )
 
 add_subdirectory(src/impl)
-add_subdirectory(src/impl/highScore)
 
 add_library(Random STATIC "src/random/random.c")
 
-if(NOT BUILD_ONLY_LIBRARY)
+if(NOT BUILD_ONLY_IMPL)
+	add_subdirectory(src/impl/highScore)
+	
 	file(GLOB SOURCE_FILES "src/*.c")
 	
 	if(BUILD_AS_LIBRARY)
