@@ -15,7 +15,8 @@ static void (*main_reset)();
 static char running = 1;
 static char frameBuffer[RENDER_WIDTH * RENDER_HEIGHT];
 static char string[11];
-static char increased = 0;
+static char increasePressed = 0;
+static char resetPressed = 0;
 static char *main_timerStart;
 
 static unsigned char k;
@@ -168,11 +169,14 @@ static void handleInput() {
 	keyCode = inportb(0x60);
 	
 	if (keyCode & 0x80) {
-		increased = 0;
+		increasePressed = 0;
+		if ((keyCode & 0x7F) == 28) {
+			resetPressed = 0;
+		}
 	} else {
-		if (!increased) {
+		if (!increasePressed) {
 			random_increase();
-			increased = 1;
+			increasePressed = 1;
 		}
 		switch (keyCode & 0x7F) {
 			case 72: /* Up */
@@ -192,7 +196,10 @@ static void handleInput() {
 				*main_timerStart = 1;
 				break;
 			case 28: /* Reset */
-				main_reset();
+				if (!resetPressed) {
+					main_reset();
+					resetPressed = 1;
+				}
 				break;
 			case 1: /* Quit */
 				running = 0;

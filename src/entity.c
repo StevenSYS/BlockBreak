@@ -48,18 +48,10 @@ void entity_draw(
 			case ENTITY_DIR_NONE:
 				break;
 			case ENTITY_DIR_UP:
-				#ifdef RENDER_CORRECT
-				entity->position[1] -= entity->speed / 1.35;
-				#else
 				entity->position[1] -= entity->speed;
-				#endif
 				break;
 			case ENTITY_DIR_DOWN:
-				#ifdef RENDER_CORRECT
-				entity->position[1] += entity->speed / 1.1;
-				#else
 				entity->position[1] += entity->speed;
-				#endif
 				break;
 			case ENTITY_DIR_LEFT:
 				entity->position[0] -= entity->speed;
