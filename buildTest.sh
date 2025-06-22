@@ -5,6 +5,7 @@ directories=(
 	"glfw3"
 	"sdl3GL"
 	"raylib"
+	"xlib"
 )
 
 impls=(
@@ -13,6 +14,7 @@ impls=(
 	"GLFW3"
 	"SDL3GL"
 	"raylib"
+	"Xlib"
 )
 
 buildDir="buildTest"
