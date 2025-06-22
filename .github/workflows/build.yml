@@ -51,6 +51,14 @@ jobs:
             upload: "BlockBreakC",
             raylibVersion: "5.5"
           }
+          - {
+            name: "Xlib - Linux (x64)",
+            os: "ubuntu-latest",
+            cFlags: "",
+            impl: "Xlib",
+            output: "BlockBreakC-Xlib-Linux64",
+            upload: "BlockBreakC"
+          }
     steps:
       - uses: actions/checkout@v4
       
@@ -169,6 +177,11 @@ jobs:
       - name: raylib - Install
         if: matrix.build-targets.impl == 'raylib'
         run: sudo cmake --install build/raylib
+      
+      # Xlib
+      - name: Xlib - Install
+        if: matrix.build-targets.impl == 'Xlib'
+        run: sudo apt install xorg-dev
       
       - name: Configure CMake
         run: >

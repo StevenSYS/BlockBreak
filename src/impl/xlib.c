@@ -1,7 +1,9 @@
 /* Xlib Implementation */
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include <X11/XKBlib.h>
+#ifndef XLIB_LEAGCY
+	#include <X11/XKBlib.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -28,7 +30,22 @@ static GC gc;
 static void handleInput() {
 	if (event.type == KeyPress) {
 		random_increase();
-		switch (XkbKeycodeToKeysym(display, event.xkey.keycode, 0, event.xkey.state & ShiftMask ? 1 : 0)) {
+		switch (
+		#ifdef XLIB_LEGACY
+			XKeycodeToKeysym(
+				display,
+				event.xkey.keycode,
+				event.xkey.state & ShiftMask ? 1 : 0
+			)
+		#else
+			XkbKeycodeToKeysym(
+				display,
+				event.xkey.keycode,
+				0,
+				event.xkey.state & ShiftMask ? 1 : 0
+			)
+		#endif
+		) {
 			case XK_Up:
 				*main_timerStart = 1;
 				main_player->direction = ENTITY_DIR_UP;
