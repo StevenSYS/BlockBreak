@@ -13,8 +13,8 @@ typedef struct {
 	unsigned char color[3];
 	unsigned char direction;
 	unsigned short size[2];
-	short position[2];
-	short speed;
+	signed short position[2];
+	signed short speed;
 	
 	char visible;
 } entity_t;
@@ -29,8 +29,8 @@ void entity_init(
 	unsigned char red, unsigned char green,	unsigned char blue,
 	unsigned char direction,
 	unsigned short width, unsigned short height,
-	short x, short y,
-	short speed,
+	signed short x, signed short y,
+	signed short speed,
 	char visible
 );
 

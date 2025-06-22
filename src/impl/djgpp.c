@@ -14,7 +14,7 @@ static void (*main_reset)();
 
 static char running = 1;
 static char frameBuffer[RENDER_WIDTH * RENDER_HEIGHT];
-static char string[11];
+static char buffer[11];
 static char increasePressed = 0;
 static char resetPressed = 0;
 static char *main_timerStart;
@@ -231,12 +231,12 @@ void impl_drawNumber(
 	short x, short y,
 	unsigned int number
 ) {
-	sprintf(string, "%u", number);
-	for (k = 0; k < strlen(string); k++) {
+	sprintf(buffer, "%u", number);
+	for (k = 0; k < strlen(buffer); k++) {
 		for (i = 0; i < FONT_HEIGHT; i++) {
 			for (j = 0; j < FONT_WIDTH; j++) {
-				if (numberSheet[string[k] - 48][i][j]) {
-					frameBuffer[(y + i) * RENDER_WIDTH + ((x + j) + (k * FONT_WIDTH))] = numberSheet[string[k] - 48][i][j] * currentColor;
+				if (numberSheet[buffer[k] - 48][i][j]) {
+					frameBuffer[(y + i) * RENDER_WIDTH + ((x + j) + (k * FONT_WIDTH))] = numberSheet[buffer[k] - 48][i][j] * currentColor;
 				}
 			}
 		}

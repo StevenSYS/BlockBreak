@@ -1,6 +1,5 @@
 /* Shared OpenGL Functions */
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <GL/gl.h>
 #include <random.h>
@@ -10,7 +9,7 @@
 
 static void (*main_reset)();
 
-static char *string;
+static char buffer[11];
 static char *main_timerStart;
 
 static unsigned char i, j;
@@ -51,8 +50,6 @@ static void glSharedInit(
 		}
 	}
 	
-	string = malloc(sizeof(char[11]));
-	
 	main_timerStart = timerStart;
 	main_player = player;
 	main_reset = reset;
@@ -73,14 +70,14 @@ void impl_drawNumber(
 	short x, short y,
 	unsigned int number
 ) {
-	sprintf(string, "%u", number);
-	for (i = 0; i < strlen(string); i++) {
+	sprintf(buffer, "%u", number);
+	for (i = 0; i < strlen(buffer); i++) {
 		glRasterPos2s(x + (i * FONT_WIDTH), y + FONT_HEIGHT);
 		glBitmap(
 			FONT_WIDTH, FONT_HEIGHT,
 			0, 0,
 			0, 0,
-			numberSheetGL[string[i] - 48]
+			numberSheetGL[buffer[i] - 48]
 		);
 	}
 	return;

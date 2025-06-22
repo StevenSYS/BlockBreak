@@ -22,8 +22,8 @@ void entity_init(
 	unsigned char red, unsigned char green,	unsigned char blue,
 	unsigned char direction,
 	unsigned short width, unsigned short height,
-	short x, short y,
-	short speed,
+	signed short x, signed short y,
+	signed short speed,
 	char visible
 ) {
 	entity->color[0] = red;
