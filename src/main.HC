@@ -81,7 +81,7 @@ U0 generateLevel(U8 level) {
 	return;
 }
 
-U0 init(U8 level) {
+U0 init() {
 	timer += level * 35;
 	
 	entity_init(
@@ -110,7 +110,7 @@ U0 reset() {
 			blocks[j][i].visible = FALSE;
 		}
 	}
-	init(level);
+	init();
 	return;
 }
 
@@ -120,7 +120,7 @@ U0 draw(CTask *task, CDC *dc) {
 		if (level < MAX_BLOCKS) {
 			level++;
 		}
-		init(level);
+		init();
 	}
 	
 	if (player.position[1] <= SCREEN_EDGE_UP) {
@@ -172,7 +172,7 @@ U0 draw(CTask *task, CDC *dc) {
 }
 
 U0 main() {
-	init(level);
+	init();
 	
 	SettingsPush();
 	
