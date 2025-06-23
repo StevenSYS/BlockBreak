@@ -6,6 +6,8 @@
 #include "entity.HC"
 #include "progInfo.HH"
 
+Bool timerStart = FALSE;
+
 U8 randomColors[12] = {
 	BLUE,
 	GREEN,
@@ -20,9 +22,6 @@ U8 randomColors[12] = {
 	LTPURPLE,
 	YELLOW
 };
-
-Bool timerStart = FALSE;
-
 U8 i;
 U8 j;
 U8 oldRandomColor = 13;

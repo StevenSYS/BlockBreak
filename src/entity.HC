@@ -6,7 +6,7 @@
 #define ENTITY_DIR_DOWN 2
 #define ENTITY_DIR_LEFT 3
 #define ENTITY_DIR_RIGHT 4
-/* Enum - End */
+/* Enum End */
 
 class entity_t {
 	U8 color;
