@@ -1,0 +1,75 @@
+import pygame
+
+from sharedVars import *
+
+/* Enum - entity_directions */
+ENTITY_DIR_NONE = 0;
+ENTITY_DIR_UP = 1;
+ENTITY_DIR_DOWN = 2;
+ENTITY_DIR_LEFT = 3;
+ENTITY_DIR_RIGHT = 4;
+/* Enum End */
+
+class entity_t {
+	
+	def __init__(
+		self,
+		red, green, blue,
+		direction,
+		width, height,
+		x, y,
+		speed,
+		visible
+	) {
+		self.color = [ red, green, blue ];
+		self.direction = direction;
+		self.size = [ width, height ];
+		self.position = [ x, y ];
+		self.speed = speed;
+		self.visible = visible;
+		return;
+	}
+	
+	def collision(self, entity) {
+		if (
+			((self.position[0] + self.size[0]) >= entity.position[0]) and
+			(self.position[0] <= (entity.position[0] + entity.size[0])) and
+			(self.position[1] <= (entity.position[1] + entity.size[1])) and
+			((self.position[1] + self.size[1]) >= entity.position[1])
+		) {
+			return true;
+		}
+		return false;
+	}
+	
+	def draw(
+		self,
+		screen,
+		useDirection
+	) {
+		if (useDirection) {
+			/* Why doesn't Python have switches? */
+			if (self.direction == ENTITY_DIR_UP) {
+				self.position[1] -= self.speed;
+			}
+			if (self.direction == ENTITY_DIR_DOWN) {
+				self.position[1] += self.speed;
+			}
+			if (self.direction == ENTITY_DIR_LEFT) {
+				self.position[0] -= self.speed;
+			}
+			if (self.direction == ENTITY_DIR_RIGHT) {
+				self.position[0] += self.speed;
+			}
+		}
+		
+		if (self.visible) {
+			pygame.draw.rect(
+				screen,
+				self.color,
+				(self.position, self.size)
+			);
+		}
+		return;
+	}
+}
