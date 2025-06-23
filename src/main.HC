@@ -22,15 +22,13 @@ U8 randomColors[12] = {
 	LTPURPLE,
 	YELLOW
 };
-U8 i;
-U8 j;
+U8 x, y;
 U8 oldRandomColor = 13;
 U8 randomColor = 13;
 U8 level = 1;
 
 I16 sc;
 
-U16 blockSize[2];
 U16 blockCount = 0;
 U16 timer = 0;
 
@@ -48,25 +46,30 @@ U0 generateLevel(U8 level) {
 	blockCount = 0;
 	
 	if (level) {
-		blockSize[0] = RENDER_WIDTH / level;
-		blockSize[1] = RENDER_HEIGHT / (level * 1.5);
+		U16 blockSize[2] = {
+			RENDER_WIDTH / level,
+			RENDER_HEIGHT / (level * 1.5)
+		};
 		
-		for (i = 0; i < level; i++) {
+		for (y = 0; y < level; y++) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
 				randomColor = randomColors[random_get()];
 			}
 			
-			for (j = 0; j < level; j++) {
-				if ((j * blockSize[0] < RENDER_WIDTH) && (i * blockSize[1] < RENDER_HEIGHT)) {
+			for (x = 0; x < level; x++) {
+				if (
+					(x * blockSize[0] < RENDER_WIDTH) &&
+					(y * blockSize[1] < RENDER_HEIGHT)
+				) {
 					blockCount++;
 					entity_init(
-						&blocks[j][i],
+						&blocks[y][x],
 						randomColor,
 						ENTITY_DIR_NONE,
 						blockSize[0], blockSize[1],
-						j * blockSize[0], i * blockSize[1],
+						x * blockSize[0], y * blockSize[1],
 						0,
 						TRUE
 					);
@@ -78,14 +81,11 @@ U0 generateLevel(U8 level) {
 	return;
 }
 
-U0 init(
-	U8 level,
-	entity_t *player
-) {
+U0 init(U8 level) {
 	timer += level * 35;
 	
 	entity_init(
-		player,
+		&player,
 		WHITE,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
@@ -110,7 +110,7 @@ U0 reset() {
 			blocks[j][i].visible = FALSE;
 		}
 	}
-	init(level, &player);
+	init(level);
 	return;
 }
 
@@ -120,7 +120,7 @@ U0 draw(CTask *task, CDC *dc) {
 		if (level < MAX_BLOCKS) {
 			level++;
 		}
-		init(level, &player);
+		init(level);
 	}
 	
 	if (player.position[1] <= SCREEN_EDGE_UP) {
@@ -172,7 +172,7 @@ U0 draw(CTask *task, CDC *dc) {
 }
 
 U0 main() {
-	init(level, &player);
+	init(level);
 	
 	SettingsPush();
 	
