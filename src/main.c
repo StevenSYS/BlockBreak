@@ -70,14 +70,11 @@ void generateLevel(unsigned char level) {
 	return;
 }
 
-void init(
-	unsigned char level,
-	entity_t *player
-) {
+void init() {
 	timer += level * 35;
 	
 	entity_init(
-		player,
+		&player,
 		0xFF, 0xFF, 0xFF,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
@@ -101,7 +98,7 @@ void reset() {
 			blocks[x][y].visible = 0;
 		}
 	}
-	init(level, &player);
+	init();
 }
 
 void draw() {
@@ -112,7 +109,7 @@ void draw() {
 		if (level < MAX_BLOCKS) {
 			level++;
 		}
-		init(level, &player);
+		init();
 	}
 	
 	if (player.position[1] <= SCREEN_EDGE_UP) {
@@ -170,7 +167,7 @@ int main(
 ) {
 	highScore = impl_getHighScore();
 	
-	init(level, &player);
+	init();
 	
 	impl_init(
 		argc, argv,

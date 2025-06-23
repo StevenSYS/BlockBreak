@@ -180,14 +180,14 @@ void impl_init(
 	while (running) {
 		lastTime = clock();
 		
-		draw();
-		
 		while (XPending(display)) {
 			XNextEvent(display, &event);
 			if (event.type == KeyPress) {
 				handleInput();
 			}
 		}
+		
+		draw();
 		
 		while (clock() < lastTime + (CLOCKS_PER_SEC / MAX_FPS));
 	}

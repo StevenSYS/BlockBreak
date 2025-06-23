@@ -299,8 +299,8 @@ void impl_init(
 	while (running) {
 		lastTime = uclock();
 		
-		draw();
 		handleInput();
+		draw();
 		
 		while (uclock() < lastTime + (UCLOCKS_PER_SEC / MAX_FPS)) {
 			handleInput();
