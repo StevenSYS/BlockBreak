@@ -1,5 +1,5 @@
 # BlockBreakPy
-A port of BlockBreakHC from HolyC to Python
+A port of BlockBreakHC from HolyC to Python using PyGame
 
 # Screenshots
 
