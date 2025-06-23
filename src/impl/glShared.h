@@ -12,7 +12,7 @@ static void (*main_reset)();
 static char buffer[11];
 static char *main_timerStart;
 
-static unsigned char i, j;
+static unsigned char x, y, i;
 
 static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 	{ 0x00, 0x78, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0x78 }, /* 0 */
@@ -38,15 +38,15 @@ static void glSharedInit(
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
 	
-	for (j = 0; j < 10; j++) {
-		for (i = 0; i <= FONT_HEIGHT * 4; i++) {
-			numberSheetGL[j][i] = 0;
+	for (x = 0; x < 10; x++) {
+		for (y = 0; y <= FONT_HEIGHT * 4; y++) {
+			numberSheetGL[x][y] = 0;
 		}
 	}
 	
-	for (j = 0; j < 10; j++) {
-		for (i = 0; i <= FONT_HEIGHT * 4; i += 4) {
-			numberSheetGL[j][i] = numberSheet[j][i / 4];
+	for (x = 0; x < 10; x++) {
+		for (y = 0; y <= FONT_HEIGHT * 4; y += 4) {
+			numberSheetGL[x][y] = numberSheet[x][y / 4];
 		}
 	}
 	

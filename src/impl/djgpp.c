@@ -19,7 +19,7 @@ static char increasePressed = 0;
 static char resetPressed = 0;
 static char *main_timerStart;
 
-static unsigned char k;
+static unsigned char i;
 static unsigned char oldVideoMode;
 static unsigned char keyCode;
 static const unsigned char numberSheet[10][FONT_HEIGHT][FONT_WIDTH] = {
@@ -145,7 +145,7 @@ static const unsigned char colorPalette[16][3] = {
 static unsigned char colorPaletteMap[4][4][4];
 static unsigned char currentColor;
 
-static unsigned short i, j;
+static unsigned short x2, y2;
 
 static entity_t *main_player;
 
@@ -232,11 +232,15 @@ void impl_drawNumber(
 	unsigned int number
 ) {
 	sprintf(buffer, "%u", number);
-	for (k = 0; k < strlen(buffer); k++) {
-		for (i = 0; i < FONT_HEIGHT; i++) {
-			for (j = 0; j < FONT_WIDTH; j++) {
-				if (numberSheet[buffer[k] - 48][i][j]) {
-					frameBuffer[(y + i) * RENDER_WIDTH + ((x + j) + (k * FONT_WIDTH))] = numberSheet[buffer[k] - 48][i][j] * currentColor;
+	for (i = 0; i < strlen(buffer); i++) {
+		for (y2 = 0; y2 < FONT_HEIGHT; y2++) {
+			for (x2 = 0; x2 < FONT_WIDTH; x2++) {
+				if (numberSheet[buffer[i] - 48][y2][x2]) {
+					frameBuffer[
+						(y + y2) * RENDER_WIDTH + (
+							(x + x2) + (i * FONT_WIDTH)
+						)
+					] = numberSheet[buffer[i] - 48][y2][x2] * currentColor;
 				}
 			}
 		}
@@ -248,10 +252,10 @@ void impl_drawFillRect(
 	short x, short y,
 	unsigned short width, unsigned short height
 ) {
-	for (i = 0; i < height; i++) {
-		for (j = 0; j < width; j++) {
-			if ((x + j) > -1 && (y + i) > -1) {
-				frameBuffer[(y + i) * RENDER_WIDTH + (x + j)] = currentColor;
+	for (y2 = 0; y2 < height; y2++) {
+		for (x2 = 0; x2 < width; x2++) {
+			if ((x + x2) > -1 && (y + y2) > -1) {
+				frameBuffer[(y + y2) * RENDER_WIDTH + (x + x2)] = currentColor;
 			}
 		}
 	}
