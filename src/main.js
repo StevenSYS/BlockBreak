@@ -19,7 +19,7 @@ var timer = 0;
 var score = 0;
 var highScore = 0;
 var timerStart = false;
-var player = new entity;
+var player;
 var blocks = [];
 
 const randomColors = [
@@ -40,13 +40,6 @@ const randomColors = [
 /* Get High Score */
 if (localStorage.getItem(programName + "_highScore") != undefined) {
 	highScore = parseInt(localStorage.getItem(programName + "_highScore"));
-}
-
-for (var i = 0; i < maxBlocks; i++) {
-	blocks.push([]);
-	for (var j = 0; j < maxBlocks; j++) {
-		blocks[i].push(new entity);
-	}
 }
 
 /* Touch Input */
@@ -138,6 +131,7 @@ function input(event) {
 
 function generateLevel(level) {
 	blockCount = 0;
+	blocks = [];
 	
 	if (level) {
 		blockSize = [
@@ -145,25 +139,24 @@ function generateLevel(level) {
 			Math.round(element_canvas.height / (level * 1.5))
 		];
 		
-		for (var i = 0; i < level; i++) {
+		for (var y = 0; y < level; y++) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
 				randomColor = random_get();
 			}
 			
-			for (var j = 0; j < level; j++) {
-				if ((j * blockSize[0] < element_canvas.width) && (i * blockSize[1] < element_canvas.height)) {
+			for (var x = 0; x < level; x++) {
+				if ((x * blockSize[0] < element_canvas.width) && (y * blockSize[1] < element_canvas.height)) {
 					blockCount++;
-					entity_init(
-						blocks[j][i],
+					blocks.push(new entity(
 						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
 						directions.NONE,
 						blockSize[0], blockSize[1],
-						j * blockSize[0], i * blockSize[1],
+						x * blockSize[0], y * blockSize[1],
 						0,
 						true
-					);
+					));
 				}
 			}
 		
@@ -172,14 +165,10 @@ function generateLevel(level) {
 	return;
 }
 
-function init(
-	level,
-	player
-) {
+function init() {
 	timer += level * 35;
 	
-	entity_init(
-		player,
+	player = new entity(
 		"F", "F", "F",
 		directions.NONE,
 		playerWidth, playerHeight,
@@ -229,17 +218,15 @@ function draw() {
 		player.position[0] = screenEdgeRight;
 	}	
 	
-	entity_draw(context, player, true);
+	player.draw(context, true);
 	
-	for (var i = 0; i < level; i++) {
-		for (var j = 0; j < level; j++) {
-			if (blocks[j][i].visible) {
-				entity_draw(context, blocks[j][i], false);
-				if (entity_collision(player, blocks[j][i])) {
-					blocks[j][i].visible = false;
-					blockCount--;
-					score += 10;
-				}
+	for (i in blocks) {
+		if (blocks[i].visible) {
+			blocks[i].draw(context, false);
+			if (player.collision(blocks[i])) {
+				blocks[i].visible = false;
+				blockCount--;
+				score += 10;
 			}
 		}
 	}
@@ -264,7 +251,7 @@ function draw() {
 }
 
 function main() {
-	init(level, player);
+	init();
 	
 	context.font = fontHeight + "px Fixedsys";
 	

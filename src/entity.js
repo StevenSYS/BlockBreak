@@ -14,72 +14,67 @@ class entity {
 	speed;
 	
 	visible;
-};
-
-function entity_collision(
-	entity1,
-	entity2
-) {
-	if (
-		((entity1.position[0] + entity1.size[0]) >= entity2.position[0]) &&
-		(entity1.position[0] <= (entity2.position[0] + entity2.size[0])) &&
-		(entity1.position[1] <= (entity2.position[1] + entity2.size[1])) &&
-		((entity1.position[1] + entity1.size[1]) >= entity2.position[1])
+	
+	constructor(
+		red, green, blue,
+		direction,
+		width, height,
+		x, y,
+		speed,
+		visible
 	) {
-		return true;
-	}
-	return false;
-}
-
-function entity_init(
-	entity,
-	red, green, blue,
-	direction,
-	width, height,
-	x, y,
-	speed,
-	visible
-) {
-	entity.color[0] = red;
-	entity.color[1] = green;
-	entity.color[2] = blue;
-	entity.direction = direction;
-	entity.size[0] = width;
-	entity.size[1] = height;
-	entity.position[0] = x;
-	entity.position[1] = y;
-	entity.speed = speed;
-	entity.visible = visible;
-	return;
-}
-
-function entity_draw(
-	context,
-	entity,
-	useDirection
-) {
-	if (useDirection) {
-		switch (entity.direction) {
-			case directions.UP:
-				entity.position[1] -= entity.speed;
-				break;
-			case directions.DOWN:
-				entity.position[1] += entity.speed;
-				break;
-			case directions.LEFT:
-				entity.position[0] -= entity.speed;
-				break;
-			case directions.RIGHT:
-				entity.position[0] += entity.speed;
-				break;
-		}
+		this.color[0] = red;
+		this.color[1] = green;
+		this.color[2] = blue;
+		this.direction = direction;
+		this.size[0] = width;
+		this.size[1] = height;
+		this.position[0] = x;
+		this.position[1] = y;
+		this.speed = speed;
+		this.visible = visible;
+		return;
 	}
 	
-	if (entity.visible) {
-		context.beginPath();
-		context.fillStyle = "#" + entity.color[0] + entity.color[1] + entity.color[2];
-		context.rect(entity.position[0], entity.position[1], entity.size[0], entity.size[1]);
-		context.fill();
+	collision(entity) {
+		if (
+			((this.position[0] + this.size[0]) >= entity.position[0]) &&
+			(this.position[0] <= (entity.position[0] + entity.size[0])) &&
+			(this.position[1] <= (entity.position[1] + entity.size[1])) &&
+			((this.position[1] + this.size[1]) >= entity.position[1])
+		) {
+			return true;
+		}
+		return false;
 	}
-	return;
-}
+	
+	draw(context, useDirection) {
+		if (useDirection) {
+			switch (this.direction) {
+				case directions.UP:
+					this.position[1] -= this.speed;
+					break;
+				case directions.DOWN:
+					this.position[1] += this.speed;
+					break;
+				case directions.LEFT:
+					this.position[0] -= this.speed;
+					break;
+				case directions.RIGHT:
+					this.position[0] += this.speed;
+					break;
+			}
+		}
+		
+		if (this.visible) {
+			context.beginPath();
+			context.fillStyle = "#" + this.color[0] + this.color[1] + this.color[2];
+			context.rect(
+				this.position[0], this.position[1],
+				this.size[0], this.size[1]
+			);
+			context.fill();
+		}
+		return;
+	}
+};
