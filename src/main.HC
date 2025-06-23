@@ -49,8 +49,8 @@ U0 generateLevel(U8 level) {
 	blockCount = 0;
 	
 	if (level) {
-		blockSize[0] = SCREEN_WIDTH / level;
-		blockSize[1] = SCREEN_HEIGHT / (level * 1.5);
+		blockSize[0] = RENDER_WIDTH / level;
+		blockSize[1] = RENDER_HEIGHT / (level * 1.5);
 		
 		for (i = 0; i < level; i++) {
 			oldRandomColor = randomColor;
@@ -60,7 +60,7 @@ U0 generateLevel(U8 level) {
 			}
 			
 			for (j = 0; j < level; j++) {
-				if ((j * blockSize[0] < SCREEN_WIDTH) && (i * blockSize[1] < SCREEN_HEIGHT)) {
+				if ((j * blockSize[0] < RENDER_WIDTH) && (i * blockSize[1] < RENDER_HEIGHT)) {
 					blockCount++;
 					entity_init(
 						&blocks[j][i],
@@ -154,9 +154,9 @@ U0 draw(CTask *task, CDC *dc) {
 	}
 	
 	dc->color = WHITE;
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 4), "%d", timer);
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 2), "%d", score);
-	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_HEIGHT, "%d", highScore);
+	GrPrint(dc, 0, RENDER_HEIGHT - (FONT_HEIGHT * 4), "%d", timer);
+	GrPrint(dc, 0, RENDER_HEIGHT - (FONT_HEIGHT * 2), "%d", score);
+	GrPrint(dc, 0, RENDER_HEIGHT - FONT_HEIGHT, "%d", highScore);
 	
 	if (timerStart) {
 		timer--;
