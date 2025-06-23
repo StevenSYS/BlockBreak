@@ -73,7 +73,7 @@ def generateLevel(level) {
 					(y * blockSize[1] < renderHeight)
 				) {
 					blockCount += 1;
-					blocks.append(entity_t(
+					blocks.append(entity(
 						randomColors[randomColor][0],
 						randomColors[randomColor][1],
 						randomColors[randomColor][2],
@@ -97,7 +97,7 @@ def init() {
 	
 	timer += level * 35;
 	
-	player = entity_t(
+	player = entity(
 		0xFF, 0xFF, 0xFF,
 		ENTITY_DIR_NONE,
 		playerWidth, playerHeight,

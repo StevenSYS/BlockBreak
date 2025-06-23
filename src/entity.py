@@ -7,7 +7,7 @@ ENTITY_DIR_DOWN = 2
 ENTITY_DIR_LEFT = 3
 ENTITY_DIR_RIGHT = 4
 #/* Enum End */
-class entity_t:
+class entity:
     def __init__(
         self,
         red, green, blue,
