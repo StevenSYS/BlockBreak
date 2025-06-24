@@ -1,5 +1,5 @@
 programName = "BlockBreakPy"
-programVersion = "1.2"
+programVersion = "1.2pre"
 renderWidth = 640
 renderHeight = 472
 fontHeight = 16
