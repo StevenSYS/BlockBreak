@@ -2,7 +2,7 @@
 #define __PROGINFO__
 
 #define PROGRAM_NAME "BlockBreakC"
-#define PROGRAM_VERSION "1.2"
+#define PROGRAM_VERSION "1.2pre"
 
 #ifndef RENDER_WIDTH
 	#define RENDER_WIDTH 640
