@@ -2,7 +2,7 @@
 #define __PROGINFO__
 
 #define PROGRAM_NAME "BlockBreakHC"
-#define PROGRAM_VERSION "1.2"
+#define PROGRAM_VERSION "1.2pre"
 
 #define RENDER_WIDTH 640
 #define RENDER_HEIGHT 472
