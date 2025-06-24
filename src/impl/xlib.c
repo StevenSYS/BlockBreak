@@ -8,6 +8,9 @@
 #include <string.h>
 #include <time.h>
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 #include "entity.h"
 #include "progInfo.h"
@@ -68,6 +71,12 @@ static void handleInput() {
 			case XK_Escape:
 				running = 0;
 				break;
+			#ifdef ENABLE_SCREENSHOT
+			case XK_s:
+			case XK_S:
+				screenshot_take = 1;
+				break;
+			#endif
 		}
 	}
 	return;
@@ -84,11 +93,14 @@ void impl_setColor(
 		gc,
 		(blue + (green << 8) + (red << 16))
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
 	sprintf(buffer, "%u", number);
@@ -100,11 +112,14 @@ void impl_drawNumber(
 		buffer,
 		strlen(buffer)
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
 	XFillRectangle(
@@ -114,17 +129,26 @@ void impl_drawFillRect(
 		x, y,
 		width, height
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
 /* Misc. */
 void impl_loopStart() {
 	XClearWindow(display, window);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	XFlush(display);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 

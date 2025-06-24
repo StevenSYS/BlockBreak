@@ -5,6 +5,9 @@
 	#include <SDL3/SDL.h>
 #endif
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 #include "entity.h"
 #include "progInfo.h"
@@ -52,6 +55,11 @@ static void handleEvent() {
 				case SDL_SCANCODE_ESCAPE:
 					running = 0;
 					break;
+				#ifdef ENABLE_SCREENSHOT
+				case SDL_SCANCODE_S:
+					screenshot_take = 1;
+					break;
+				#endif
 				default:
 					break;
 			}
@@ -70,19 +78,25 @@ void impl_setColor(
 	unsigned char blue
 ) {
 	SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
 	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
 	rect.x = x;
@@ -90,6 +104,9 @@ void impl_drawFillRect(
 	rect.w = width,
 	rect.h = height;
 	SDL_RenderFillRect(renderer, &rect);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
@@ -97,11 +114,17 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	SDL_RenderPresent(renderer);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 

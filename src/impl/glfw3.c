@@ -43,6 +43,11 @@ static void input(
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(window, GL_TRUE);
 				break;
+			#ifdef ENABLE_SCREENSHOT
+			case GLFW_KEY_S:
+				screenshot_take = 1;
+				break;
+			#endif
 			default:
 				break;
 		}
@@ -54,6 +59,9 @@ static void input(
 void impl_loopEnd() {
 	glFlush();
 	glfwSwapBuffers(window);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 

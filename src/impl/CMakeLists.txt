@@ -42,9 +42,13 @@ else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\", \"SDL3GL\", \"raylib\", \"DJGPP\" or \"Dummy\"")
 endif()
 
-add_library(Impl ${HSSIMPL_FILES} ${IMPL_FILES})
+add_library(Impl ${IMPL_FILES})
 
 target_link_libraries(Impl Random)
+
+if(ENABLE_SCREENSHOT)
+	target_link_libraries(Impl SImpl)
+endif()
 
 if(IMPL STREQUAL "SDL3")
 	target_link_libraries(Impl SDL3::SDL3)

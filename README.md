@@ -40,11 +40,12 @@ A port of BlockBreakHC from HolyC to C
 
 # Controls
 
-| Key            | Action     |
-| -------------- | ---------- |
-| Up             | Move Up    |
-| Down           | Move Down  |
-| Left           | Move Left  |
-| Right          | Move Right |
-| Enter          | Restart    |
-| Escape         | Quit       |
+| Key            | Action                                         | 
+| -------------- | ---------------------------------------------- | 
+| Up             | Move Up                                        | 
+| Down           | Move Down                                      | 
+| Left           | Move Left                                      | 
+| Right          | Move Right                                     | 
+| Enter          | Restart                                        | 
+| Escape         | Quit                                           |
+| S              | Screenshot (Only in screenshot enabled builds) |

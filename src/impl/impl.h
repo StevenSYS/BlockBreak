@@ -11,12 +11,12 @@ void impl_setColor(
 );
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 );
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 );
 

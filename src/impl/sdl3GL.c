@@ -8,6 +8,9 @@
 	#include <SDL3/SDL.h>
 	#include <GL/gl.h>
 #endif
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 static char running = 1;
 
@@ -46,6 +49,11 @@ static void handleEvent() {
 				case SDL_SCANCODE_ESCAPE:
 					running = 0;
 					break;
+				#ifdef ENABLE_SCREENSHOT
+				case SDL_SCANCODE_S:
+					screenshot_take = 1;
+					break;
+				#endif
 				default:
 					break;
 			}
@@ -60,6 +68,9 @@ static void handleEvent() {
 /* Misc. */
 void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 

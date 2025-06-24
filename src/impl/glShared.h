@@ -3,6 +3,9 @@
 #include <string.h>
 #include <GL/gl.h>
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 #include "progInfo.h"
 #include "entity.h"
@@ -63,14 +66,17 @@ void impl_setColor(
 	unsigned char blue
 ) {
 	glColor3ub(red, green, blue);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
-	sprintf(buffer, "%u", number);
+	snprintf(buffer, 11, "%u", number);
 	for (i = 0; i < strlen(buffer); i++) {
 		glRasterPos2s(x + (i * FONT_WIDTH), y + FONT_HEIGHT);
 		glBitmap(
@@ -80,22 +86,31 @@ void impl_drawNumber(
 			numberSheetGL[buffer[i] - 48]
 		);
 	}
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
 	glRects(
 		x, y,
 		x + width, y + height
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
 /* Misc. */
 void impl_loopStart() {
 	glClear(GL_COLOR_BUFFER_BIT);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }

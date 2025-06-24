@@ -1,5 +1,9 @@
 /* Dummy/Template Implementation */
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
+
 
 #include "entity.h"
 #include "progInfo.h"
@@ -16,32 +20,46 @@ void impl_setColor(
 	unsigned char green,
 	unsigned char blue
 ) {
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
 /* Misc. */
 void impl_loopStart() {
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }
 
 void impl_loopEnd() {
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
-
 
 void impl_init(
 	int argc, char *argv[],

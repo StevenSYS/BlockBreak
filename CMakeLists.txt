@@ -7,10 +7,12 @@ project(BlockBreakC LANGUAGES C VERSION 1.2)
 
 set(IMPL "GLFW3" CACHE STRING "The implementation to build with")
 set(HSSIMPL "Dummy" CACHE STRING "The high score saving implementation to build with")
+set(SIMPL "Dummy" CACHE STRING "The screenshot implementation to build with")
 option(BUILD_SHARED_LIBS "Build the libraries as shared libraries" OFF)
 option(BUILD_ONLY_IMPL "Build only the implementation library" OFF)
 option(BUILD_AS_LIBRARY "Build the game as a library" OFF)
 option(BUILD_FOR_I586 "Build ${PROJECT_NAME} for i586 (Intel Pentium) or higher" OFF)
+option(ENABLE_SCREENSHOT "Enables taking screenshots" OFF)
 # Windows Compiler Options
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Only)" OFF)
 option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
@@ -23,6 +25,11 @@ elseif(IMPL STREQUAL "Xlib")
 else()
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 endif()
+
+if(ENABLE_SCREENSHOT)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DENABLE_SCREENSHOT")
+endif()
+
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
 set(CMAKE_C_FLAGS_RELEASE "-s -O2")
 
@@ -46,9 +53,13 @@ include_directories(
 	"src"
 	"src/random"
 	"src/impl"
+	"src/impl/screenshot"
 )
 
 add_subdirectory(src/impl)
+if(ENABLE_SCREENSHOT)
+	add_subdirectory(src/impl/screenshot)
+endif()
 
 add_library(Random STATIC "src/random/random.c")
 

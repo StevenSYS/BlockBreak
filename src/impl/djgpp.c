@@ -6,6 +6,9 @@
 #include <pc.h>
 #include <sys/movedata.h>
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 #include "entity.h"
 #include "progInfo.h"
@@ -179,31 +182,36 @@ static void handleInput() {
 			increasePressed = 1;
 		}
 		switch (keyCode & 0x7F) {
-			case 72: /* Up */
+			case 0x48: /* Up */
 				main_player->direction = ENTITY_DIR_UP;
 				*main_timerStart = 1;
 				break;
-			case 80: /* Down */
+			case 0x50: /* Down */
 				main_player->direction = ENTITY_DIR_DOWN;
 				*main_timerStart = 1;
 				break;
-			case 75: /* Left */
+			case 0x4B: /* Left */
 				main_player->direction = ENTITY_DIR_LEFT;
 				*main_timerStart = 1;
 				break;
-			case 77: /* Right */
+			case 0x4D: /* Right */
 				main_player->direction = ENTITY_DIR_RIGHT;
 				*main_timerStart = 1;
 				break;
-			case 28: /* Reset */
+			case 0x1C: /* Reset */
 				if (!resetPressed) {
 					main_reset();
 					resetPressed = 1;
 				}
 				break;
-			case 1: /* Quit */
+			case 0x01: /* Quit */
 				running = 0;
 				break;
+			#ifdef ENABLE_SCREENSHOT
+			case 0x1F: /* Screenshot */
+				screenshot_take = 1;
+				break;
+			#endif
 			default:
 				break;
 		}
@@ -224,11 +232,14 @@ void impl_setColor(
 	][
 		blue / 85
 	];
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
 	sprintf(buffer, "%u", number);
@@ -245,11 +256,14 @@ void impl_drawNumber(
 			}
 		}
 	}
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
 	for (y2 = 0; y2 < height; y2++) {
@@ -259,17 +273,26 @@ void impl_drawFillRect(
 			}
 		}
 	}
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
 /* Misc. */
 void impl_loopStart() {
 	memset(frameBuffer, 0, sizeof(frameBuffer));
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	dosmemput(frameBuffer, RENDER_WIDTH * RENDER_HEIGHT, 0xA0000);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 

@@ -6,6 +6,8 @@
 
 static unsigned char y, x;
 
+char timerStart = 0;
+
 unsigned char oldRandomColor = 13;
 unsigned char randomColor = 13;
 unsigned char level = 1;
@@ -29,8 +31,6 @@ unsigned short timer = 0;
 
 unsigned int score = 0;
 unsigned int highScore;
-
-char timerStart = 0;
 
 entity_t player;
 entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];

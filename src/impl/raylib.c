@@ -1,6 +1,9 @@
 /* raylib Implementation */
 #include <raylib.h>
 #include <random.h>
+#ifdef ENABLE_SCREENSHOT
+	#include <sImpl.h>
+#endif
 
 #include "entity.h"
 #include "progInfo.h"
@@ -35,6 +38,11 @@ static void input() {
 		if (IsKeyPressed(KEY_ENTER)) {
 			main_reset();
 		}
+		#ifdef ENABLE_SCREENSHOT
+		if (IsKeyPressed(KEY_S)) {
+			screenshot_take = 1;
+		}
+		#endif
 	}
 	return;
 }
@@ -46,11 +54,14 @@ void impl_setColor(
 	unsigned char blue
 ) {
 	currentColor = (Color){ red, green, blue, 0xFF };
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_setColor(red, green, blue);
+	#endif
 	return;
 }
 
 void impl_drawNumber(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned int number
 ) {
 	DrawText(
@@ -59,11 +70,14 @@ void impl_drawNumber(
 		FONT_HEIGHT,
 		currentColor
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_number(x, y, number);
+	#endif
 	return;
 }
 
 void impl_drawFillRect(
-	short x, short y,
+	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
 	DrawRectangle(
@@ -71,6 +85,9 @@ void impl_drawFillRect(
 		width, height,
 		currentColor
 	);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_fillRect(x, y, width, height);
+	#endif
 	return;
 }
 
@@ -78,11 +95,17 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	BeginDrawing();
 	ClearBackground(BLACK);
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_start();
+	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	EndDrawing();
+	#ifdef ENABLE_SCREENSHOT
+	screenshot_end();
+	#endif
 	return;
 }
 
