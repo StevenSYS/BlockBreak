@@ -96,7 +96,7 @@ void impl_loopStart() {
 	BeginDrawing();
 	ClearBackground(BLACK);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start("raylib");
 	#endif
 	return;
 }

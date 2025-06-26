@@ -1,4 +1,5 @@
 /* GLUT Implementation */
+#define IMPL_NAME "GLUT"
 #include "glShared.h"
 
 #ifdef __APPLE

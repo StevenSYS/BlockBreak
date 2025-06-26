@@ -22,6 +22,12 @@ if(IMPL STREQUAL "DJGPP")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRENDER_WIDTH=320 -DRENDER_HEIGHT=200 -DFONT_WIDTH=8 -DFONT_HEIGHT=8 -DRENDER_CORRECT")
 elseif(IMPL STREQUAL "Xlib")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_HEIGHT=10")
+elseif(IMPL STREQUAL "citro2d")
+	if (NINTENDO_3DS)
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRENDER_WIDTH=400 -DRENDER_HEIGHT=240 -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
+	else()
+		message(FATAL_ERROR "To build the citro2d implementation you must be using the devkitPro 3DS toolchain")
+	endif()
 else()
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 endif()
@@ -31,7 +37,10 @@ if(ENABLE_SCREENSHOT)
 endif()
 
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
-set(CMAKE_C_FLAGS_RELEASE "-s -O2")
+set(CMAKE_C_FLAGS_RELEASE "-O2")
+if(NOT IMPL STREQUAL "citro2d")
+	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s")
+endif()
 
 if(BUILD_FOR_I586)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=i586 -fcf-protection=none")
@@ -74,6 +83,15 @@ if(NOT BUILD_ONLY_IMPL)
 		add_executable(${PROJECT_NAME} ${RESOURCE_FILES} ${SOURCE_FILES})
 		if(IMPL STREQUAL "DJGPP")
 			set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")
+		elseif(IMPL STREQUAL "citro2d")
+			ctr_generate_smdh(${PROJECT_NAME}.smdh
+				NAME "${PROJECT_NAME}"
+				DESCRIPTION "A simple game originally made in JavaScript + jQuery"
+				VERSION "v${PROJECT_VERSION}pre"
+				AUTHOR "StevenSYS"
+				ICON "src/res/icon.png"
+			)
+			ctr_create_3dsx(${PROJECT_NAME} SMDH ${PROJECT_NAME}.smdh)
 		endif()
 	endif()
 	target_link_libraries(

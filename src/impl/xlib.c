@@ -139,7 +139,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	XClearWindow(display, window);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start("Xlib");
 	#endif
 	return;
 }

@@ -73,7 +73,7 @@ void screenshot_fillRect(
 }
 
 /* Misc. */
-void screenshot_start() {
+void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
 		file = fopen("screenshot.ppm", "wb");
 		
@@ -84,7 +84,9 @@ void screenshot_start() {
 		
 		screenshot_take = 2;
 		fprintf(file, "P6\n");
-		fprintf(file, "# Screenshot taken in " PROGRAM_NAME " v" PROGRAM_VERSION " with the libc - PPM screenshot implementation\n");
+		fprintf(file, "# " PROGRAM_NAME " v" PROGRAM_VERSION "\n");
+		fprintf(file, "# Implementation: %s\n", impl);
+		fprintf(file, "# Screenshot Implementation: libc - PPM\n");
 		fprintf(file, "%u %u\n", RENDER_WIDTH, RENDER_HEIGHT);
 		fprintf(file, "255\n");
 		for (y2 = 0; y2 < RENDER_HEIGHT; y2++) {

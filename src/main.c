@@ -86,6 +86,7 @@ void init() {
 	);
 	
 	generateLevel(level);
+	return;
 }
 
 void reset() {
@@ -99,6 +100,7 @@ void reset() {
 		}
 	}
 	init();
+	return;
 }
 
 void draw() {
@@ -159,6 +161,7 @@ void draw() {
 	impl_drawNumber(0, RENDER_HEIGHT - FONT_HEIGHT, highScore);
 	
 	impl_loopEnd();
+	return;
 }
 
 int main(

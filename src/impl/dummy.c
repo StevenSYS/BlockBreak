@@ -4,7 +4,6 @@
 	#include <sImpl.h>
 #endif
 
-
 #include "entity.h"
 #include "progInfo.h"
 
@@ -49,7 +48,7 @@ void impl_drawFillRect(
 /* Misc. */
 void impl_loopStart() {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start("Dummy");
 	#endif
 	return;
 }

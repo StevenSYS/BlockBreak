@@ -46,7 +46,7 @@ void screenshot_fillRect(
 }
 
 /* Misc. */
-void screenshot_start() {
+void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
 		file = SDL_IOFromFile("screenshot.svg", "w");
 		
@@ -57,7 +57,9 @@ void screenshot_start() {
 		
 		screenshot_take = 2;
 		SDL_IOprintf(file, "<svg width=\"%u\" height=\"%u\" xmlns=\"http://www.w3.org/2000/svg\">\n", RENDER_WIDTH, RENDER_HEIGHT);
-		SDL_IOprintf(file, "\t<!-- Screenshot taken in " PROGRAM_NAME " v" PROGRAM_VERSION " with the SDL3 - SVG screenshot implementation -->\n");
+		SDL_IOprintf(file, "\t<!-- " PROGRAM_NAME " v" PROGRAM_VERSION " -->\n");
+		SDL_IOprintf(file, "\t<!-- Implementation: %s -->\n", impl);
+		SDL_IOprintf(file, "\t<!-- Screenshot Implementation: SDL3 - SVG -->\n");
 		SDL_IOprintf(file, "\t<style>\n");
 		SDL_IOprintf(file, "\t\ttext {\n");
 		SDL_IOprintf(file, "\t\t\tfont-family: sans-serif;\n");

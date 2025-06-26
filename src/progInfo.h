@@ -42,7 +42,9 @@
 #define SCREEN_EDGE_LEFT 0
 #define SCREEN_EDGE_RIGHT RENDER_WIDTH - PLAYER_WIDTH
 
-#define MAX_BLOCKS 255
+#ifndef MAX_BLOCKS
+	#define MAX_BLOCKS 255
+#endif
 #define MAX_FPS 30
 
 #endif

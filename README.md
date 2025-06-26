@@ -2,6 +2,7 @@
 A port of BlockBreakHC from HolyC to C
 
 # Screenshots
+
 <details>
 <summary>SDL3</summary>
 
@@ -38,6 +39,24 @@ A port of BlockBreakHC from HolyC to C
 
 </details>
 
+<details>
+<summary>DJGPP (MS-DOS)</summary>
+
+![DJGPPScreenshot1](screenshots/DJGPPScreenshot1.png "DJGPP Screenshot 1")
+
+![DJGPPScreenshot2](screenshots/DJGPPScreenshot2.png "DJGPP Screenshot 2")
+
+</details>
+
+<details>
+<summary>citro2d (3DS/2DS) </summary>
+
+![citro2dScreenshot1](screenshots/citro2dScreenshot1.png "citro2d Screenshot 1")
+
+![citro2dScreenshot2](screenshots/citro2dScreenshot2.png "citro2d Screenshot 2")
+
+</details>
+
 # Controls
 
 | Key            | Action                                         | 
@@ -49,3 +68,15 @@ A port of BlockBreakHC from HolyC to C
 | Enter          | Restart                                        | 
 | Escape         | Quit                                           |
 | S              | Screenshot (Only in screenshot enabled builds) |
+
+# Controls (3DS/2DS)
+
+| Button                             | Action                                         | 
+| ---------------------------------- | ---------------------------------------------- | 
+| D-Pad Up - Circle Pad Up - X       | Move Up                                        | 
+| D-Pad Down - Circle Pad Down - B   | Move Down                                      | 
+| D-Pad Left - Circle Pad Left - Y   | Move Left                                      | 
+| D-Pad Right - Circle Pad Right - A | Move Right                                     | 
+| Select                             | Restart                                        | 
+| Start                              | Quit                                           |
+| L + R                              | Screenshot (Only in screenshot enabled builds) |

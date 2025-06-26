@@ -1,4 +1,5 @@
 /* SDL3 + GL Implementation */
+#define IMPL_NAME "SDL3 + GL"
 #include "glShared.h"
 
 #ifdef __APPLE

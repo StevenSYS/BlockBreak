@@ -115,7 +115,7 @@ void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start("SDL3");
 	#endif
 	return;
 }

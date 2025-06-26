@@ -19,7 +19,7 @@ void screenshot_fillRect(
 );
 
 /* Misc. */
-void screenshot_start();
+void screenshot_start(const char *impl);
 
 void screenshot_end();
 

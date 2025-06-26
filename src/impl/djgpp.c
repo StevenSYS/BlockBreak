@@ -1,4 +1,4 @@
-/* MS-DOS (DJGPP) Implementation */
+/* DJGPP (MS-DOS) Implementation */
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -182,7 +182,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	memset(frameBuffer, 0, sizeof(frameBuffer));
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start("DJGPP (MS-DOS)");
 	#endif
 	return;
 }
@@ -230,6 +230,6 @@ void impl_init(
 	}
 	
 	setVideoMode(oldVideoMode);
-	printf(PROGRAM_NAME " v" PROGRAM_VERSION " - MS-DOS (DJGPP)\n");
+	printf(PROGRAM_NAME " v" PROGRAM_VERSION " - DJGPP (MS-DOS)\n");
 	return;
 }

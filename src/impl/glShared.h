@@ -110,7 +110,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start();
+	screenshot_start(IMPL_NAME);
 	#endif
 	return;
 }

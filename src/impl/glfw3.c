@@ -1,4 +1,5 @@
 /* GLFW3 Implementation */
+#define IMPL_NAME "GLFW3"
 #include "glShared.h"
 
 #ifdef __APPLE

@@ -42,7 +42,7 @@ void screenshot_fillRect(
 }
 
 /* Misc. */
-void screenshot_start() {
+void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
 		file = fopen("screenshot.svg", "w");
 		
@@ -53,7 +53,10 @@ void screenshot_start() {
 		
 		screenshot_take = 2;
 		fprintf(file, "<svg width=\"%u\" height=\"%u\" xmlns=\"http://www.w3.org/2000/svg\">\n", RENDER_WIDTH, RENDER_HEIGHT);
-		fprintf(file, "\t<!-- Screenshot taken in " PROGRAM_NAME " v" PROGRAM_VERSION " with the libc - SVG screenshot implementation -->\n");
+		fprintf(file, "\t<!-- " PROGRAM_NAME " v" PROGRAM_VERSION " -->\n");
+		fprintf(file, "\t<!-- Implementation: %s -->\n", impl);
+		fprintf(file, "\t<!-- Screenshot Implementation: libc - SVG -->\n");
+
 		fprintf(file, "\t<style>\n");
 		fprintf(file, "\t\ttext {\n");
 		fprintf(file, "\t\t\tfont-family: sans-serif;\n");
