@@ -213,6 +213,7 @@ void impl_init(
 		
 		draw();
 		
+		/* FIXME: "Processor: 24.7%" - GNOME System Monitor */
 		while (clock() < lastTime + (CLOCKS_PER_SEC / MAX_FPS));
 	}
 	

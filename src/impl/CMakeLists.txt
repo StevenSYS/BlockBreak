@@ -41,7 +41,7 @@ elseif(IMPL STREQUAL "citro2d")
 elseif(IMPL STREQUAL "Dummy")
 	set(IMPL_FILES "dummy.c")
 else()
-	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\", \"SDL3GL\", \"raylib\", \"DJGPP\", \"citro2d\" or \"Dummy\"")
+	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\", \"SDL3GL\", \"raylib\", \"DJGPP\", \"Xlib\", \"citro2d\" or \"Dummy\"")
 endif()
 
 add_library(Impl ${IMPL_FILES})
