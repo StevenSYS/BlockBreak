@@ -1,7 +1,6 @@
-/* C Standard Library - PPM Implementation */
-#include <stdio.h>
-#include <string.h>
-
+/* PPM Implementation */
+#define SIMPL_INCSTRING
+#include "sImplMacros.h"
 #include "numberSheet.h"
 #include "progInfo.h"
 
@@ -14,8 +13,6 @@ static unsigned char i, j;
 static unsigned char currentColor[3];
 
 static unsigned short x2, y2;
-
-static FILE *file;
 
 /* Drawing */
 void screenshot_setColor(
@@ -35,7 +32,7 @@ void screenshot_number(
 	signed short x, signed short y,
 	unsigned int number
 ) {
-	snprintf(buffer, 11, "%u", number);
+	SIMPL_SNPRINTF(buffer, 11, "%u", number);
 	if (screenshot_take == 2) {
 		for (i = 0; i < strlen(buffer); i++) {
 			for (y2 = 0; y2 < 8; y2++) {
@@ -75,20 +72,24 @@ void screenshot_fillRect(
 /* Misc. */
 void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
-		file = fopen("screenshot.ppm", "wb");
+		file = SIMPL_FOPEN("screenshot.ppm", "wb");
 		
 		if (file == NULL) {
-			fprintf(stderr, "Failed to open screenshot file\n");
+			#if SIMPL == 1
+			fprintf(stderr, "Failed to open/create screenshot file\n");
+			#elif SIMPL == 2
+			SIMPL_SDL_LOGERROR;
+			#endif
 			return;
 		}
 		
 		screenshot_take = 2;
-		fprintf(file, "P6\n");
-		fprintf(file, "# " PROGRAM_NAME " v" PROGRAM_VERSION "\n");
-		fprintf(file, "# Implementation: %s\n", impl);
-		fprintf(file, "# Screenshot Implementation: libc - PPM\n");
-		fprintf(file, "%u %u\n", RENDER_WIDTH, RENDER_HEIGHT);
-		fprintf(file, "255\n");
+		SIMPL_FPRINTF(file, "P6\n");
+		SIMPL_FPRINTF(file, "# " PROGRAM_NAME " v" PROGRAM_VERSION "\n");
+		SIMPL_FPRINTF(file, "# Implementation: %s\n", impl);
+		SIMPL_FPRINTF(file, "# Screenshot Implementation: PPM (" SIMPL_NAME ")\n");
+		SIMPL_FPRINTF(file, "%u %u\n", RENDER_WIDTH, RENDER_HEIGHT);
+		SIMPL_FPRINTF(file, "255\n");
 		for (y2 = 0; y2 < RENDER_HEIGHT; y2++) {
 			for (x2 = 0; x2 < RENDER_WIDTH; x2++) {
 				for (i = 0; i < 3; i++) {
@@ -106,7 +107,7 @@ void screenshot_end() {
 		for (y2 = 0; y2 < RENDER_HEIGHT; y2++) {
 			for (x2 = 0; x2 < RENDER_WIDTH; x2++) {
 				for (i = 0; i < 3; i++) {
-					fwrite(
+					SIMPL_FWRITE(
 						&pixels[(y2 * RENDER_WIDTH) + x2][i],
 						1,
 						sizeof(unsigned char),
@@ -116,8 +117,16 @@ void screenshot_end() {
 			}
 		}
 		
-		if (fclose(file) != 0) {
-			fprintf(stderr, "Failed to close file\n");
+		#if SIMPL == 2
+		if (!SIMPL_FCLOSE(file)) {
+		#else
+		if (SIMPL_FCLOSE(file) != 0) {
+		#endif
+			#if SIMPL == 1
+			fprintf(stderr, "Failed to close screenshot file\n");
+			#elif SIMPL == 2
+			SIMPL_SDL_LOGERROR;
+			#endif
 			return;
 		}
 	}

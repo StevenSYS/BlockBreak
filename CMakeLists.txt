@@ -5,7 +5,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 project(BlockBreakC LANGUAGES C VERSION 1.2)
 
-set(IMPL "GLFW3" CACHE STRING "The implementation to build with")
+set(IMPL "SDL3" CACHE STRING "The implementation to build with")
 set(HSSIMPL "Dummy" CACHE STRING "The high score saving implementation to build with")
 set(SIMPL "Dummy" CACHE STRING "The screenshot implementation to build with")
 option(BUILD_SHARED_LIBS "Build the libraries as shared libraries" OFF)
