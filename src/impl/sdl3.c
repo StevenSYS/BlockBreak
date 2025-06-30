@@ -164,7 +164,7 @@ void impl_init(
 		handleEvent();
 		draw();
 		
-		SDL_Delay(1000.0f / MAX_FPS) - (SDL_GetTicks() - lastTime);
+		SDL_Delay((1000.0f / MAX_FPS) - (SDL_GetTicks() - lastTime));
 		
 		handleEvent();
 	}

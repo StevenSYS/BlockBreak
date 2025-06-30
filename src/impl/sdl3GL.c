@@ -109,7 +109,14 @@ void impl_init(
 		handleEvent();
 		draw();
 		
-		SDL_Delay(1000.0f / MAX_FPS) - (SDL_GetTicks() - lastTime);
+		SDL_Delay(
+			(
+				/* This "(float)" needs to be here or else the compiler optimization breaks the program */
+				((float)1000.0f) / MAX_FPS
+			) - (
+				SDL_GetTicks() - lastTime
+			)
+		);
 		
 		handleEvent();
 	}
