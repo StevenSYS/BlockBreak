@@ -224,6 +224,7 @@ void impl_init(
 		handleInput();
 		draw();
 		
+		/* This is very inefficient */
 		while (uclock() < lastTime + (UCLOCKS_PER_SEC / MAX_FPS)) {
 			handleInput();
 		}

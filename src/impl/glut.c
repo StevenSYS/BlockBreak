@@ -83,7 +83,7 @@ void impl_init(
 	glutInit(&argc, argv);
 	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
-	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - GLUT");
+	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME);
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
 	glSharedInit(

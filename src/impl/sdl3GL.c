@@ -81,7 +81,7 @@ void impl_init(
 	void (*reset)(), void(*draw)()
 ) {
 	window = SDL_CreateWindow(
-		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3 + GL",
+		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,
 		RENDER_WIDTH, RENDER_HEIGHT,
 		SDL_WINDOW_OPENGL
 	);
@@ -109,10 +109,9 @@ void impl_init(
 		handleEvent();
 		draw();
 		
-		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
-			handleEvent();
-			SDL_Delay(1);
-		}
+		SDL_Delay(1000.0f / MAX_FPS) - (SDL_GetTicks() - lastTime);
+		
+		handleEvent();
 	}
 	
 	SDL_GL_DestroyContext(glContext);

@@ -1,5 +1,7 @@
 /* GLFW3 Implementation */
 #define IMPL_NAME "GLFW3"
+#include <unistd.h>
+
 #include "glShared.h"
 
 #ifdef __APPLE
@@ -11,6 +13,7 @@
 static GLFWwindow *window;
 
 static double lastTime;
+static double sleepTime;
 
 static void input(
 	GLFWwindow *window,
@@ -71,14 +74,13 @@ void impl_init(
 	char *timerStart, entity_t *player,
 	void (*reset)(), void(*draw)()
 ) {
-
 	if (!glfwInit()) {
 		return;
 	}
 	
 	window = glfwCreateWindow(
 		RENDER_WIDTH, RENDER_HEIGHT,
-		PROGRAM_NAME " v" PROGRAM_VERSION " - GLFW3",
+		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,
 		NULL, NULL
 	);
 	
@@ -108,8 +110,12 @@ void impl_init(
 		
 		draw();
 		
-		/* FIXME: "Processor: 24.7%" - GNOME System Monitor */
-		while (glfwGetTime() < lastTime + (1.0f / MAX_FPS));
+		sleepTime = ((1.0f / MAX_FPS) - (glfwGetTime() - lastTime)) * 1000000;
+		if (sleepTime > 0) {
+			usleep(sleepTime);
+		}
+		
+		glfwPollEvents();
 	}
 	
 	glfwTerminate();

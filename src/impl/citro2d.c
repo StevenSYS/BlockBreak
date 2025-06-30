@@ -1,5 +1,6 @@
 /* citro2d Implementation */
 #include <citro2d.h>
+#include <unistd.h>
 #include <random.h>
 #ifdef ENABLE_SCREENSHOT
 	#include <sImpl.h>
@@ -149,6 +150,7 @@ void impl_init(
 		
 		while (svcGetSystemTick() < lastTime + (CPU_TICKS_PER_MSEC * MAX_FPS)) {
 			input();
+			usleep(1000);
 		}
 	}
 	

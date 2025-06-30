@@ -164,10 +164,9 @@ void impl_init(
 		handleEvent();
 		draw();
 		
-		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
-			handleEvent();
-			SDL_Delay(1);
-		}
+		SDL_Delay(1000.0f / MAX_FPS) - (SDL_GetTicks() - lastTime);
+		
+		handleEvent();
 	}
 	
 	SDL_DestroyRenderer(renderer);

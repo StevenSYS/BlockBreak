@@ -6,6 +6,7 @@
 #endif
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include <time.h>
 #include <random.h>
 #ifdef ENABLE_SCREENSHOT
@@ -24,6 +25,7 @@ static char *main_timerStart;
 static entity_t *main_player;
 
 static clock_t lastTime;
+static clock_t sleepTime;
 
 static Display *display;
 static Window window;
@@ -213,8 +215,17 @@ void impl_init(
 		
 		draw();
 		
-		/* FIXME: "Processor: 24.7%" - GNOME System Monitor */
-		while (clock() < lastTime + (CLOCKS_PER_SEC / MAX_FPS));
+		sleepTime = (CLOCKS_PER_SEC / MAX_FPS) - (clock() - lastTime);
+		if (sleepTime > 0) {
+			usleep(sleepTime);
+		}
+		
+		while (XPending(display)) {
+			XNextEvent(display, &event);
+			if (event.type == KeyPress) {
+				handleInput();
+			}
+		}
 	}
 	
 	XCloseDisplay(display);
