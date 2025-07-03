@@ -82,7 +82,11 @@ U0 generateLevel(U8 level) {
 }
 
 U0 init() {
-	timer += level * 35;
+	if (timer + (level * 35) > 0xFFFF) {
+		timer = 0xFFFF;
+	} else {
+		timer += level * 35;
+	}
 	
 	entity_init(
 		&player,
@@ -116,7 +120,12 @@ U0 reset() {
 
 U0 draw(CTask *task, CDC *dc) {
 	if (!blockCount) {
-		score += timer / 4;
+		if (score + (timer / 4) > 0xFFFFFFFF) {
+			score = 0xFFFFFFFF;
+		} else {
+			score += timer / 4;
+		}
+		
 		if (level < MAX_BLOCKS) {
 			level++;
 		}
