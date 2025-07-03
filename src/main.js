@@ -197,7 +197,7 @@ function reset() {
 	level = 1;
 	score = 0;
 	timerStart = false;
-	init(level, player);
+	init();
 	return;
 }
 
@@ -217,7 +217,7 @@ function draw() {
 		if (level < maxBlocks) {
 			level++;
 		}
-		init(level, player);
+		init();
 	}
 	
 	if (player.position[1] <= screenEdgeUp) {
