@@ -16,7 +16,7 @@ randomColors = [
 [ 0xAA, 0x55, 0x00 ],
 [ 0x55, 0x55, 0xFF ],
 [ 0x55, 0xFF, 0x55 ],
-[ 0x55, 0xFF, 0x55 ],
+[ 0x55, 0xFF, 0xFF ],
 [ 0xFF, 0x55, 0x55 ],
 [ 0xFF, 0x55, 0xFF ],
 [ 0xFF, 0xFF, 0x55 ]
@@ -71,7 +71,10 @@ def init():
     global level
     global timer
     global player
-    timer += level * 35
+    if (timer + (level * 35) > 0xFFFF):
+        timer = 0xFFFF
+    else:
+        timer += level * 35
     player = entity(
         0xFF, 0xFF, 0xFF,
         ENTITY_DIR_NONE,
@@ -104,7 +107,10 @@ def draw():
     global highScore
     clock.tick(maxFPS)
     if (blockCount < 1):
-        score += round(timer / 4)
+        if (score + (timer / 4) > 0xFFFFFFFF):
+            score = 0xFFFFFFFF
+        else:
+            score += round(timer / 4)
         if (level < maxBlocks):
             level += 1
         init()
