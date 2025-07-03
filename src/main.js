@@ -5,6 +5,9 @@ element_canvas.width = renderWidth;
 element_canvas.height = renderHeight;
 element_canvas.style.maxWidth = renderWidth + "px";
 element_canvas.style.maxHeight = renderHeight + "px";
+if (!urlParams.has("noBorder")) {
+	element_canvas.classList.add("border");
+}
 
 document.body.appendChild(element_canvas);
 document.addEventListener("keydown", input);
@@ -38,7 +41,11 @@ const randomColors = [
 ];
 
 /* Get High Score */
-if (localStorage.getItem(programName + "_highScore") != undefined) {
+if (
+	localStorage.getItem(programName + "_highScore") != undefined
+	&&
+	highScoreSave
+) {
 	highScore = parseInt(localStorage.getItem(programName + "_highScore"));
 }
 
@@ -166,7 +173,11 @@ function generateLevel(level) {
 }
 
 function init() {
-	timer += level * 35;
+	if (timer + (level * 35) > 0xFFFF) {
+		timer = 0xFFFF;
+	} else {
+		timer += level * 35;
+	}
 	
 	player = new entity(
 		"F", "F", "F",
@@ -197,7 +208,12 @@ function draw() {
 	context.fillRect(0, 0, element_canvas.width, element_canvas.height);
 	
 	if (!blockCount) {
-		score += Math.round(timer / 4);
+		if (score + (timer / 4) > 0xFFFFFFFF) {
+			score = 0xFFFFFFFF;
+		} else {
+			score += Math.round(timer / 4);
+		}
+		
 		if (level < maxBlocks) {
 			level++;
 		}
@@ -240,10 +256,12 @@ function draw() {
 		timer--;
 	}
 	
-	if (!timer) {
+	if (timer <= 0) {
 		if (score > highScore) {
 			highScore = score;
-			localStorage.setItem(programName + "_highScore", highScore);
+			if (highScoreSave) {
+				localStorage.setItem(programName + "_highScore", highScore);
+			}
 		}
 		reset();
 	}
