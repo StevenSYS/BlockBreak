@@ -31,9 +31,4 @@ void impl_init(
 	void (*reset)(), void (*draw)()
 );
 
-/* High Score Saving */
-unsigned int impl_getHighScore();
-
-void impl_setHighScore(unsigned int highScore);
-
 #endif

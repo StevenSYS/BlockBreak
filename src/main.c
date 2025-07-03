@@ -1,5 +1,6 @@
 #include <random.h>
 #include <impl.h>
+#include <hssImpl.h>
 
 #include "entity.h"
 #include "progInfo.h"
@@ -158,7 +159,7 @@ void draw() {
 	if (!timer) {
 		if (score > highScore) {
 			highScore = score;
-			impl_setHighScore(highScore);
+			hssImpl_set(highScore);
 		}
 		reset();
 	}
@@ -177,7 +178,8 @@ int main(
 	int argc,
 	char *argv[]
 ) {
-	highScore = impl_getHighScore();
+	hssImpl_open();
+	highScore = hssImpl_get();
 	
 	init();
 	
@@ -186,5 +188,7 @@ int main(
 		&timerStart, &player,
 		&reset, &draw
 	);
+	
+	hssImpl_close();
 	return 0;
 }

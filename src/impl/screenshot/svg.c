@@ -6,7 +6,6 @@ char screenshot_take = 0;
 
 static char colorHex[7];
 
-
 /* Drawing */
 void screenshot_setColor(
 	unsigned char red,
@@ -45,11 +44,7 @@ void screenshot_start(const char *impl) {
 		file = SIMPL_FOPEN("screenshot.svg", "w");
 		
 		if (file == NULL) {
-			#if SIMPL == 1
-			fprintf(stderr, "Failed to open/create screenshot file\n");
-			#elif SIMPL == 2
-			SIMPL_SDL_LOGERROR;
-			#endif
+			SIMPL_ERROR("Failed to open/create screenshot file");
 			return;
 		}
 		
@@ -76,14 +71,12 @@ void screenshot_end() {
 		
 		#if SIMPL == 2
 		if (!SIMPL_FCLOSE(file)) {
+		#elif SIMPL == 3
+		if (SIMPL_FCLOSE(file) != FMOD_OK) {
 		#else
 		if (SIMPL_FCLOSE(file) != 0) {
 		#endif
-			#if SIMPL == 1
-			fprintf(stderr, "Failed to close screenshot file\n");
-			#elif SIMPL == 2
-			SIMPL_SDL_LOGERROR;
-			#endif
+			SIMPL_ERROR("Failed to close screenshot file");
 			return;
 		}
 	}

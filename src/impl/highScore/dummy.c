@@ -1,8 +1,16 @@
 /* Dummy/Template Implementation */
-unsigned int impl_getHighScore() {
+unsigned int hssImpl_get() {
 	return 0;
 }
 
-void impl_setHighScore(unsigned int highScore) {
+void hssImpl_set(unsigned int highScore) {
+	return;
+}
+
+void hssImpl_open() {
+	return;
+}
+
+void hssImpl_close() {
 	return;
 }

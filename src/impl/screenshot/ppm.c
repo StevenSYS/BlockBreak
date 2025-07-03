@@ -75,11 +75,7 @@ void screenshot_start(const char *impl) {
 		file = SIMPL_FOPEN("screenshot.ppm", "wb");
 		
 		if (file == NULL) {
-			#if SIMPL == 1
-			fprintf(stderr, "Failed to open/create screenshot file\n");
-			#elif SIMPL == 2
-			SIMPL_SDL_LOGERROR;
-			#endif
+			SIMPL_ERROR("Failed to open/create screenshot file");
 			return;
 		}
 		
@@ -122,11 +118,7 @@ void screenshot_end() {
 		#else
 		if (SIMPL_FCLOSE(file) != 0) {
 		#endif
-			#if SIMPL == 1
-			fprintf(stderr, "Failed to close screenshot file\n");
-			#elif SIMPL == 2
-			SIMPL_SDL_LOGERROR;
-			#endif
+			SIMPL_ERROR("Failed to close screenshot file");
 			return;
 		}
 	}
