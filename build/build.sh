@@ -7,6 +7,7 @@ clang \
 	--no-standard-libraries \
 	-DFONT_HEIGHT=16 \
 	-I ../src/BlockBreakC/src/impl \
+	-I ../src/BlockBreakC/src/impl/highScore \
 	-I ../src/BlockBreakC/src/random \
 	-I ../src/BlockBreakC/src \
 	-Wl,--export-all \

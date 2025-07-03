@@ -1,4 +1,4 @@
-importList["impl_getHighScore"] = function() {
+importList["hssImpl_get"] = function() {
 	ret = localStorage.getItem("BlockBreakC-WASM_highScore");
 	if (ret == undefined) {
 		localStorage.setItem("BlockBreakC-WASM_highScore", 0);
@@ -7,7 +7,11 @@ importList["impl_getHighScore"] = function() {
 	return ret;
 }
 
-importList["impl_setHighScore"] = function(highScore) {
+importList["hssImpl_set"] = function(highScore) {
 	localStorage.setItem("BlockBreakC-WASM_highScore", highScore);
+	return;
+}
+
+importList["hssImpl_open"] = importList["hssImpl_close"] = function() {
 	return;
 }
