@@ -71,7 +71,11 @@ void generateLevel(unsigned char level) {
 }
 
 void init() {
-	timer += level * 35;
+	if (timer + (level * 35) > 0xFFFF) {
+		timer = 0xFFFF;
+	} else {
+		timer += level * 35;
+	}
 	
 	entity_init(
 		&player,
@@ -107,7 +111,12 @@ void draw() {
 	impl_loopStart();
 	
 	if (!blockCount) {
-		score += timer / 4;
+		if (score + (timer / 4) > 0xFFFFFFFF) {
+			score = 0xFFFFFFFF;
+		} else {
+			score += timer / 4;
+		}
+		
 		if (level < MAX_BLOCKS) {
 			level++;
 		}
