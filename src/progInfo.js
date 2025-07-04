@@ -2,17 +2,17 @@ const urlParams = new URLSearchParams(window.location.search);
 
 const programName = "BlockBreakJS"
 
-highScoreSave = true;
+customSettings = false;
 
 if (urlParams.has("width")) {
 	renderWidth = parseInt(urlParams.get("width"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	renderWidth = 640;
 }
 if (urlParams.has("height")) {
 	renderHeight = parseInt(urlParams.get("height"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	renderHeight = 472;
 }
@@ -21,19 +21,19 @@ const fontHeight = 16;
 
 if (urlParams.has("playerSpeed")) {
 	playerSpeed = parseInt(urlParams.get("playerSpeed"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	playerSpeed = Math.round(renderHeight / 59);
 }
 if (urlParams.has("playerWidth")) {
 	playerWidth = parseInt(urlParams.get("playerWidth"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	playerWidth = Math.round(renderWidth / 40);
 }
 if (urlParams.has("playerHeight")) {
 	playerHeight = parseInt(urlParams.get("playerHeight"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	playerHeight = Math.round(renderWidth / 40);
 }
@@ -56,13 +56,26 @@ const screenEdgeRight = renderWidth - playerWidth;
 
 const touchDeadZone = 32;
 
+if (urlParams.has("timerSpeed")) {
+	timerSpeed = parseFloat(urlParams.get("timerSpeed"));;
+	customSettings = true;
+} else {
+	timerSpeed = 1;
+}
+
 if (urlParams.has("maxBlocks")) {
 	maxBlocks = parseInt(urlParams.get("maxBlocks"));
-	highScoreSave = false;
+	customSettings = true;
 } else {
 	maxBlocks = 255;
 }
 if (maxBlocks < 1) {
 	maxBlocks = 1;
 }
-const maxFPS = 30;
+
+if (urlParams.has("fps")) {
+	maxFPS = parseInt(urlParams.get("fps"));;
+	customSettings = true;
+} else {
+	maxFPS = 30;
+}
