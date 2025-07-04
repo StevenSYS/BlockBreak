@@ -53,7 +53,7 @@
 		#define SIMPL_FOPEN(_filename, _mode) fmod_fopen(_filename, _mode)
 		#define SIMPL_FCLOSE(_stream) FMOD_OS_File_Close(_stream)
 		#define SIMPL_SNPRINTF(_str, _size, ...) snprintf(_str, _size, __VA_ARGS__)
-		#define SIMPL_FWRITE(_ptr, _size, _nmemb, _stream) FMOD_OS_File_Write(_stream, _ptr, _size, true)
+		#define SIMPL_FWRITE(_ptr, _size, _nmemb, _stream) FMOD_OS_File_Write(_stream, _ptr, _size, false)
 		#define SIMPL_ERROR(_message) fprintf(stderr, "ERROR: " _message "\n")
 		#define SIMPL_NAME "FMOD"
 		
@@ -79,9 +79,21 @@
 			const char *format,
 			...
 		) {
+			char buffer[255];
 			va_list args;
 			va_start(args, format);
-			vfprintf((FILE *)handle, format, args);
+			vsnprintf(
+				buffer,
+				255,
+				format,
+				args
+			);
+			FMOD_OS_File_Write(
+				handle,
+				buffer,
+				strlen(buffer),
+				false
+			);
 			va_end(args);
 			return;
 		}
