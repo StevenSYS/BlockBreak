@@ -1,22 +1,45 @@
-programName = "BlockBreakPy"
-programVersion = "1.2pre"
-renderWidth = 640
-renderHeight = 472
-fontHeight = 16
-playerSpeed = renderHeight / 59
-playerWidth = renderWidth / 40
-playerHeight = renderWidth / 40
-playerStartX = (renderWidth / 2) - (playerWidth / 2)
-playerStartY = renderHeight - (playerHeight * 3)
-if (playerSpeed < 1):
-    playerSpeed = 1
-if (playerWidth < 1):
-    playerWidth = 1
-if (playerHeight < 1):
-    playerHeight = 1
-screenEdgeUp = 0
-screenEdgeDown = renderHeight - playerHeight
-screenEdgeLeft = 0
-screenEdgeRight = renderWidth - playerWidth
-maxBlocks = 255
-maxFPS = 30
+#/* - Program - */
+PROGRAM_NAME = "BlockBreakPy"
+PROGRAM_VERSION = "1.2pre"
+#/* - Render - */
+RENDER_WIDTH = 640
+RENDER_HEIGHT = 472
+#/* Safe Guards */
+if (RENDER_WIDTH < 1):
+    RENDER_WIDTH = 1
+if (RENDER_HEIGHT < 1):
+    RENDER_HEIGHT = 1
+#/* - Player - */
+PLAYER_SPEED = RENDER_HEIGHT / 59
+PLAYER_WIDTH = RENDER_WIDTH / 40
+PLAYER_HEIGHT = RENDER_WIDTH / 40
+#/* Start */
+PLAYER_START_X = (RENDER_WIDTH / 2) - (PLAYER_WIDTH / 2)
+PLAYER_START_Y = RENDER_HEIGHT - (PLAYER_HEIGHT * 3)
+#/* Safe Guards */
+if (PLAYER_SPEED < 1):
+    PLAYER_SPEED = 1
+if (PLAYER_WIDTH < 1):
+    PLAYER_WIDTH = 1
+elif (PLAYER_WIDTH > RENDER_WIDTH):
+    PLAYER_WIDTH = RENDER_WIDTH
+if (PLAYER_HEIGHT < 1):
+    PLAYER_HEIGHT = 1
+elif (PLAYER_HEIGHT > RENDER_HEIGHT):
+    PLAYER_HEIGHT = RENDER_HEIGHT
+#/* - Font - */
+FONT_HEIGHT = 16
+#/* - Screen - */
+#/* Edge */
+SCREEN_EDGE_UP = 0
+SCREEN_EDGE_DOWN = RENDER_HEIGHT - PLAYER_HEIGHT
+SCREEN_EDGE_LEFT = 0
+SCREEN_EDGE_RIGHT = RENDER_WIDTH - PLAYER_WIDTH
+#/* - Max - */
+MAX_BLOCKS = 255
+MAX_FPS = 30
+#/* Safe Guards */
+if (MAX_BLOCKS < 1):
+    MAX_BLOCKS = 1
+if (MAX_FPS < 1):
+    MAX_FPS = 1

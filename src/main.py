@@ -4,7 +4,7 @@ from progInfo import *
 from entity import *
 from random import *
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((renderWidth, renderHeight))
+screen = pygame.display.set_mode((RENDER_WIDTH, RENDER_HEIGHT))
 running = true
 timerStart = false
 randomColors = [
@@ -33,7 +33,7 @@ blocks = []
 pygame.font.init()
 font = pygame.font.SysFont(
     pygame.font.get_default_font(),
-    fontHeight
+    FONT_HEIGHT
     )
 def generateLevel(level):
     global oldRandomColor
@@ -43,8 +43,8 @@ def generateLevel(level):
     blockCount = 0
     if (level):
         blockSize = [
-        round(renderWidth / level),
-        round(renderHeight / (level * 1.5))
+        round(RENDER_WIDTH / level),
+        round(RENDER_HEIGHT / (level * 1.5))
         ]
         for y in range(level):
             oldRandomColor = randomColor
@@ -52,8 +52,8 @@ def generateLevel(level):
                 randomColor = random_get()
             for x in range(level):
                 if (
-                    (x * blockSize[0] < renderWidth) and
-                    (y * blockSize[1] < renderHeight)
+                    (x * blockSize[0] < RENDER_WIDTH) and
+                    (y * blockSize[1] < RENDER_HEIGHT)
                     ):
                     blockCount += 1
                     blocks.append(entity(
@@ -78,9 +78,9 @@ def init():
     player = entity(
         0xFF, 0xFF, 0xFF,
         ENTITY_DIR_NONE,
-        playerWidth, playerHeight,
-        playerStartX, playerStartY,
-        playerSpeed,
+        PLAYER_WIDTH, PLAYER_HEIGHT,
+        PLAYER_START_X, PLAYER_START_Y,
+        PLAYER_SPEED,
         true
         )
     generateLevel(level)
@@ -105,28 +105,28 @@ def draw():
     global timer
     global score
     global highScore
-    clock.tick(maxFPS)
+    clock.tick(MAX_FPS)
     if (blockCount < 1):
         if (score + (timer / 4) > 0xFFFFFFFF):
             score = 0xFFFFFFFF
         else:
             score += round(timer / 4)
-        if (level < maxBlocks):
+        if (level < MAX_BLOCKS):
             level += 1
         init()
     screen.fill((0x00, 0x00, 0x00))
-    if (player.position[1] <= screenEdgeUp):
+    if (player.position[1] <= SCREEN_EDGE_UP):
         player.direction = ENTITY_DIR_DOWN
-        player.position[1] = screenEdgeUp
-    elif (player.position[1] >= screenEdgeDown):
+        player.position[1] = SCREEN_EDGE_UP
+    elif (player.position[1] >= SCREEN_EDGE_DOWN):
         player.direction = ENTITY_DIR_UP
-        player.position[1] = screenEdgeDown
-    elif (player.position[0] <= screenEdgeLeft):
+        player.position[1] = SCREEN_EDGE_DOWN
+    elif (player.position[0] <= SCREEN_EDGE_LEFT):
         player.direction = ENTITY_DIR_RIGHT
-        player.position[0] = screenEdgeLeft
-    elif (player.position[0] >= screenEdgeRight):
+        player.position[0] = SCREEN_EDGE_LEFT
+    elif (player.position[0] >= SCREEN_EDGE_RIGHT):
         player.direction = ENTITY_DIR_LEFT
-        player.position[0] = screenEdgeRight
+        player.position[0] = SCREEN_EDGE_RIGHT
     player.draw(screen, true)
     for block in blocks:
         if (block.visible):
@@ -137,15 +137,15 @@ def draw():
                 score += 10
     screen.blit(
         font.render(str(timer), false, (0xFF, 0xFF, 0xFF)),
-        (0, renderHeight - (fontHeight * 4))
+        (0, RENDER_HEIGHT - (FONT_HEIGHT * 4))
         )
     screen.blit(
         font.render(str(score), false, (0xFF, 0xFF, 0xFF)),
-        (0, renderHeight - (fontHeight * 2))
+        (0, RENDER_HEIGHT - (FONT_HEIGHT * 2))
         )
     screen.blit(
         font.render(str(highScore), false, (0xFF, 0xFF, 0xFF)),
-        (0, renderHeight - fontHeight)
+        (0, RENDER_HEIGHT - FONT_HEIGHT)
         )
     if (timerStart):
         timer -= 1
@@ -161,7 +161,7 @@ def main():
     global player
     init()
     pygame.init()
-    pygame.display.set_caption(programName + " v" + programVersion)
+    pygame.display.set_caption(PROGRAM_NAME + " v" + PROGRAM_VERSION)
     while (running):
         for event in pygame.event.get():
             if (event.type == pygame.KEYDOWN):
