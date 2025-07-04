@@ -21,12 +21,31 @@ body {
 	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
 }
 
+/* Warning */
+.warning {
+	color: #FFFFC0;
+	background-color: #808000;
+	border: 2px solid #404000;
+}
+
+/* Buttons */
 .button {
 	color: #FFF;
 	text-decoration: none;
 	padding: 0 2px 0 2px;
+	display: inline;
+	cursor: pointer;
 }
 
+.button:hover {
+	filter: brightness(50%);
+}
+
+.button:active {
+	filter: brightness(25%);
+}
+
+/* Button Color */
 .buttonPurple {
 	background-color: #8040FF;
 	border: 2px solid #402080;
@@ -38,10 +57,8 @@ body {
 	border: 2px solid #808030;
 }
 
-.button:hover {
-	filter: brightness(50%);
-}
-
-.button:active {
-	filter: brightness(25%);
+.buttonGray {
+	color: #000;
+	background-color: #C0C0C0;
+	border: 2px solid #808080;
 }
