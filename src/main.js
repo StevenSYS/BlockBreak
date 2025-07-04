@@ -249,14 +249,14 @@ function draw() {
 	
 	context.fillStyle = "#FFF";i
 	if (customSettings) {
-		context.fillText(parseInt(timer), 0, (renderHeight - fontHeight * 3) - 1);
-		context.fillText(score, 0, (renderHeight - fontHeight) - 1);
-		context.fillText(highScore, 0, renderHeight - 1);
-	} else {
 		context.fillText(parseInt(timer), 0, (renderHeight - fontHeight) - 1);
 		context.fillText(score, 0, renderHeight - 1);
 		context.fillStyle = "#FFFFC0";
 		context.fillText("Custom Settings", 0, fontHeight - 1);
+	} else {
+		context.fillText(parseInt(timer), 0, (renderHeight - fontHeight * 3) - 1);
+		context.fillText(score, 0, (renderHeight - fontHeight) - 1);
+		context.fillText(highScore, 0, renderHeight - 1);
 	}
 	
 	if (timerStart) {
@@ -264,11 +264,9 @@ function draw() {
 	}
 	
 	if (timer <= 0) {
-		if (score > highScore) {
+		if (score > highScore && !customSettings) {
 			highScore = score;
-			if (!customSettings) {
-				localStorage.setItem(programName + "_highScore", highScore);
-			}
+			localStorage.setItem(programName + "_highScore", highScore);
 		}
 		reset();
 	}
