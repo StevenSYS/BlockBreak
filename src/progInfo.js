@@ -29,20 +29,20 @@ if (RENDER_HEIGHT < 1) {
 }
 
 /* Player */
-if (urlParams.has("PLAYER_SPEED")) {
-	PLAYER_SPEED = parseInt(urlParams.get("PLAYER_SPEED"));
+if (urlParams.has("playerSpeed")) {
+	PLAYER_SPEED = parseInt(urlParams.get("playerSpeed"));
 	customSettings = true;
 } else {
 	PLAYER_SPEED = Math.round(RENDER_HEIGHT / 59);
 }
-if (urlParams.has("PLAYER_WIDTH")) {
-	PLAYER_WIDTH = parseInt(urlParams.get("PLAYER_WIDTH"));
+if (urlParams.has("playerWidth")) {
+	PLAYER_WIDTH = parseInt(urlParams.get("playerWidth"));
 	customSettings = true;
 } else {
 	PLAYER_WIDTH = Math.round(RENDER_WIDTH / 40);
 }
-if (urlParams.has("PLAYER_HEIGHT")) {
-	PLAYER_HEIGHT = parseInt(urlParams.get("PLAYER_HEIGHT"));
+if (urlParams.has("playerHeight")) {
+	PLAYER_HEIGHT = parseInt(urlParams.get("playerHeight"));
 	customSettings = true;
 } else {
 	PLAYER_HEIGHT = Math.round(RENDER_WIDTH / 40);
@@ -77,22 +77,22 @@ const SCREEN_EDGE_LEFT = 0;
 const SCREEN_EDGE_RIGHT = RENDER_WIDTH - PLAYER_WIDTH;
 
 /* - Touch - */
-if (urlParams.has("TOUCH_DEAD_ZONE")) {
-	TOUCH_DEAD_ZONE = parseFloat(urlParams.get("TOUCH_DEAD_ZONE"));;
+if (urlParams.has("touchDeadZone")) {
+	TOUCH_DEAD_ZONE = parseFloat(urlParams.get("touchDeadZone"));;
 } else {
 	TOUCH_DEAD_ZONE = 32;
 }
 
-if (urlParams.has("TIMER_SPEED")) {
-	TIMER_SPEED = parseFloat(urlParams.get("TIMER_SPEED"));;
+if (urlParams.has("timerSpeed")) {
+	TIMER_SPEED = parseFloat(urlParams.get("timerSpeed"));;
 	customSettings = true;
 } else {
 	TIMER_SPEED = 1;
 }
 
 /* - Max - */
-if (urlParams.has("MAX_BLOCKS")) {
-	MAX_BLOCKS = parseInt(urlParams.get("MAX_BLOCKS"));
+if (urlParams.has("maxBlocks")) {
+	MAX_BLOCKS = parseInt(urlParams.get("maxBlocks"));
 	customSettings = true;
 } else {
 	MAX_BLOCKS = 255;
