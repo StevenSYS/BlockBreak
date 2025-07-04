@@ -1,10 +1,10 @@
 const element_canvas = document.createElement("canvas");
 const context = element_canvas.getContext("2d");
 
-element_canvas.width = renderWidth;
-element_canvas.height = renderHeight;
-element_canvas.style.maxWidth = renderWidth + "px";
-element_canvas.style.maxHeight = renderHeight + "px";
+element_canvas.width = RENDER_WIDTH;
+element_canvas.height = RENDER_HEIGHT;
+element_canvas.style.maxWidth = RENDER_WIDTH + "px";
+element_canvas.style.maxHeight = RENDER_HEIGHT + "px";
 if (!urlParams.has("noBorder")) {
 	element_canvas.classList.add("border");
 }
@@ -78,13 +78,13 @@ function touchEnd(event) {
 		touch_positiveY = toPositive(touch_deltaY);
 		
 		if (
-			touch_deltaY < -touchDeadZone
+			touch_deltaY < -TOUCH_DEAD_ZONE
 			&&
 			touch_deltaY < -touch_positiveX
 		) {
 			input({ keyCode: 38 }); /* Up */
 		} else if (
-			touch_deltaY > touchDeadZone
+			touch_deltaY > TOUCH_DEAD_ZONE
 			&&
 			touch_deltaY > touch_positiveX
 		) {
@@ -92,13 +92,13 @@ function touchEnd(event) {
 		}
 		
 		if (
-			touch_deltaX < -touchDeadZone
+			touch_deltaX < -TOUCH_DEAD_ZONE
 			&&
 			touch_deltaX < -touch_positiveY
 		) {
 			input({ keyCode: 37 }); /* Left */
 		} else if (
-			touch_deltaX > touchDeadZone
+			touch_deltaX > TOUCH_DEAD_ZONE
 			&&
 			touch_deltaX > touch_positiveY
 		) {
@@ -182,9 +182,9 @@ function init() {
 	player = new entity(
 		"F", "F", "F",
 		directions.NONE,
-		playerWidth, playerHeight,
-		playerStartX, playerStartY,
-		playerSpeed,
+		PLAYER_WIDTH, PLAYER_HEIGHT,
+		PLAYER_START_X, PLAYER_START_Y,
+		PLAYER_SPEED,
 		true
 	);
 	
@@ -214,24 +214,24 @@ function draw() {
 			score += Math.round(timer / 4);
 		}
 		
-		if (level < maxBlocks) {
+		if (level < MAX_BLOCKS) {
 			level++;
 		}
 		init();
 	}
 	
-	if (player.position[1] <= screenEdgeUp) {
+	if (player.position[1] <= SCREEN_EDGE_UP) {
 		player.direction = directions.DOWN;
-		player.position[1] = screenEdgeUp;
-	} else if (player.position[1] >= screenEdgeDown) {
+		player.position[1] = SCREEN_EDGE_UP;
+	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
 		player.direction = directions.UP;
-		player.position[1] = screenEdgeDown;
-	} else if (player.position[0] <= screenEdgeLeft) {
+		player.position[1] = SCREEN_EDGE_DOWN;
+	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
 		player.direction = directions.RIGHT;
-		player.position[0] = screenEdgeLeft;
-	} else if (player.position[0] >= screenEdgeRight) {
+		player.position[0] = SCREEN_EDGE_LEFT;
+	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
 		player.direction = directions.LEFT;
-		player.position[0] = screenEdgeRight;
+		player.position[0] = SCREEN_EDGE_RIGHT;
 	}	
 	
 	player.draw(context, true);
@@ -249,18 +249,20 @@ function draw() {
 	
 	context.fillStyle = "#FFF";i
 	if (customSettings) {
-		context.fillText(parseInt(timer), 0, (renderHeight - fontHeight) - 1);
-		context.fillText(score, 0, renderHeight - 1);
+		if (TIMER_SPEED > 0) {
+			context.fillText(parseInt(timer), 0, (RENDER_HEIGHT - FONT_HEIGHT) - 1);
+		}
+		context.fillText(score, 0, RENDER_HEIGHT - 1);
 		context.fillStyle = "#FFFFC0";
-		context.fillText("Custom Settings", 0, fontHeight - 1);
+		context.fillText("Custom Settings", 0, FONT_HEIGHT - 1);
 	} else {
-		context.fillText(parseInt(timer), 0, (renderHeight - fontHeight * 3) - 1);
-		context.fillText(score, 0, (renderHeight - fontHeight) - 1);
-		context.fillText(highScore, 0, renderHeight - 1);
+		context.fillText(parseInt(timer), 0, (RENDER_HEIGHT - FONT_HEIGHT * 3) - 1);
+		context.fillText(score, 0, (RENDER_HEIGHT - FONT_HEIGHT) - 1);
+		context.fillText(highScore, 0, RENDER_HEIGHT - 1);
 	}
 	
-	if (timerStart) {
-		timer -= timerSpeed;
+	if (timerStart && TIMER_SPEED > 0) {
+		timer -= TIMER_SPEED;
 	}
 	
 	if (timer <= 0) {
@@ -276,9 +278,9 @@ function draw() {
 function main() {
 	init();
 	
-	context.font = fontHeight + "px Fixedsys";
+	context.font = FONT_HEIGHT + "px Fixedsys";
 	
-	loop = setInterval(draw, 1000 / maxFPS);
+	loop = setInterval(draw, 1000 / MAX_FPS);
 	return;
 }
 

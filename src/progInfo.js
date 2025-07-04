@@ -4,93 +4,106 @@ const programName = "BlockBreakJS"
 
 customSettings = false;
 
+/* - Render - */
 if (urlParams.has("width")) {
-	renderWidth = parseInt(urlParams.get("width"));
+	RENDER_WIDTH = parseInt(urlParams.get("width"));
 	customSettings = true;
 } else {
-	renderWidth = 640;
+	RENDER_WIDTH = 640;
 }
 if (urlParams.has("height")) {
-	renderHeight = parseInt(urlParams.get("height"));
+	RENDER_HEIGHT = parseInt(urlParams.get("height"));
 	customSettings = true;
 } else {
-	renderHeight = 472;
+	RENDER_HEIGHT = 472;
+}
+if (RENDER_WIDTH < 1) {
+	RENDER_WIDTH = 1;
+} else if (RENDER_WIDTH > screen.width) {
+	RENDER_WIDTH = screen.width;
+}
+if (RENDER_HEIGHT < 1) {
+	RENDER_HEIGHT = 1;
+} else if (RENDER_HEIGHT > screen.height) {
+	RENDER_HEIGHT = screen.height;
 }
 
-if (renderWidth < 1) {
-	renderWidth = 1;
-} else if (renderWidth > screen.width) {
-	renderWidth = screen.width;
-}
-if (renderHeight < 1) {
-	renderHeight = 1;
-} else if (renderHeight > screen.height) {
-	renderHeight = screen.height;
-}
-
-const fontHeight = 16;
-
-if (urlParams.has("playerSpeed")) {
-	playerSpeed = parseInt(urlParams.get("playerSpeed"));
+/* Player */
+if (urlParams.has("PLAYER_SPEED")) {
+	PLAYER_SPEED = parseInt(urlParams.get("PLAYER_SPEED"));
 	customSettings = true;
 } else {
-	playerSpeed = Math.round(renderHeight / 59);
+	PLAYER_SPEED = Math.round(RENDER_HEIGHT / 59);
 }
-if (urlParams.has("playerWidth")) {
-	playerWidth = parseInt(urlParams.get("playerWidth"));
+if (urlParams.has("PLAYER_WIDTH")) {
+	PLAYER_WIDTH = parseInt(urlParams.get("PLAYER_WIDTH"));
 	customSettings = true;
 } else {
-	playerWidth = Math.round(renderWidth / 40);
+	PLAYER_WIDTH = Math.round(RENDER_WIDTH / 40);
 }
-if (urlParams.has("playerHeight")) {
-	playerHeight = parseInt(urlParams.get("playerHeight"));
+if (urlParams.has("PLAYER_HEIGHT")) {
+	PLAYER_HEIGHT = parseInt(urlParams.get("PLAYER_HEIGHT"));
 	customSettings = true;
 } else {
-	playerHeight = Math.round(renderWidth / 40);
+	PLAYER_HEIGHT = Math.round(RENDER_WIDTH / 40);
 }
-const playerStartX = Math.round((renderWidth / 2) - (playerWidth / 2));
-const playerStartY = renderHeight - (playerHeight * 3);
-if (playerSpeed < 1) {
-	playerSpeed = 1;
+/* Start */
+const PLAYER_START_X = Math.round((RENDER_WIDTH / 2) - (PLAYER_WIDTH / 2));
+const PLAYER_START_Y = RENDER_HEIGHT - (PLAYER_HEIGHT * 3);
+/* Safe Guards */
+if (PLAYER_SPEED < 1) {
+	PLAYER_SPEED = 1;
 }
-if (playerWidth < 1) {
-	playerWidth = 1;
-} else if (playerWidth > renderWidth) {
-	playerWidth = renderWidth;
+if (PLAYER_WIDTH < 1) {
+	PLAYER_WIDTH = 1;
+} else if (PLAYER_WIDTH > RENDER_WIDTH) {
+	PLAYER_WIDTH = RENDER_WIDTH;
 }
-if (playerHeight < 1) {
-	playerHeight = 1;
-} else if (playerHeight > renderHeight) {
-	playerHeight = renderHeight;
+if (PLAYER_HEIGHT < 1) {
+	PLAYER_HEIGHT = 1;
+} else if (PLAYER_HEIGHT > RENDER_HEIGHT) {
+	PLAYER_HEIGHT = RENDER_HEIGHT;
 }
 
-const screenEdgeUp = 0;
-const screenEdgeDown = renderHeight - playerHeight;
-const screenEdgeLeft = 0;
-const screenEdgeRight = renderWidth - playerWidth;
+/* - Font - */
+const FONT_HEIGHT = 16;
 
-const touchDeadZone = 32;
+/* - Screen - */
 
-if (urlParams.has("timerSpeed")) {
-	timerSpeed = parseFloat(urlParams.get("timerSpeed"));;
+/* Edge */
+const SCREEN_EDGE_UP = 0;
+const SCREEN_EDGE_DOWN = RENDER_HEIGHT - PLAYER_HEIGHT;
+const SCREEN_EDGE_LEFT = 0;
+const SCREEN_EDGE_RIGHT = RENDER_WIDTH - PLAYER_WIDTH;
+
+/* - Touch - */
+if (urlParams.has("TOUCH_DEAD_ZONE")) {
+	TOUCH_DEAD_ZONE = parseFloat(urlParams.get("TOUCH_DEAD_ZONE"));;
+} else {
+	TOUCH_DEAD_ZONE = 32;
+}
+
+if (urlParams.has("TIMER_SPEED")) {
+	TIMER_SPEED = parseFloat(urlParams.get("TIMER_SPEED"));;
 	customSettings = true;
 } else {
-	timerSpeed = 1;
+	TIMER_SPEED = 1;
 }
 
-if (urlParams.has("maxBlocks")) {
-	maxBlocks = parseInt(urlParams.get("maxBlocks"));
+/* - Max - */
+if (urlParams.has("MAX_BLOCKS")) {
+	MAX_BLOCKS = parseInt(urlParams.get("MAX_BLOCKS"));
 	customSettings = true;
 } else {
-	maxBlocks = 255;
+	MAX_BLOCKS = 255;
 }
-if (maxBlocks < 1) {
-	maxBlocks = 1;
+if (MAX_BLOCKS < 1) {
+	MAX_BLOCKS = 1;
 }
 
 if (urlParams.has("fps")) {
-	maxFPS = parseInt(urlParams.get("fps"));;
+	MAX_FPS = parseInt(urlParams.get("fps"));;
 	customSettings = true;
 } else {
-	maxFPS = 30;
+	MAX_FPS = 30;
 }
