@@ -66,7 +66,11 @@ if (PLAYER_HEIGHT < 1) {
 }
 
 /* - Font - */
-const FONT_HEIGHT = 16;
+if (urlParams.has("fontSize")) {
+	FONT_HEIGHT = parseFloat(urlParams.get("fontSize"));
+} else {
+	FONT_HEIGHT = 16;
+}
 
 /* - Screen - */
 
@@ -78,13 +82,13 @@ const SCREEN_EDGE_RIGHT = RENDER_WIDTH - PLAYER_WIDTH;
 
 /* - Touch - */
 if (urlParams.has("touchDeadZone")) {
-	TOUCH_DEAD_ZONE = parseFloat(urlParams.get("touchDeadZone"));;
+	TOUCH_DEAD_ZONE = parseFloat(urlParams.get("touchDeadZone"));
 } else {
 	TOUCH_DEAD_ZONE = 32;
 }
 
 if (urlParams.has("timerSpeed")) {
-	TIMER_SPEED = parseFloat(urlParams.get("timerSpeed"));;
+	TIMER_SPEED = parseFloat(urlParams.get("timerSpeed"));
 	customSettings = true;
 } else {
 	TIMER_SPEED = 1;
@@ -102,7 +106,7 @@ if (MAX_BLOCKS < 1) {
 }
 
 if (urlParams.has("fps")) {
-	MAX_FPS = parseInt(urlParams.get("fps"));;
+	MAX_FPS = parseInt(urlParams.get("fps"));
 	customSettings = true;
 } else {
 	MAX_FPS = 30;
