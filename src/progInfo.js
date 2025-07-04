@@ -17,6 +17,17 @@ if (urlParams.has("height")) {
 	renderHeight = 472;
 }
 
+if (renderWidth < 1) {
+	renderWidth = 1;
+} else if (renderWidth > screen.width) {
+	renderWidth = screen.width;
+}
+if (renderHeight < 1) {
+	renderHeight = 1;
+} else if (renderHeight > screen.height) {
+	renderHeight = screen.height;
+}
+
 const fontHeight = 16;
 
 if (urlParams.has("playerSpeed")) {
