@@ -55,9 +55,13 @@ if (playerSpeed < 1) {
 }
 if (playerWidth < 1) {
 	playerWidth = 1;
+} else if (playerWidth > renderWidth) {
+	playerWidth = renderWidth;
 }
 if (playerHeight < 1) {
 	playerHeight = 1;
+} else if (playerHeight > renderHeight) {
+	playerHeight = renderHeight;
 }
 
 const screenEdgeUp = 0;
