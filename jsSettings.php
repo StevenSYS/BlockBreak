@@ -32,7 +32,7 @@
 			printf("\t\t\t\t\t<div class=\"icon\"></div>\n");
 			printf("\t\t\t\t</label>\n");
 		} 
-		printf("\t\t\t\t - Default: %s\n", $default);
+		printf("\t\t\t\t<br>Default: %s\n", $default);
 		printf("\t\t\t\t<br>\n\t\t\t");
 		return;
 	}
