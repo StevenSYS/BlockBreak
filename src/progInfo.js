@@ -19,13 +19,9 @@ if (urlParams.has("height")) {
 }
 if (RENDER_WIDTH < 1) {
 	RENDER_WIDTH = 1;
-} else if (RENDER_WIDTH > screen.width) {
-	RENDER_WIDTH = screen.width;
 }
 if (RENDER_HEIGHT < 1) {
 	RENDER_HEIGHT = 1;
-} else if (RENDER_HEIGHT > screen.height) {
-	RENDER_HEIGHT = screen.height;
 }
 
 /* Player */
