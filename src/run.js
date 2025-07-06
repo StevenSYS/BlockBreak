@@ -1,6 +1,6 @@
-include("impls/" + implFile + ".js");
-include("impls/highScore/" + hssImplFile + ".js");
-include("impls/screenshot/" + sImplFile + ".js");
+include("impl/" + implFile + ".js");
+include("impl/highScore/" + hssImplFile + ".js");
+include("impl/screenshot/" + sImplFile + ".js");
 
 if (urlParams.has("touchDeadZone")) {
 	touchDeadZone = parseFloat(urlParams.get("touchDeadZone"));

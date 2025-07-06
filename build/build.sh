@@ -20,7 +20,7 @@ compile() {
 		-Wl,--export-all \
 		-Wl,-allow-undefined-file imports.syms \
 		../src/BlockBreakC/src/random/random.c \
-		../src/impls/shared.c \
+		../src/impl/shared.c \
 		../src/BlockBreakC/src/*.c \
 		$screenshotFlags \
 		-o "$output"
