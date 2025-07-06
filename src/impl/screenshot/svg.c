@@ -58,7 +58,7 @@ void sImpl_start(const char *impl) {
 		SIMPL_FPRINTF(file, "<svg width=\"%u\" height=\"%u\" xmlns=\"http://www.w3.org/2000/svg\">\n", RENDER_WIDTH, RENDER_HEIGHT);
 		SIMPL_FPRINTF(file, "\t<!-- " PROGRAM_NAME " v" PROGRAM_VERSION " -->\n");
 		SIMPL_FPRINTF(file, "\t<!-- Implementation: %s -->\n", impl);
-		SIMPL_FPRINTF(file, "\t<!-- Screenshot Implementation: SVG (" SIMPL_NAME ")-->\n");
+		SIMPL_FPRINTF(file, "\t<!-- Screenshot Implementation: SVG (" SIMPL_NAME ") -->\n");
 		SIMPL_FPRINTF(file, "\t<style>\n");
 		SIMPL_FPRINTF(file, "\t\ttext {\n");
 		SIMPL_FPRINTF(file, "\t\t\tfont-family: sans-serif;\n");
