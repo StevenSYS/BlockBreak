@@ -1,4 +1,4 @@
-/* Shared OpenGL Functions */
+/* Shared OpenGL Stuff */
 #include <stdio.h>
 #include <string.h>
 #include <GL/gl.h>
