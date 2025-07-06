@@ -57,7 +57,7 @@ static void handleEvent() {
 					break;
 				#ifdef ENABLE_SCREENSHOT
 				case SDL_SCANCODE_S:
-					screenshot_take = 1;
+					sImpl_take = 1;
 					break;
 				#endif
 				default:
@@ -79,7 +79,7 @@ void impl_setColor(
 ) {
 	SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -90,7 +90,7 @@ void impl_drawNumber(
 ) {
 	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -105,7 +105,7 @@ void impl_drawFillRect(
 	rect.h = height;
 	SDL_RenderFillRect(renderer, &rect);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -115,7 +115,7 @@ void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("SDL3");
+	sImpl_start("SDL3");
 	#endif
 	return;
 }
@@ -123,7 +123,7 @@ void impl_loopStart() {
 void impl_loopEnd() {
 	SDL_RenderPresent(renderer);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

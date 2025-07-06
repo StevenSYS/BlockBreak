@@ -24,7 +24,7 @@ static void input(
 		#ifdef ENABLE_SCREENSHOT
 		case 's':
 		case 'S':
-			screenshot_take = 1;
+			sImpl_take = 1;
 			break;
 		#endif
 		default:
@@ -70,7 +70,7 @@ static void drawLoop(int msecs) {
 void impl_loopEnd() {
 	glFlush();
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

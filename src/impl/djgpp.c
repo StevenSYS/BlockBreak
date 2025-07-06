@@ -108,7 +108,7 @@ static void handleInput() {
 				break;
 			#ifdef ENABLE_SCREENSHOT
 			case 0x1F: /* Screenshot */
-				screenshot_take = 1;
+				sImpl_take = 1;
 				break;
 			#endif
 			default:
@@ -132,7 +132,7 @@ void impl_setColor(
 		blue / 85
 	];
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -156,7 +156,7 @@ void impl_drawNumber(
 		}
 	}
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -173,7 +173,7 @@ void impl_drawFillRect(
 		}
 	}
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -182,7 +182,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	memset(frameBuffer, 0, sizeof(frameBuffer));
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("DJGPP (MS-DOS)");
+	sImpl_start("DJGPP (MS-DOS)");
 	#endif
 	return;
 }
@@ -190,7 +190,7 @@ void impl_loopStart() {
 void impl_loopEnd() {
 	dosmemput(frameBuffer, RENDER_WIDTH * RENDER_HEIGHT, 0xA0000);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

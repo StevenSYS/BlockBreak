@@ -10,7 +10,7 @@
 	#define SIMPL_FILENAME "screenshot.ppm"
 #endif
 
-char screenshot_take = 0;
+char sImpl_take = 0;
 
 static char pixels[RENDER_WIDTH * RENDER_HEIGHT][3];
 static char buffer[11];
@@ -21,12 +21,12 @@ static unsigned char currentColor[3];
 static unsigned short x2, y2;
 
 /* Drawing */
-void screenshot_setColor(
+void sImpl_setColor(
 	unsigned char red,
 	unsigned char green,
 	unsigned char blue
 ) {
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		currentColor[0] = red;
 		currentColor[1] = green;
 		currentColor[2] = blue;
@@ -34,12 +34,12 @@ void screenshot_setColor(
 	return;
 }
 
-void screenshot_number(
+void sImpl_number(
 	signed short x, signed short y,
 	unsigned int number
 ) {
 	SIMPL_SNPRINTF(buffer, 11, "%u", number);
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		for (i = 0; i < strlen(buffer); i++) {
 			for (y2 = 0; y2 < 8; y2++) {
 				for (x2 = 0; x2 < 8; x2++) {
@@ -59,11 +59,11 @@ void screenshot_number(
 	return;
 }
 
-void screenshot_fillRect(
+void sImpl_fillRect(
 	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		for (y2 = 0; y2 < height; y2++) {
 			for (x2 = 0; x2 < width; x2++) {
 				for (i = 0; i < 3; i++) {
@@ -76,8 +76,8 @@ void screenshot_fillRect(
 }
 
 /* Misc. */
-void screenshot_start(const char *impl) {
-	if (screenshot_take == 1) {
+void sImpl_start(const char *impl) {
+	if (sImpl_take == 1) {
 		file = SIMPL_FOPEN(SIMPL_FILENAME, "wb");
 		
 		if (file == NULL) {
@@ -85,7 +85,7 @@ void screenshot_start(const char *impl) {
 			return;
 		}
 		
-		screenshot_take = 2;
+		sImpl_take = 2;
 		SIMPL_FPRINTF(file, "P6\n");
 		SIMPL_FPRINTF(file, "# " PROGRAM_NAME " v" PROGRAM_VERSION "\n");
 		SIMPL_FPRINTF(file, "# Implementation: %s\n", impl);
@@ -103,9 +103,9 @@ void screenshot_start(const char *impl) {
 	return;
 }
 
-void screenshot_end() {
-	if (screenshot_take == 2) {
-		screenshot_take = 0;
+void sImpl_end() {
+	if (sImpl_take == 2) {
+		sImpl_take = 0;
 		for (y2 = 0; y2 < RENDER_HEIGHT; y2++) {
 			for (x2 = 0; x2 < RENDER_WIDTH; x2++) {
 				for (i = 0; i < 3; i++) {

@@ -52,7 +52,7 @@ static void handleEvent() {
 					break;
 				#ifdef ENABLE_SCREENSHOT
 				case SDL_SCANCODE_S:
-					screenshot_take = 1;
+					sImpl_take = 1;
 					break;
 				#endif
 				default:
@@ -70,7 +70,7 @@ static void handleEvent() {
 void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

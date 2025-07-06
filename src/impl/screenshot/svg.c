@@ -8,45 +8,45 @@
 	#define SIMPL_FILENAME "screenshot.svg"
 #endif
 
-char screenshot_take = 0;
+char sImpl_take = 0;
 
 static char colorHex[7];
 
 /* Drawing */
-void screenshot_setColor(
+void sImpl_setColor(
 	unsigned char red,
 	unsigned char green,
 	unsigned char blue
 ) {
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		SIMPL_SNPRINTF(colorHex, 7, "%02X%02X%02X", red, green, blue);
 	}
 	return;
 }
 
-void screenshot_number(
+void sImpl_number(
 	signed short x, signed short y,
 	unsigned int number
 ) {
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		SIMPL_FPRINTF(file, "\t<text x=\"%i\" y=\"%i\" fill=\"#%s\">%u</text>\n", x, y + FONT_HEIGHT, colorHex, number);
 	}
 	return;
 }
 
-void screenshot_fillRect(
+void sImpl_fillRect(
 	signed short x, signed short y,
 	unsigned short width, unsigned short height
 ) {
-	if (screenshot_take == 2) {
+	if (sImpl_take == 2) {
 		SIMPL_FPRINTF(file, "\t<rect width=\"%u\" height=\"%u\" x=\"%i\" y=\"%i\" fill=\"#%s\"/>\n", width, height, x, y, colorHex);
 	}
 	return;
 }
 
 /* Misc. */
-void screenshot_start(const char *impl) {
-	if (screenshot_take == 1) {
+void sImpl_start(const char *impl) {
+	if (sImpl_take == 1) {
 		file = SIMPL_FOPEN(SIMPL_FILENAME, "w");
 		
 		if (file == NULL) {
@@ -54,7 +54,7 @@ void screenshot_start(const char *impl) {
 			return;
 		}
 		
-		screenshot_take = 2;
+		sImpl_take = 2;
 		SIMPL_FPRINTF(file, "<svg width=\"%u\" height=\"%u\" xmlns=\"http://www.w3.org/2000/svg\">\n", RENDER_WIDTH, RENDER_HEIGHT);
 		SIMPL_FPRINTF(file, "\t<!-- " PROGRAM_NAME " v" PROGRAM_VERSION " -->\n");
 		SIMPL_FPRINTF(file, "\t<!-- Implementation: %s -->\n", impl);
@@ -70,9 +70,9 @@ void screenshot_start(const char *impl) {
 	return;
 }
 
-void screenshot_end() {
-	if (screenshot_take == 2) {
-		screenshot_take = 0;
+void sImpl_end() {
+	if (sImpl_take == 2) {
+		sImpl_take = 0;
 		SIMPL_FPRINTF(file, "</svg>");
 		
 		#if SIMPL == 2

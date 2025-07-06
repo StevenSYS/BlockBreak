@@ -67,7 +67,7 @@ void impl_setColor(
 ) {
 	glColor3ub(red, green, blue);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -87,7 +87,7 @@ void impl_drawNumber(
 		);
 	}
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -101,7 +101,7 @@ void impl_drawFillRect(
 		x + width, y + height
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -110,7 +110,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start(IMPL_NAME);
+	sImpl_start(IMPL_NAME);
 	#endif
 	return;
 }

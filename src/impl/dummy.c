@@ -20,7 +20,7 @@ void impl_setColor(
 	unsigned char blue
 ) {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -30,7 +30,7 @@ void impl_drawNumber(
 	unsigned int number
 ) {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -40,7 +40,7 @@ void impl_drawFillRect(
 	unsigned short width, unsigned short height
 ) {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -48,14 +48,14 @@ void impl_drawFillRect(
 /* Misc. */
 void impl_loopStart() {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("Dummy");
+	sImpl_start("Dummy");
 	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

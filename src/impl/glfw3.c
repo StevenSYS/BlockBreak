@@ -49,7 +49,7 @@ static void input(
 				break;
 			#ifdef ENABLE_SCREENSHOT
 			case GLFW_KEY_S:
-				screenshot_take = 1;
+				sImpl_take = 1;
 				break;
 			#endif
 			default:
@@ -64,7 +64,7 @@ void impl_loopEnd() {
 	glFlush();
 	glfwSwapBuffers(window);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

@@ -40,7 +40,7 @@ static void input() {
 		}
 		#ifdef ENABLE_SCREENSHOT
 		if (IsKeyPressed(KEY_S)) {
-			screenshot_take = 1;
+			sImpl_take = 1;
 		}
 		#endif
 	}
@@ -55,7 +55,7 @@ void impl_setColor(
 ) {
 	currentColor = (Color){ red, green, blue, 0xFF };
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -71,7 +71,7 @@ void impl_drawNumber(
 		currentColor
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -86,7 +86,7 @@ void impl_drawFillRect(
 		currentColor
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -96,7 +96,7 @@ void impl_loopStart() {
 	BeginDrawing();
 	ClearBackground(BLACK);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("raylib");
+	sImpl_start("raylib");
 	#endif
 	return;
 }
@@ -104,7 +104,7 @@ void impl_loopStart() {
 void impl_loopEnd() {
 	EndDrawing();
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

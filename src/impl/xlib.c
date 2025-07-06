@@ -76,7 +76,7 @@ static void handleInput() {
 			#ifdef ENABLE_SCREENSHOT
 			case XK_s:
 			case XK_S:
-				screenshot_take = 1;
+				sImpl_take = 1;
 				break;
 			#endif
 		}
@@ -96,7 +96,7 @@ void impl_setColor(
 		(blue + (green << 8) + (red << 16))
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -115,7 +115,7 @@ void impl_drawNumber(
 		strlen(buffer)
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -132,7 +132,7 @@ void impl_drawFillRect(
 		width, height
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -141,7 +141,7 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	XClearWindow(display, window);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("Xlib");
+	sImpl_start("Xlib");
 	#endif
 	return;
 }
@@ -149,7 +149,7 @@ void impl_loopStart() {
 void impl_loopEnd() {
 	XFlush(display);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }

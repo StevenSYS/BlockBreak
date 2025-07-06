@@ -52,7 +52,7 @@ static void input() {
 	}
 	#ifdef ENABLE_SCREENSHOT
 	if (inputDown & (KEY_L |KEY_R)) {
-		screenshot_take = 1;
+		sImpl_take = 1;
 	}
 	#endif
 	if (inputDown & KEY_START) {
@@ -69,7 +69,7 @@ void impl_setColor(
 ) {
 	currentColor = C2D_Color32(red, green, blue, 0xFF);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_setColor(red, green, blue);
+	sImpl_setColor(red, green, blue);
 	#endif
 	return;
 }
@@ -83,7 +83,7 @@ void impl_drawNumber(
 	printf("%u", number);
 	printf("\x1b[K"); /* Clears the current line */
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_number(x, y, number);
+	sImpl_number(x, y, number);
 	#endif
 	return;
 }
@@ -98,7 +98,7 @@ void impl_drawFillRect(
 		currentColor
 	);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_fillRect(x, y, width, height);
+	sImpl_fillRect(x, y, width, height);
 	#endif
 	return;
 }
@@ -112,7 +112,7 @@ void impl_loopStart() {
 	);
 	C2D_SceneBegin(renderTarget);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_start("citro2d");
+	sImpl_start("citro2d");
 	#endif
 	return;
 }
@@ -120,7 +120,7 @@ void impl_loopStart() {
 void impl_loopEnd() {
 	C3D_FrameEnd(0);
 	#ifdef ENABLE_SCREENSHOT
-	screenshot_end();
+	sImpl_end();
 	#endif
 	return;
 }
