@@ -1,6 +1,8 @@
 /* C Shared Stuff */
+#define SIMPL_NOEXTERNS
 #include <random.h>
 
+#include "sImpl.h"
 #include "entity.h"
 #include "progInfo.h"
 
@@ -38,6 +40,11 @@ void input(unsigned char key) {
 			main_player->direction = ENTITY_DIR_RIGHT;
 			*main_timerStart = 1;
 			break;
+		#ifdef ENABLE_SCREENSHOT
+		case 83: /* S */
+			sImpl_setTake(1);
+			break;
+		#endif
 		case 13: /* Enter */
 			main_reset();
 			break;
@@ -46,6 +53,9 @@ void input(unsigned char key) {
 }
 
 void impl_loopEnd() {
+	#ifdef ENABLE_SCREENSHOT
+	sImpl_end();
+	#endif
 	return;
 }
 

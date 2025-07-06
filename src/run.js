@@ -1,6 +1,6 @@
 include("impls/" + implFile + ".js");
 include("impls/highScore/" + hssImplFile + ".js");
-// include("impls/screenshot/" + sImplFile + ".js");
+include("impls/screenshot/" + sImplFile + ".js");
 
 if (urlParams.has("touchDeadZone")) {
 	touchDeadZone = parseFloat(urlParams.get("touchDeadZone"));
@@ -18,7 +18,7 @@ function toPositive(number) {
 
 WebAssembly.instantiateStreaming(
 	fetch("build/BlockBreakC-WASM.wasm"),
-	{ "env": importList }
+	{ env: importList }
 ).then(result => {	
 	/* Touch Input */
 	var touch_startX, touch_deltaX, touch_positiveX;
@@ -80,6 +80,7 @@ WebAssembly.instantiateStreaming(
 		return;
 	}
 	document.addEventListener("keydown", input);
+	
 	
 	result.instance.exports._start();
 	

@@ -17,11 +17,13 @@ importList["impl_loopStart"] = function() {
 		0, 0,
 		element_canvas.width, element_canvas.height
 	);
+	sImpl_start("HTML Canvas");
 	return;
 }
 
 importList["impl_setColor"] = function(red, green, blue) {
 	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
+	sImpl_setColor(red, green, blue);
 	return;
 }
 
@@ -31,6 +33,7 @@ importList["impl_drawNumber"] = function(
 	number
 ) {
 	context.fillText(number, x, y + (fontSize - 1));
+	sImpl_number(x, y, number);
 	return;
 }
 
@@ -41,5 +44,6 @@ importList["impl_drawFillRect"] = function(
 	context.beginPath();
 	context.rect(x, y, width, height);
 	context.fill();
+	sImpl_fillRect(x, y, width, height);
 	return;
 }

@@ -2,9 +2,14 @@ getMacros
 impl_setColor
 impl_drawFillRect
 impl_loopStart
-impl_setColor
 impl_drawNumber
 hssImpl_set
 hssImpl_get
 hssImpl_open
 hssImpl_close
+sImpl_setColor
+sImpl_number
+sImpl_fillRect
+sImpl_start
+sImpl_end
+sImpl_setTake
