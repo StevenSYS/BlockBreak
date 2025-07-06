@@ -1,10 +1,14 @@
+var importList = {};
+const urlParams = new URLSearchParams(window.location.search);
+
 const element_canvas = document.createElement("canvas");
 const element_title = document.getElementById("title");
-const context = element_canvas.getContext("2d");
 
 element_canvas.style.maxWidth = "0px";
 element_canvas.style.maxHeight = "0px";
 
-document.body.appendChild(element_canvas);
+if (!urlParams.has("noBorder")) {
+	element_canvas.classList.add("border");
+}
 
-var importList = {};
+document.body.appendChild(element_canvas);

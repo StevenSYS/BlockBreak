@@ -1,4 +1,12 @@
-const touchDeadZone = 32;
+include("impls/" + implFile + ".js");
+include("impls/highScore/" + hssImplFile + ".js");
+// include("impls/screenshot/" + sImplFile + ".js");
+
+if (urlParams.has("touchDeadZone")) {
+	touchDeadZone = parseFloat(urlParams.get("touchDeadZone"));
+} else {
+	touchDeadZone = 32;
+}
 
 function toPositive(number) {
 	if (number < 0) {
@@ -80,7 +88,7 @@ WebAssembly.instantiateStreaming(
 	
 	element_title.innerText = programName.string + "-WASM v" + programVersion.string;
 	
-	context.font = fontSize + "px Fixedsys";
+	impl_init(fontSize, "Fixedsys");
 	
 	loop = setInterval(result.instance.exports.draw, 1000 / maxFPS);
 });
