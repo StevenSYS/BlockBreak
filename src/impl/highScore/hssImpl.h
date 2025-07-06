@@ -1,7 +1,11 @@
 #ifndef __HSSIMPL__
 #define __HSSIMPL__
 
-#define HSSIMPL_FILENAME "highScore.5hs"
+#ifdef FILENAME83
+	#define HSSIMPL_FILENAME "HGHSCORE.5HS"
+#else
+	#define HSSIMPL_FILENAME "highScore.5hs"
+#endif
 #define HSSIMPL_SIGNATURE "5HS\x57\xE6\xE4\x56\x50"
 #define HSSIMPL_LENGTH_BUFFER 20
 

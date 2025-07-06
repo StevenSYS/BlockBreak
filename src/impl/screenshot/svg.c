@@ -2,6 +2,12 @@
 #include "sImplMacros.h"
 #include "progInfo.h"
 
+#ifdef FILENAME83
+	#define SIMPL_FILENAME "SCRNSHOT.SVG"
+#else
+	#define SIMPL_FILENAME "screenshot.svg"
+#endif
+
 char screenshot_take = 0;
 
 static char colorHex[7];
@@ -41,7 +47,7 @@ void screenshot_fillRect(
 /* Misc. */
 void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
-		file = SIMPL_FOPEN("screenshot.svg", "w");
+		file = SIMPL_FOPEN(SIMPL_FILENAME, "w");
 		
 		if (file == NULL) {
 			SIMPL_ERROR("Failed to open/create screenshot file");

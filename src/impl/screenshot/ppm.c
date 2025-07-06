@@ -4,6 +4,12 @@
 #include "numberSheet.h"
 #include "progInfo.h"
 
+#ifdef FILENAME83
+	#define SIMPL_FILENAME "SCRNSHOT.PPM"
+#else
+	#define SIMPL_FILENAME "screenshot.ppm"
+#endif
+
 char screenshot_take = 0;
 
 static char pixels[RENDER_WIDTH * RENDER_HEIGHT][3];
@@ -72,7 +78,7 @@ void screenshot_fillRect(
 /* Misc. */
 void screenshot_start(const char *impl) {
 	if (screenshot_take == 1) {
-		file = SIMPL_FOPEN("screenshot.ppm", "wb");
+		file = SIMPL_FOPEN(SIMPL_FILENAME, "wb");
 		
 		if (file == NULL) {
 			SIMPL_ERROR("Failed to open/create screenshot file");

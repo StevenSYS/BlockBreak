@@ -52,9 +52,9 @@ void hssImpl_set(unsigned int highScore) {
 	if (file == NULL) {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 	} else {
-		file = fopen(HSSIMPL_FILENAME, "w+");
+		file = fopen(HSSIMPL_FILENAME, "wb+");
 		if (file == NULL) {
-			perror(HSSIMPL_STRING_FILE_FAILOPEN_WPMODE);
+			perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE);
 			return;
 		}
 		fprintf(file, HSSIMPL_SIGNATURE);
@@ -72,15 +72,18 @@ void hssImpl_set(unsigned int highScore) {
 void hssImpl_open() {
 	if (fopen(HSSIMPL_FILENAME, "r") == NULL) {
 		perror(HSSIMPL_STRING_FILE_FAILOPEN_RMODE);
-		file = fopen(HSSIMPL_FILENAME, "w+");
+		file = fopen(HSSIMPL_FILENAME, "wb+");
 		if (file == NULL) {
-			perror(HSSIMPL_STRING_FILE_FAILOPEN_WPMODE);
+			perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE);
 		} else {
 			fileStatus = FILE_NEWFILE;
 			hssImpl_set(0);
 		}
 	} else {
-		file = fopen(HSSIMPL_FILENAME, "r+");
+		file = fopen(HSSIMPL_FILENAME, "rb+");
+		if (file == NULL) {
+			perror(HSSIMPL_STRING_FILE_FAILOPEN_RBPMODE);
+		}
 	}
 	return;
 }
