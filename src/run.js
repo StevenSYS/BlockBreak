@@ -88,6 +88,13 @@ WebAssembly.instantiateStreaming(
 			},
 			false
 		);
+		element_screenshotButton.addEventListener(
+			"touchstart",
+			function() {
+				result.instance.exports.input(83);
+			},
+			false
+		);
 	}
 	
 	result.instance.exports._start();
