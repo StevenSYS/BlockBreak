@@ -1,15 +1,3 @@
-const element_canvas = document.createElement("canvas");
-const context = element_canvas.getContext("2d");
-
-element_canvas.width = RENDER_WIDTH;
-element_canvas.height = RENDER_HEIGHT;
-element_canvas.style.maxWidth = RENDER_WIDTH + "px";
-element_canvas.style.maxHeight = RENDER_HEIGHT + "px";
-if (!urlParams.has("noBorder")) {
-	element_canvas.classList.add("border");
-}
-
-document.body.appendChild(element_canvas);
 document.addEventListener("keydown", input);
 document.addEventListener("touchstart", touchStart);
 document.addEventListener("touchend", touchEnd);
@@ -26,28 +14,19 @@ var player;
 var blocks = [];
 
 const randomColors = [
-	[ "0", "0", "A" ],
-	[ "0", "A", "0" ],
-	[ "0", "A", "A" ],
-	[ "A", "0", "0" ],
-	[ "A", "0", "A" ],
-	[ "A", "5", "0" ],
-	[ "5", "5", "F" ],
-	[ "5", "F", "5" ],
-	[ "5", "F", "F" ],
-	[ "F", "5", "5" ],
-	[ "F", "5", "F" ],
-	[ "F", "F", "5" ]
+	[ 0x00, 0x00, 0xAA ],
+	[ 0x00, 0xAA, 0x00 ],
+	[ 0x00, 0xAA, 0xAA ],
+	[ 0xAA, 0x00, 0x00 ],
+	[ 0xAA, 0x00, 0xAA ],
+	[ 0xAA, 0x55, 0x00 ],
+	[ 0x55, 0x55, 0xFF ],
+	[ 0x55, 0xFF, 0x55 ],
+	[ 0x55, 0xFF, 0xFF ],
+	[ 0xFF, 0x55, 0x55 ],
+	[ 0xFF, 0x55, 0xFF ],
+	[ 0xFF, 0xFF, 0x55 ]
 ];
-
-/* Get High Score */
-if (
-	localStorage.getItem(programName + "_highScore") != undefined
-	&&
-	!customSettings
-) {
-	highScore = parseInt(localStorage.getItem(programName + "_highScore"));
-}
 
 /* Touch Input */
 var touch_startX, touch_deltaX;
@@ -131,6 +110,9 @@ function input(event) {
 		case 13: /* Enter */
 			reset();
 			break;
+		case 83: /* S */
+			sImpl_take = 1;
+			break;
 		default:
 			break;
 	}
@@ -180,7 +162,7 @@ function init() {
 	}
 	
 	player = new entity(
-		"F", "F", "F",
+		0xFF, 0xFF, 0xFF,
 		directions.NONE,
 		PLAYER_WIDTH, PLAYER_HEIGHT,
 		PLAYER_START_X, PLAYER_START_Y,
@@ -202,10 +184,7 @@ function reset() {
 }
 
 function draw() {
-	context.clearRect(0, 0, element_canvas.width, element_canvas.height);
-	
-	context.fillStyle = "#000";
-	context.fillRect(0, 0, element_canvas.width, element_canvas.height);
+	impl_loopStart();
 	
 	if (!blockCount) {
 		if (score + (timer / 4) > 0xFFFFFFFF) {
@@ -247,18 +226,19 @@ function draw() {
 		}
 	}
 	
-	context.fillStyle = "#FFF";i
+	impl_setColor(0xFF, 0xFF, 0xFF);
 	if (customSettings) {
 		if (TIMER_SPEED > 0) {
-			context.fillText(parseInt(timer), 0, (RENDER_HEIGHT - FONT_HEIGHT) - 1);
+			impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT * 3) - 1, parseInt(timer));
 		}
-		context.fillText(score, 0, RENDER_HEIGHT - 1);
-		context.fillStyle = "#FFFFC0";
-		context.fillText("Custom Settings", 0, FONT_HEIGHT - 1);
+		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT) - 1, score);
+		impl_setColor(0xFF, 0xFF, 0xC0);
+		/* In the JavaScript version, `impl_drawNumber` can draw text as well */
+		impl_drawNumber(0, 0, "Custom Settings");
 	} else {
-		context.fillText(parseInt(timer), 0, (RENDER_HEIGHT - FONT_HEIGHT * 3) - 1);
-		context.fillText(score, 0, (RENDER_HEIGHT - FONT_HEIGHT) - 1);
-		context.fillText(highScore, 0, RENDER_HEIGHT - 1);
+		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT * 4) - 1, timer);
+		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT * 2) - 1, score);
+		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT) - 1, highScore);
 	}
 	
 	if (timerStart && TIMER_SPEED > 0) {
@@ -268,14 +248,21 @@ function draw() {
 	if (timer <= 0) {
 		if (score > highScore && !customSettings) {
 			highScore = score;
-			localStorage.setItem(programName + "_highScore", highScore);
+			hssImpl_set(highScore);
 		}
 		reset();
 	}
+	
+	sImpl_end();
 	return;
 }
 
 function main() {
+	hssImpl_open();
+	if (!customSettings) {
+		highScore = hssImpl_get();
+	}
+	
 	init();
 	
 	context.font = FONT_HEIGHT + "px Fixedsys";

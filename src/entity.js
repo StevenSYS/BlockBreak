@@ -67,13 +67,11 @@ class entity {
 		}
 		
 		if (this.visible) {
-			context.beginPath();
-			context.fillStyle = "#" + this.color[0] + this.color[1] + this.color[2];
-			context.rect(
+			impl_setColor(this.color[0], this.color[1], this.color[2]);
+			impl_drawFillRect(
 				this.position[0], this.position[1],
 				this.size[0], this.size[1]
 			);
-			context.fill();
 		}
 		return;
 	}

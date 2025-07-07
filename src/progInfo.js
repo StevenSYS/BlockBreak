@@ -1,6 +1,4 @@
-const urlParams = new URLSearchParams(window.location.search);
-
-const programName = "BlockBreakJS"
+const PROGRAM_NAME = "BlockBreakJS"
 
 customSettings = false;
 

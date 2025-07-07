@@ -11,6 +11,9 @@ body {
 	background-color: #000;
 	text-align: center;
 	margin: 0;
+	font-family: Fixedsys;
+	font-size: 16px;
+	user-select: none;
 	overflow: hidden;
 	/* https://stackoverflow.com/a/14068216 */
 	image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
@@ -29,4 +32,28 @@ body {
 canvas {
 	width: calc(100% - 2px);
 	height: calc(100% - 2px);
+}
+
+/* Buttons */
+.button {
+	color: #FFF;
+	text-decoration: none;
+	padding: 0 2px 0 2px;
+	display: inline;
+	cursor: pointer;
+}
+
+.button:hover {
+	filter: brightness(50%);
+}
+
+.button:active {
+	filter: brightness(25%);
+}
+
+/* Button Color */
+.buttonGray {
+	color: #000;
+	background-color: #C0C0C0;
+	border: 1px solid #808080;
 }
