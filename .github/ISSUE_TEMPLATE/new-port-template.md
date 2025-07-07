@@ -1,6 +1,6 @@
 ---
 name: New Port Template
-about: For new implementations
+about: For new ports
 title: 'Port: Add a new port'
 labels: new-port
 assignees: ''
