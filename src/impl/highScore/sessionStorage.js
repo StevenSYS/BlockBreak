@@ -1,4 +1,4 @@
-/* Session Storage Implementation */
+/* Session Storage (C-WASM) Implementation */
 const hssImpl_itemName = "BlockBreakC-WASM_highScore";
 
 importList["hssImpl_get"] = function() {

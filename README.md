@@ -16,4 +16,5 @@ A JavaScript + HTML canvas implementation for BlockBreakC using WebAssembly
 | Left                 | Move Left  |
 | Right                | Move Right |
 | Enter                | Restart    |
+| S                    | Screenshot |
 | Swipe (Touch Screen) | Move       |

@@ -1,4 +1,4 @@
-/* HTML Canvas Implementation */
+/* HTML Canvas (C-WASM) Implementation */
 const context = element_canvas.getContext("2d");
 
 function impl_init(fontSize, fontName) {
@@ -21,13 +21,13 @@ importList["impl_loopStart"] = function() {
 	return;
 }
 
+/* Drawing */
 importList["impl_setColor"] = function(red, green, blue) {
 	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
 	sImpl_setColor(red, green, blue);
 	return;
 }
 
-/* Drawing */
 importList["impl_drawNumber"] = function(
 	x, y,
 	number

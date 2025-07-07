@@ -19,7 +19,7 @@ function toPositive(number) {
 WebAssembly.instantiateStreaming(
 	fetch("build/BlockBreakC-WASM.wasm"),
 	{ env: importList }
-).then(result => {	
+).then(result => {
 	/* Touch Input */
 	var touch_startX, touch_deltaX, touch_positiveX;
 	var touch_startY, touch_deltaY, touch_positiveY;
@@ -80,7 +80,15 @@ WebAssembly.instantiateStreaming(
 		return;
 	}
 	document.addEventListener("keydown", input);
-	
+	if (!urlParams.has("noSButton")) {
+		element_screenshotButton.addEventListener(
+			"click",
+			function() {
+				result.instance.exports.input(83);
+			},
+			false
+		);
+	}
 	
 	result.instance.exports._start();
 	

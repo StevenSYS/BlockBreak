@@ -68,10 +68,12 @@ importList["sImpl_end"] = function() {
 		const blob = new Blob([sImpl_svgData], { type: "image/svg" });
 		const element_download = document.createElement("a");
 		const url = window.URL.createObjectURL(blob);
+		document.body.appendChild(element_download);
 		element_download.href = url;
 		element_download.download = sImpl_fileName;
 		element_download.click();
 		window.URL.revokeObjectURL(url);
+		element_download.remove();
 	}
 	return;
 }

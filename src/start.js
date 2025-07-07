@@ -12,3 +12,12 @@ if (!urlParams.has("noBorder")) {
 }
 
 document.body.appendChild(element_canvas);
+
+const element_screenshotButton = document.createElement("div");
+if (!urlParams.has("noSButton")) {
+	element_screenshotButton.classList.add("button");
+	element_screenshotButton.classList.add("buttonGray");
+	element_screenshotButton.innerText = "Screenshot";
+	document.body.appendChild(document.createElement("br"));
+	document.body.appendChild(element_screenshotButton);
+}
