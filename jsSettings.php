@@ -64,7 +64,8 @@
 					array("name" => "Timer Speed", "argName" => "timerSpeed", "type" => "number", "default" => "1", "min" => "0", "max" => "999", "step" => "0.01"),
 					array("name" => "Max Blocks", "argName" => "maxBlocks", "type" => "number", "default" => "255", "min" => "1", "max" => "999", "step" => "0"),
 					array("name" => "FPS", "argName" => "fps", "type" => "number", "default" => "30", "min" => "1", "max" => "240", "step" => "0"),
-					array("name" => "Disable Border", "argName" => "noBorder", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "0")
+					array("name" => "Disable Border", "argName" => "noBorder", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "0"),
+					array("name" => "Disable Screenshot Button", "argName" => "noSButton", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "0")
 				);
 				foreach ($items as $item) {
 					createOption(
