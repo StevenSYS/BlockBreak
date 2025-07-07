@@ -18,7 +18,7 @@ $(document).ready(function() {
 		Module_Add("BlockBreak/" + jsFile);
 		
 		switch (jsFile) {
-			case "BB1111241242P.js":
+			case "BB1111240500P.js":
 				BlockBreak_Init();
 				break;
 			default:
