@@ -10,9 +10,9 @@ typedef enum {
 	FILE_NONE,
 	FILE_NEWFILE,
 	FILE_BROKEN
-} FILE_STATUS;
+} hssImpl_fileStatus;
 
-static char fileStatus = 0;
+static char fileStatus = FILE_NONE;
 
 static FILE *file;
 
@@ -23,7 +23,7 @@ unsigned int hssImpl_get() {
 	if (file == NULL) {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 		return 0;
-	} else if (fileStatus == 0) {
+	} else if (fileStatus == FILE_NONE) {
 		if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && strlen(buffer) > 0) {
 			perror(HSSIMPL_STRING_FILE_FAILREAD);
 			return 0;
