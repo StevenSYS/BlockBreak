@@ -3,6 +3,7 @@ from sharedVars import *
 from progInfo import *
 from entity import *
 from random import *
+from highScore import *
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((RENDER_WIDTH, RENDER_HEIGHT))
 running = true
@@ -152,6 +153,7 @@ def draw():
     if (timer < 1):
         if (score > highScore):
             highScore = score
+            hssImpl_set(highScore)
         reset()
     pygame.display.update()
     return
@@ -159,6 +161,8 @@ def main():
     global running
     global timerStart
     global player
+    hssImpl_open()
+    highScore = hssImpl_get()
     init()
     pygame.init()
     pygame.display.set_caption(PROGRAM_NAME + " v" + PROGRAM_VERSION)
@@ -186,5 +190,6 @@ def main():
                 running = 0
         draw()
     pygame.quit()
+    hssImpl_close()
     return
 main()

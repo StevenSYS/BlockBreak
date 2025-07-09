@@ -1,0 +1,141 @@
+/* High Score Saving Implementation */
+import sys
+
+from highScoreStrings import *
+from sharedVars import *
+
+hssImpl_fileName = "highScore.5hs";
+hssImpl_signature = "5HS\x57\xE6\xE4\x56\x50";
+hssImpl_lengthBuffer = 20;
+
+/* Enum - hssImpl_fileStatus */
+FILE_NONE = 0;
+FILE_NEWFILE = 1;
+FILE_BROKEN = 2;
+/* Enum End */
+
+fileStatus = FILE_NONE;
+
+file = NULL;
+
+def hssImpl_get() {
+	/*buffer[HSSIMPL_LENGTH_BUFFER];*/
+	newScore = 0;
+	
+	/*if (file == NULL) {
+		printf(HSSIMPL_STRING_FILE_NOTINIT);
+		return 0;
+	} else if (fileStatus == 0) {
+		if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL and strlen(buffer) > 0) {
+			perror(HSSIMPL_STRING_FILE_FAILREAD);
+			return 0;
+		} else if (strlen(buffer) <= 0) {
+			fprintf(stderr, HSSIMPL_STRING_FILE_SMALL, strlen(buffer));
+			return 0;
+		} else {
+			if (strncmp(buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0) {
+				/*
+					Why can't I use "for (i = 0; i < 4; i++)"?
+					Why is there no extern function, switches, pointers or brackets? (I'm using Bython so that's not a issue for me)
+					And why do you make comments using "#"? (Again, I'm using Bython so that's not a issue for me)
+					It's like Python was designed to be terrible
+					Actually it's like every coding language that isn't C (or HolyC) is made to be terrible
+						- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:20 PM (UTC)
+				*/
+				/*for i in range(4) {
+					newScore += *(buffer + (strlen(HSSIMPL_SIGNATURE) + i)) << (i * 8);
+				}
+			} else {
+				fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
+				fileStatus = FILE_BROKEN;
+			}
+		}
+	}*/
+	return newScore;
+}
+
+def hssImpl_set(highScore) {
+	/*
+		I'm going to bed now, because it's 11 PM
+		By the way, I'm not removing these useless comments
+		Also I hate Python
+			- StevenSYS 07/09/2025 11:17 PM (UTC)
+	*/
+	/*if (fileStatus == FILE_BROKEN) {
+		fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
+		return;
+	}
+	if (file == NULL) {
+		printf(HSSIMPL_STRING_FILE_NOTINIT);
+	} else {
+		file = fopen(HSSIMPL_FILENAME, "wb+");
+		if (file == NULL) {
+			perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE);
+			return;
+		}
+		fprintf(file, HSSIMPL_SIGNATURE);
+		fwrite(
+			&highScore,
+			1,
+			sizeof(int),
+			file
+		);
+		fflush(file);
+	}*/
+	return;
+}
+
+def hssImpl_open() {
+	global file;
+	
+	/*
+		I hate using "try" and "except", it's like I'm using that terrible version of C called C++
+			- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:50 PM (UTC)
+	*/	
+	try {
+		open(hssImpl_fileName, "r");
+		/*
+			Why does removing the space from "} except" fix it not working?
+				- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:02 PM (UTC)
+		*/
+	}except FileNotFoundError {
+		/*
+			Why doesn't "printf" or "fprintf" work?
+				- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:38 PM (UTC)
+		*/
+		print(hssImpl_string_file_failOpen_rMode);
+		try {
+			/*
+				I typed in "fopen" instead of "open" at first
+					- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:06 PM (UTC)
+			*/
+			file = open(hssImpl_fileName, "wb+");
+		}except FileNotFoundError {
+			print(hssImpl_string_file_failOpen_wbopMode, file = sys.stderr);
+		} else {
+			fileStatus = FILE_NEWFILE;
+			hssImpl_set(0);
+		}
+	} else {
+		try {
+			file = open(hssImpl_fileName, "rb+");
+		}except FileNotFoundError {
+			print(hssImpl_string_file_failOpen_rbpMode, file = sys.stderr);
+		}
+	}
+	return;
+}
+
+def hssImpl_close() {
+	global file;
+	
+	file.close();
+	/*
+		Why does "!" not work?
+			- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:11 PM (UTC)
+	*/
+	if (not file.closed) {
+		print(hssImpl_string_file_notInit, file= sys.stderr);
+	}
+	return;
+}

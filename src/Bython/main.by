@@ -4,6 +4,7 @@ from sharedVars import *
 from progInfo import *
 from entity import *
 from random import *
+from highScore import *
 
 clock = pygame.time.Clock()
 
@@ -205,6 +206,7 @@ def draw() {
 	if (timer < 1) {
 		if (score > highScore) {
 			highScore = score;
+			hssImpl_set(highScore);
 		}
 		reset();
 	}
@@ -217,6 +219,9 @@ def main() {
 	global running;
 	global timerStart;
 	global player;
+	
+	hssImpl_open();
+	highScore = hssImpl_get();
 	
 	init();
 	
@@ -260,6 +265,7 @@ def main() {
 	}
 	
 	pygame.quit();
+	hssImpl_close();
 	return;
 }
 
