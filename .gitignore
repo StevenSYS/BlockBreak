@@ -18,7 +18,6 @@ dosbox-x.conf
 
 # Lile is FMOD's file code that I decomplied using Ghidra and made into its own library
 # That's why I can't include it in this repository
-# Maybe I'll make a wrapper that uses the C standard library
 Lile
 
 .DS_Store

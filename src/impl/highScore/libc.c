@@ -12,28 +12,38 @@ typedef enum {
 	FILE_BROKEN
 } hssImpl_fileStatus;
 
-static char fileStatus = FILE_NONE;
+static hssImpl_fileStatus fileStatus = FILE_NONE;
 
 static FILE *file;
 
 unsigned int hssImpl_get() {
-	char buffer[HSSIMPL_LENGTH_BUFFER];
+	unsigned char buffer[HSSIMPL_LENGTH_BUFFER];
 	unsigned int newScore = 0;
+	long correctSize = strlen(HSSIMPL_SIGNATURE) + sizeof(unsigned int);
+	if (fseeko(file, 0, SEEK_END) != 0) {
+		perror(HSSIMPL_STRING_FILE_FAILREAD);
+		return 0;
+	}
+	off_t fileSize = ftello(file);
+	if (fseeko(file, 0, SEEK_SET) != 0) {
+		perror(HSSIMPL_STRING_FILE_FAILREAD);
+		return 0;
+	}
 	
 	if (file == NULL) {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 		return 0;
 	} else if (fileStatus == FILE_NONE) {
-		if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && strlen(buffer) > 0) {
+		if (fileSize < correctSize || fileSize > correctSize) {
+			fprintf(stderr, HSSIMPL_STRING_FILE_WRONGSIZE, fileSize, correctSize);
+			return 0;
+		} else if (fgets((char *)buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && fileSize > 0) {
 			perror(HSSIMPL_STRING_FILE_FAILREAD);
 			return 0;
-		} else if (strlen(buffer) <= 0) {
-			fprintf(stderr, HSSIMPL_STRING_FILE_SMALL, strlen(buffer));
-			return 0;
 		} else {
-			if (strncmp(buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0) {
+			if (strncmp((char *)buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0) {
 				for (unsigned char i = 0; i < 4; i++) {
-					newScore += *(buffer + (strlen(HSSIMPL_SIGNATURE) + i)) << (i * 8);
+					newScore += buffer[strlen(HSSIMPL_SIGNATURE) + i] << i * 8;
 				}
 			} else {
 				fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
@@ -49,6 +59,7 @@ void hssImpl_set(unsigned int highScore) {
 		fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
 		return;
 	}
+	
 	if (file == NULL) {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 	} else {
@@ -70,7 +81,7 @@ void hssImpl_set(unsigned int highScore) {
 }
 
 void hssImpl_open() {
-	if (fopen(HSSIMPL_FILENAME, "r") == NULL) {
+	if (fopen(HSSIMPL_FILENAME, "rb") == NULL) {
 		perror(HSSIMPL_STRING_FILE_FAILOPEN_RMODE);
 		file = fopen(HSSIMPL_FILENAME, "wb+");
 		if (file == NULL) {
