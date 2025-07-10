@@ -3,7 +3,11 @@ import sys
 from highScoreStrings import *
 from sharedVars import *
 hssImpl_fileName = "highScore.5hs"
-hssImpl_signature = "5HS\x57\xE6\xE4\x56\x50"
+#/*
+#Why can't I use ' to convert a character to its ASCII code?
+#- StevenSYS 07/10/2025 (MM/DD/YYYY) 10:45 PM (UTC)
+#*/
+hssImpl_signature = bytearray([ord("5"), ord("H"), ord("S"), 0x57, 0xE6, 0xE4, 0x56, 0x50])
 hssImpl_lengthBuffer = 20
 #/* Enum - hssImpl_fileStatus */
 FILE_NONE = 0
@@ -13,6 +17,10 @@ FILE_BROKEN = 2
 fileStatus = FILE_NONE
 file = NULL
 def hssImpl_get():
+    #/*
+    #This is the last function to implement
+    #- StevenSYS 07/10/2025 (MM/DD/YYYY) 11:44 PM (UTC)
+    #*/
     #/*buffer[HSSIMPL_LENGTH_BUFFER];*/
     newScore = 0
     #/*if (file == NULL){
@@ -49,37 +57,68 @@ def hssImpl_get():
     #}
     #}
     #*/
+    #/* Update 07/10/2025 (MM/DD/YYYY)
+    #unsigned char buffer[HSSIMPL_LENGTH_BUFFER]
+    #unsigned int newScore = 0
+    #long correctSize = strlen(HSSIMPL_SIGNATURE) + sizeof(unsigned int)
+    #if (fseeko(file, 0, SEEK_END) != 0){
+    #perror(HSSIMPL_STRING_FILE_FAILREAD)
+    #return 0
+    #}
+    #off_t fileSize = ftello(file)
+    #if (fseeko(file, 0, SEEK_SET) != 0){
+    #perror(HSSIMPL_STRING_FILE_FAILREAD)
+    #return 0
+    #}
+    #if (file == NULL){
+    #printf(HSSIMPL_STRING_FILE_NOTINIT)
+    #return 0
+    #}
+    #elif (fileStatus == FILE_NONE){
+    #if (fileSize < correctSize || fileSize > correctSize){
+    #fprintf(stderr, HSSIMPL_STRING_FILE_WRONGSIZE, fileSize, correctSize)
+    #return 0
+    #}
+    #elif (fgets((char *)buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && fileSize > 0){
+    #perror(HSSIMPL_STRING_FILE_FAILREAD)
+    #return 0
+    #}
+    #else{
+    #if (strncmp((char *)buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0){
+    #for (unsigned char i = 0; i < 4; i++){
+    #newScore += buffer[strlen(HSSIMPL_SIGNATURE) + i] << i * 8
+    #}
+    #}
+    #else{
+    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
+    #fileStatus = FILE_BROKEN
+    #}
+    #}
+    #}
+    #return newScore
+    #*/
     return newScore
 def hssImpl_set(highScore):
     #/*
     #I'm going to bed now, because it's 11 PM
     #By the way, I'm not removing these useless comments
     #Also I hate Python
-    #- StevenSYS 07/09/2025 11:17 PM (UTC)
+    #- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:17 PM (UTC)
     #*/
-    #/*if (fileStatus == FILE_BROKEN){
-    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
-    #return
-    #}
-    #if (file == NULL){
-    #printf(HSSIMPL_STRING_FILE_NOTINIT)
-    #}
-    #else{
-    #file = fopen(HSSIMPL_FILENAME, "wb+")
-    #if (file == NULL){
-    #perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE)
-    #return
-    #}
-    #fprintf(file, HSSIMPL_SIGNATURE)
-    #fwrite(
-    #&highScore,
-    #1,
-    #sizeof(int),
-    #file
-    #)
-    #fflush(file)
-    #}
+    #/*
+    #All right, I'm back the next day to (hopefully) finish this!
+    #- StevenSYS 07/10/2025 (MM/DD/YYYY) 10:28 PM (UTC)
     #*/
+    if (fileStatus == FILE_BROKEN):
+        print(HSSIMPL_STRING_FILE_NOTVALID, file = sys.stderr)
+    try:
+        file = open(hssImpl_fileName, "wb+")
+    except FileNotFoundError:
+        print(HSSIMPL_STRING_FAILOPEN_WBPMODE, file = sys.stderr)
+    else:
+        file.write(hssImpl_signature)
+        file.write(bytearray([highScore]))
+        file.flush()
     return
 def hssImpl_open():
     global file
@@ -88,7 +127,7 @@ def hssImpl_open():
     #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:50 PM (UTC)
     #*/
     try:
-        open(hssImpl_fileName, "r")
+        open(hssImpl_fileName, "rb")
         #/*
         #Why does removing the space from "} except" fix it not working?
         #- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:02 PM (UTC)
@@ -98,7 +137,7 @@ def hssImpl_open():
         #Why doesn't "printf" or "fprintf" work?
         #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:38 PM (UTC)
         #*/
-        print(hssImpl_string_file_failOpen_rMode)
+        print(HSSIMPL_STRING_FILE_FAILOPEN_RMODE)
         try:
             #/*
             #I typed in "fopen" instead of "open" at first
@@ -106,7 +145,7 @@ def hssImpl_open():
             #*/
             file = open(hssImpl_fileName, "wb+")
         except FileNotFoundError:
-            print(hssImpl_string_file_failOpen_wbopMode, file = sys.stderr)
+            print(HSSIMPL_STRING_FILE_FAILOPEN_WBOPMODE, file = sys.stderr)
         else:
             fileStatus = FILE_NEWFILE
             hssImpl_set(0)
@@ -114,15 +153,15 @@ def hssImpl_open():
         try:
             file = open(hssImpl_fileName, "rb+")
         except FileNotFoundError:
-            print(hssImpl_string_file_failOpen_rbpMode, file = sys.stderr)
+            print(HSSIMPL_STRING_FILE_FAILOPEN_RBPMODE, file = sys.stderr)
     return
 def hssImpl_close():
     global file
     file.close()
     #/*
-    #Why does "!" not work?
+    #Why doesn't "!" work?
     #- StevenSYS 07/09/2025 (MM/DD/YYYY) 11:11 PM (UTC)
     #*/
     if (not file.closed):
-        print(hssImpl_string_file_notInit, file= sys.stderr)
+        print(HSSIMPL_STRING_FILE_NOTINIT, file = sys.stderr)
     return

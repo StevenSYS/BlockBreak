@@ -2,11 +2,15 @@
 #Why doesn't Python have macros?
 #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:45 PM (UTC)
 #*/
-hssImpl_string_file_failOpen_rMode = "INFO: Failed to open high score file (r Mode)"
-hssImpl_string_file_failOpen_rbpMode = "ERROR: Failed to open high score file (rb+ Mode)"
-hssImpl_string_file_failOpen_wbpMode = "ERROR: Failed to open high score file (wb+ Mode)"
-hssImpl_string_file_notInit = "WARNING: High score file wasn't initialized\n"
-hssImpl_string_file_failRead = "ERROR: Failed to read high score file"
-hssImpl_string_file_small = "ERROR: High score file is %li bytes in size\n"
-hssImpl_string_file_notValid = "ERROR: High score file isn't valid\n"
-hssImpl_string_file_failClose = "ERROR: Failed to close high score file"; 
+#/*
+#Also, why doesn't Python have "const"?
+#- StevenSYS 07/10/2025 (MM/DD/YYYY) 10:34 PM (UTC)
+#*/
+HSSIMPL_STRING_FILE_FAILOPEN_RMODE = "INFO: Failed to open high score file (r Mode)"
+HSSIMPL_STRING_FILE_FAILOPEN_RBPMODE = "ERROR: Failed to open high score file (rb+ Mode)"
+HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE = "ERROR: Failed to open high score file (wb+ Mode)"
+HSSIMPL_STRING_FILE_NOTINIT = "WARNING: High score file wasn't initialized\n"
+HSSIMPL_STRING_FILE_FAILREAD = "ERROR: Failed to read high score file"
+HSSIMPL_STRING_FILE_SMALL = "ERROR: High score file is %li bytes in size\n"
+HSSIMPL_STRING_FILE_NOTVALID = "ERROR: High score file isn't valid\n"
+HSSIMPL_STRING_FILE_FAILCLOSE = "ERROR: Failed to close high score file"; 
