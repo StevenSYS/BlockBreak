@@ -79,6 +79,7 @@ WebAssembly.instantiateStreaming(
 		result.instance.exports.input(event.keyCode);
 		return;
 	}
+	
 	document.addEventListener("keydown", input);
 	if (!urlParams.has("noSButton")) {
 		element_screenshotButton.addEventListener(
