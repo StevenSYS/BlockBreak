@@ -102,4 +102,5 @@ if(NOT BUILD_ONLY_IMPL)
 		HSSImpl
 		Random
 	)
+	set_property(TARGET ${PROJECT_NAME} PROPERTY BUILD_RPATH ".")
 endif()
