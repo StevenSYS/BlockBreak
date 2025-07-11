@@ -1,5 +1,6 @@
 #/* High Score Saving Implementation */
 import sys
+import os
 from highScoreStrings import *
 from sharedVars import *
 hssImpl_fileName = "highScore.5hs"
@@ -23,40 +24,21 @@ def hssImpl_get():
     #*/
     #/*buffer[HSSIMPL_LENGTH_BUFFER];*/
     newScore = 0
-    #/*if (file == NULL){
-    #printf(HSSIMPL_STRING_FILE_NOTINIT)
-    #return 0
-    #}
-    #elif (fileStatus == 0){
-    #if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL and strlen(buffer) > 0){
-    #perror(HSSIMPL_STRING_FILE_FAILREAD)
-    #return 0
-    #}
-    #elif (strlen(buffer) <= 0){
-    #fprintf(stderr, HSSIMPL_STRING_FILE_SMALL, strlen(buffer))
-    #return 0
-    #}
-    #else{
-    #if (strncmp(buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0){
-    #/*
-    #Why can't I use "for (i = 0; i < 4; i++)"?
-    #Why is there no extern function, switches, pointers or brackets? (I'm using Bython so that's not a issue for me)
-    #And why do you make comments using "#"? (Again, I'm using Bython so that's not a issue for me)
-    #It's like Python was designed to be terrible
-    #Actually it's like every coding language that isn't C (or HolyC) is made to be terrible
-    #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:20 PM (UTC)
-    #*/
-    #/*for i in range(4){
-    #newScore += *(buffer + (strlen(HSSIMPL_SIGNATURE) + i)) << (i * 8)
-    #}
-    #}
-    #else{
-    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
-    #fileStatus = FILE_BROKEN
-    #}
-    #}
-    #}
-    #*/
+    minSize = len(hssImpl_signature) + 1
+    fileSize = os.path.getsize(hssImpl_fileName)
+    if (file.read().startswith(hssImpl_signature)):
+        print("HSS: File signature is correct")
+        if (fileSize < minSize):
+            print(
+                HSSIMPL_STRING_FILE_WRONGSIZE1 +
+                str(fileSize) +
+                HSSIMPL_STRING_FILE_WRONGSIZE2 +
+                str(minSize) +
+                HSSIMPL_STRING_FILE_WRONGSIZE3
+                )
+    else:
+        print(HSSIMPL_STRING_FILE_NOTVALID, file = sys.stderr)
+        fileStatus = FILE_BROKEN
     #/* Update 07/10/2025 (MM/DD/YYYY)
     #unsigned char buffer[HSSIMPL_LENGTH_BUFFER]
     #unsigned int newScore = 0
@@ -97,6 +79,40 @@ def hssImpl_get():
     #}
     #return newScore
     #*/
+    #/*if (file == NULL){
+    #printf(HSSIMPL_STRING_FILE_NOTINIT)
+    #return 0
+    #}
+    #elif (fileStatus == 0){
+    #if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL and strlen(buffer) > 0){
+    #perror(HSSIMPL_STRING_FILE_FAILREAD)
+    #return 0
+    #}
+    #elif (strlen(buffer) <= 0){
+    #fprintf(stderr, HSSIMPL_STRING_FILE_SMALL, strlen(buffer))
+    #return 0
+    #}
+    #else{
+    #if (strncmp(buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0){
+    #/*
+    #Why can't I use "for (i = 0; i < 4; i++)"?
+    #Why is there no extern function, switches, pointers or brackets? (I'm using Bython so Python not having brackets isn't an issue for me)
+    #And why do you make comments using "#"? (Again, I'm using Bython so this isn't an issue for me)
+    #It's like Python was designed to be terrible
+    #Actually it's like every coding language that isn't C (or HolyC) is made to be terrible
+    #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:20 PM (UTC)
+    #*/
+    #/*for i in range(4){
+    #newScore += *(buffer + (strlen(HSSIMPL_SIGNATURE) + i)) << (i * 8)
+    #}
+    #}
+    #else{
+    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
+    #fileStatus = FILE_BROKEN
+    #}
+    #}
+    #}
+    #*/
     return newScore
 def hssImpl_set(highScore):
     #/*
@@ -108,6 +124,12 @@ def hssImpl_set(highScore):
     #/*
     #All right, I'm back the next day to (hopefully) finish this!
     #- StevenSYS 07/10/2025 (MM/DD/YYYY) 10:28 PM (UTC)
+    #*/
+    #/*
+    #I couldn't finish the HSS yesterday
+    #Anyway, I'm going to bed now
+    #Also I still hate Python
+    #- StevenSYS 07/11/2025 (MM/DD/YYYY) 12:54 AM (UTC)
     #*/
     if (fileStatus == FILE_BROKEN):
         print(HSSIMPL_STRING_FILE_NOTVALID, file = sys.stderr)
@@ -134,7 +156,7 @@ def hssImpl_open():
         #*/
     except FileNotFoundError:
         #/*
-        #Why doesn't "printf" or "fprintf" work?
+        #Why don't "printf" or "fprintf" work?
         #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:38 PM (UTC)
         #*/
         print(HSSIMPL_STRING_FILE_FAILOPEN_RMODE)
