@@ -13,6 +13,7 @@ option(BUILD_ONLY_IMPL "Build only the implementation library" OFF)
 option(BUILD_AS_LIBRARY "Build the game as a library" OFF)
 option(BUILD_FOR_I586 "Build ${PROJECT_NAME} for i586 (Intel Pentium) or higher" OFF)
 option(ENABLE_SCREENSHOT "Enables taking screenshots" OFF)
+option(USE_BLOCKSIZELIST "Uses the block size list instead of doing the block size calculations at runtime" OFF)
 # Windows Compiler Options
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Only)" OFF)
 option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
@@ -35,6 +36,10 @@ endif()
 
 if(ENABLE_SCREENSHOT)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DENABLE_SCREENSHOT")
+endif()
+
+if(USE_BLOCKSIZELIST)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_BLOCKSIZELIST")
 endif()
 
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")

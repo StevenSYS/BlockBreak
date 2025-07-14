@@ -4,6 +4,11 @@
 
 #include "entity.h"
 #include "progInfo.h"
+#ifdef USE_BLOCKSIZELIST
+#include "blockSizeList.h"
+#endif
+
+#define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
 
 static unsigned char y, x;
 
@@ -40,10 +45,17 @@ void generateLevel(unsigned char level) {
 	blockCount = 0;
 	
 	if (level) {
-		unsigned short blockSize[2] = {
-			(unsigned short)(RENDER_WIDTH / level),
-			(unsigned short)(RENDER_HEIGHT / (level * 1.5))
-		};
+		unsigned short blockSize[2];
+		#ifdef USE_BLOCKSIZELIST
+		blockSize[0] = blockSizeList[level][0];
+		blockSize[1] = blockSizeList[level][1];
+		#else
+		blockSize[0] = (unsigned short)(RENDER_WIDTH / level);
+		blockSize[1] = (unsigned short)(RENDER_HEIGHT / (level * 1.5));
+		#endif
+		
+		LESSTHANSET(blockSize[0], 1);
+		LESSTHANSET(blockSize[1], 1);
 		
 		for (y =  0; y < level; y++) {
 			oldRandomColor = randomColor;
