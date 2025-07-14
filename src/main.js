@@ -28,6 +28,14 @@ const randomColors = [
 	[ 0xFF, 0xFF, 0x55 ]
 ];
 
+function lessThanSet(vari, value) {
+	if (vari < value) {
+		return value;
+	} else {
+		return vari;
+	}
+}
+
 /* Touch Input */
 var touch_startX, touch_deltaX;
 var touch_startY, touch_deltaY;
@@ -127,6 +135,9 @@ function generateLevel(level) {
 			Math.round(element_canvas.width / level),
 			Math.round(element_canvas.height / (level * 1.5))
 		];
+		
+		blockSize[0] = lessThanSet(blockSize[0], 1);
+		blockSize[1] = lessThanSet(blockSize[1], 1);
 		
 		for (var y = 0; y < level; y++) {
 			oldRandomColor = randomColor;
