@@ -68,7 +68,7 @@ static void drawLoop(int msecs) {
 
 /* Misc. */
 void impl_loopEnd() {
-	glFlush();
+	glutSwapBuffers();
 	#ifdef ENABLE_SCREENSHOT
 	sImpl_end();
 	#endif

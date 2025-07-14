@@ -27,17 +27,17 @@ int main() {
 	fprintf(file, "};\n");
 	fprintf(file, "static unsigned char index = 0;\n\n"),
 	fprintf(file, "void random_increase() {\n");
-	fprintf(file, "	/*\n");
-	fprintf(file, "		Since this is a unsigned char,\n");
-	fprintf(file, "		it will loop back to 0 when it goes over 255\n");
-	fprintf(file, "	*/\n");
-	fprintf(file, "	index++;\n");
-	fprintf(file, "	return;\n");
+	fprintf(file, "\t/*\n");
+	fprintf(file, "\t\tSince this is a unsigned char,\n");
+	fprintf(file, "\t\tit will loop back to 0 when it goes over 255\n");
+	fprintf(file, "\t*/\n");
+	fprintf(file, "\tindex++;\n");
+	fprintf(file, "\treturn;\n");
 	fprintf(file, "}\n");
 	fprintf(file, "\n");
 	fprintf(file, "unsigned char random_get() {\n");
-	fprintf(file, "	random_increase();\n");
-	fprintf(file, "	return table[index];\n");
+	fprintf(file, "\trandom_increase();\n");
+	fprintf(file, "\treturn table[index];\n");
 	fprintf(file, "}");
 	return 0;
 }

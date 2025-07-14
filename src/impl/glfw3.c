@@ -61,7 +61,6 @@ static void input(
 
 /* Misc. */
 void impl_loopEnd() {
-	glFlush();
 	glfwSwapBuffers(window);
 	#ifdef ENABLE_SCREENSHOT
 	sImpl_end();
