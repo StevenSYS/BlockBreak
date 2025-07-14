@@ -2,6 +2,6 @@
 __pycache__/
 
 # High Score File
-highScore.5hs
+*.5hs
 
 .DS_Store
