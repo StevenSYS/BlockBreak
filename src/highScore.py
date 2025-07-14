@@ -22,12 +22,11 @@ def hssImpl_get():
     #This is the last function to implement
     #- StevenSYS 07/10/2025 (MM/DD/YYYY) 11:44 PM (UTC)
     #*/
-    #/*buffer[HSSIMPL_LENGTH_BUFFER];*/
     newScore = 0
     minSize = len(hssImpl_signature) + 1
+    maxSize = len(hssImpl_signature) + 4
     fileSize = os.path.getsize(hssImpl_fileName)
     if (file.read().startswith(hssImpl_signature)):
-        print("HSS: File signature is correct")
         if (fileSize < minSize):
             print(
                 HSSIMPL_STRING_FILE_WRONGSIZE1 +
@@ -36,83 +35,27 @@ def hssImpl_get():
                 str(minSize) +
                 HSSIMPL_STRING_FILE_WRONGSIZE3
                 )
+            return 0
+        elif (fileSize > maxSize):
+            print(
+                HSSIMPL_STRING_FILE_WRONGSIZE1 +
+                str(fileSize) +
+                HSSIMPL_STRING_FILE_WRONGSIZE2 +
+                str(maxSize) +
+                HSSIMPL_STRING_FILE_WRONGSIZE3
+                )
+            return 0
+        else:
+            #/*
+            #I think Python might be the worst coding language ever created
+            #- StevenSYS 07/14/2025 (MM/DD/YYYY) 12:30 PM (UTC)
+            #*/
+            file.seek(len(hssImpl_signature))
+            for i in range(fileSize - len(hssImpl_signature)):
+                newScore += ord(file.read(1)) << i * 8
     else:
         print(HSSIMPL_STRING_FILE_NOTVALID, file = sys.stderr)
         fileStatus = FILE_BROKEN
-    #/* Update 07/10/2025 (MM/DD/YYYY)
-    #unsigned char buffer[HSSIMPL_LENGTH_BUFFER]
-    #unsigned int newScore = 0
-    #long correctSize = strlen(HSSIMPL_SIGNATURE) + sizeof(unsigned int)
-    #if (fseeko(file, 0, SEEK_END) != 0){
-    #perror(HSSIMPL_STRING_FILE_FAILREAD)
-    #return 0
-    #}
-    #off_t fileSize = ftello(file)
-    #if (fseeko(file, 0, SEEK_SET) != 0){
-    #perror(HSSIMPL_STRING_FILE_FAILREAD)
-    #return 0
-    #}
-    #if (file == NULL){
-    #printf(HSSIMPL_STRING_FILE_NOTINIT)
-    #return 0
-    #}
-    #elif (fileStatus == FILE_NONE){
-    #if (fileSize < correctSize || fileSize > correctSize){
-    #fprintf(stderr, HSSIMPL_STRING_FILE_WRONGSIZE, fileSize, correctSize)
-    #return 0
-    #}
-    #elif (fgets((char *)buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && fileSize > 0){
-    #perror(HSSIMPL_STRING_FILE_FAILREAD)
-    #return 0
-    #}
-    #else{
-    #if (strncmp((char *)buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0){
-    #for (unsigned char i = 0; i < 4; i++){
-    #newScore += buffer[strlen(HSSIMPL_SIGNATURE) + i] << i * 8
-    #}
-    #}
-    #else{
-    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
-    #fileStatus = FILE_BROKEN
-    #}
-    #}
-    #}
-    #return newScore
-    #*/
-    #/*if (file == NULL){
-    #printf(HSSIMPL_STRING_FILE_NOTINIT)
-    #return 0
-    #}
-    #elif (fileStatus == 0){
-    #if (fgets(buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL and strlen(buffer) > 0){
-    #perror(HSSIMPL_STRING_FILE_FAILREAD)
-    #return 0
-    #}
-    #elif (strlen(buffer) <= 0){
-    #fprintf(stderr, HSSIMPL_STRING_FILE_SMALL, strlen(buffer))
-    #return 0
-    #}
-    #else{
-    #if (strncmp(buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0){
-    #/*
-    #Why can't I use "for (i = 0; i < 4; i++)"?
-    #Why is there no extern function, switches, pointers or brackets? (I'm using Bython so Python not having brackets isn't an issue for me)
-    #And why do you make comments using "#"? (Again, I'm using Bython so this isn't an issue for me)
-    #It's like Python was designed to be terrible
-    #Actually it's like every coding language that isn't C (or HolyC) is made to be terrible
-    #- StevenSYS 07/09/2025 (MM/DD/YYYY) 10:20 PM (UTC)
-    #*/
-    #/*for i in range(4){
-    #newScore += *(buffer + (strlen(HSSIMPL_SIGNATURE) + i)) << (i * 8)
-    #}
-    #}
-    #else{
-    #fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID)
-    #fileStatus = FILE_BROKEN
-    #}
-    #}
-    #}
-    #*/
     return newScore
 def hssImpl_set(highScore):
     #/*
@@ -139,7 +82,11 @@ def hssImpl_set(highScore):
         print(HSSIMPL_STRING_FAILOPEN_WBPMODE, file = sys.stderr)
     else:
         file.write(hssImpl_signature)
-        file.write(bytearray([highScore]))
+        print(len(str(highScore)))
+        for i in range(len(str(highScore))):
+            if (highScore >= 5):
+                break
+            file.write(bytearray([highScore >> (i * 8) & 0xFF]))
         file.flush()
     return
 def hssImpl_open():

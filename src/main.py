@@ -168,6 +168,7 @@ def main():
     global running
     global timerStart
     global player
+    global highScore
     hssImpl_open()
     highScore = hssImpl_get()
     init()
