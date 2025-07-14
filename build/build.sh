@@ -9,6 +9,7 @@ compile() {
 	
 	clang \
 		--target=wasm32 \
+		-std=c99 \
 		-O3 \
 		--no-standard-libraries \
 		-DFONT_HEIGHT=16 \

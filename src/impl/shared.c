@@ -22,7 +22,7 @@ void getMacros(
 );
 
 void input(unsigned char key) {
-	random_increase();
+	random_index++;
 	switch (key) {
 		case 38: /* Up */
 			main_player->direction = ENTITY_DIR_UP;
