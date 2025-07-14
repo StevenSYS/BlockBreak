@@ -15,7 +15,7 @@
 		#define SIMPL_FCLOSE(_stream) fclose(_stream)
 		#define SIMPL_SNPRINTF(_str, _size, ...) snprintf(_str, _size, __VA_ARGS__)
 		#define SIMPL_FWRITE(_ptr, _size, _nmemb, _stream) fwrite(_ptr, _size, _nmemb, _stream)
-		#define SIMPL_ERROR(_message) perror("ERROR: " _message);
+		#define SIMPL_ERROR(_message) perror("ERROR: " _message)
 		#define SIMPL_NAME "libc"
 		
 		static FILE *file;
@@ -54,7 +54,7 @@
 		#define SIMPL_FCLOSE(_stream) FMOD_OS_File_Close(_stream)
 		#define SIMPL_SNPRINTF(_str, _size, ...) snprintf(_str, _size, __VA_ARGS__)
 		#define SIMPL_FWRITE(_ptr, _size, _nmemb, _stream) FMOD_OS_File_Write(_stream, _ptr, _size, false)
-		#define SIMPL_ERROR(_message) perror("ERROR: " _message);
+		#define SIMPL_ERROR(_message) perror("ERROR: " _message)
 		#define SIMPL_NAME "FMOD"
 		
 		/* Function Wrappers */
