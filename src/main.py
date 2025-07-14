@@ -35,6 +35,11 @@ font = pygame.font.SysFont(
     pygame.font.get_default_font(),
     FONT_HEIGHT
     )
+def lessThanSet(var, value):
+    if (var < value):
+        return value
+    else:
+        return var
 def generateLevel(level):
     global oldRandomColor
     global randomColor
@@ -46,6 +51,8 @@ def generateLevel(level):
         round(RENDER_WIDTH / level),
         round(RENDER_HEIGHT / (level * 1.5))
         ]
+        blockSize[0] = lessThanSet(blockSize[0], 1)
+        blockSize[1] = lessThanSet(blockSize[1], 1)
         for y in range(level):
             oldRandomColor = randomColor
             while (randomColor == oldRandomColor):
