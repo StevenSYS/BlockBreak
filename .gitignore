@@ -20,4 +20,7 @@ dosbox-x.conf
 # That's why I can't include it in this repository
 Lile
 
+# High Score File
+*.5hs
+
 .DS_Store
