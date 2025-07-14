@@ -6,6 +6,8 @@
 #include "entity.HC"
 #include "progInfo.HH"
 
+#define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
+
 Bool timerStart = FALSE;
 
 U8 randomColors[12] = {
@@ -50,6 +52,9 @@ U0 generateLevel(U8 level) {
 			RENDER_WIDTH / level,
 			RENDER_HEIGHT / (level * 1.5)
 		};
+		
+		LESSTHANSET(blockSize[0], 1);
+		LESSTHANSET(blockSize[1], 1);
 		
 		for (y = 0; y < level; y++) {
 			oldRandomColor = randomColor;
