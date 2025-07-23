@@ -39,6 +39,28 @@ elseif(SIMPL_TYPE STREQUAL "FMOD")
 		add_library(fmod "${LILE_SRC_PATH}/lile.c" "${LILE_SRC_PATH}/fmod.c")
 		target_link_libraries(SImpl fmod)
 	else()
+		if(
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" OR
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "EM64T" OR
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64"
+		)   
+			set(CPU_ARCH "x86_64")   
+		elseif(   
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "X86" OR
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" OR
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "i686"
+		)
+			set(CPU_ARCH "x86")
+		elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "arm")
+			set(CPU_ARCH "arm")
+		elseif(
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "ARM64" OR
+			CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64"
+		)
+			set(CPU_ARCH "arm64")
+		else()
+			message(FATAL_ERROR "FMOD: Unsupported CPU architecture")
+		endif()
 		if(WIN32)
 			set(LIB_EXTENSION ".dll")
 		elseif(LINUX)
@@ -48,8 +70,9 @@ elseif(SIMPL_TYPE STREQUAL "FMOD")
 		else()
 			message(FATAL_ERROR "FMOD: Unsupported platform")
 		endif()
+		
 		include_directories("$ENV{FMOD_STUDIO_SDK_ROOT}/api/core/inc")
-		set(FMOD_LIB_PATH "$ENV{FMOD_STUDIO_SDK_ROOT}/api/core/lib/${CMAKE_SYSTEM_PROCESSOR}")
+		set(FMOD_LIB_PATH "$ENV{FMOD_STUDIO_SDK_ROOT}/api/core/lib/${CPU_ARCH}")
 		target_link_libraries(SImpl "${FMOD_LIB_PATH}/libfmod${LIB_EXTENSION}")
 	endif()
 endif()
