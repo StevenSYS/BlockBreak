@@ -1,3 +1,4 @@
+/* [AUTO GENERATED] */
 U8 table[256] = {
 	9, 4, 6, 11, 3, 0, 3, 4, 11, 9, 7, 9, 2, 9, 0, 10, 
 	8, 2, 0, 4, 0, 2, 3, 0, 1, 8, 9, 2, 6, 10, 10, 7, 
@@ -16,18 +17,13 @@ U8 table[256] = {
 	5, 0, 2, 1, 11, 2, 9, 11, 3, 8, 3, 2, 9, 9, 11, 0, 
 	0, 1, 6, 4, 5, 4, 0, 2, 2, 6, 6, 5, 3, 0, 10, 1
 };
-U8 index = 0;
+U8 random_index = 0;
 
-U0 random_increase() {
+U8 random_get() {
 	/*
 		Since this is a U8,
 		it will loop back to 0 when it goes over 255
 	*/
-	index++;
-	return;
-}
-
-U8 random_get() {
-	random_increase();
-	return table[index];
+	random_index++;
+	return table[random_index];
 }

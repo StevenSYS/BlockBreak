@@ -219,7 +219,7 @@ U0 main() {
 	while (TRUE) {
 		switch (GetKey(&sc)) {
 			default:
-				random_increase();
+				random_index++;
 				switch (sc.u8[0]) {
 					case SC_CURSOR_UP:
 						player.direction = ENTITY_DIR_UP;
