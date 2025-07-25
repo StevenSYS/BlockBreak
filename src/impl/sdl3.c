@@ -31,7 +31,7 @@ static void handleEvent() {
 	
 	switch (event.type) {
 		case SDL_EVENT_KEY_DOWN:
-			random_increase();
+			random_index++;
 			switch (event.key.scancode) {
 				case SDL_SCANCODE_UP:
 					main_player->direction = ENTITY_DIR_UP;

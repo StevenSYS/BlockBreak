@@ -23,7 +23,7 @@ static void input(
 	int mods
 ) {
 	if (action == GLFW_PRESS) {
-		random_increase();
+		random_index++;
 		switch (key) {
 			case GLFW_KEY_UP:
 				*main_timerStart = 1;

@@ -9,10 +9,11 @@ int main() {
 	FILE *file = fopen("../random/random.c", "w");
 	
 	if (file == NULL) {
-		fprintf(stderr, "ERROR: Failed to open/make file\n");
+		perror("ERROR: Failed to open/make file");
 		return 1;
 	}
 	
+	fprintf(file, "/* [AUTO GENERATED] */\n");
 	fprintf(file, "static const unsigned char table[256] = {\n");
 	for (unsigned char y = 0; y < 16; y++) {
 		fprintf(file, "	");
@@ -25,19 +26,14 @@ int main() {
 		fprintf(file, "\n");
 	}
 	fprintf(file, "};\n");
-	fprintf(file, "static unsigned char index = 0;\n\n"),
-	fprintf(file, "void random_increase() {\n");
+	fprintf(file, "unsigned char random_index = 0;\n\n"),
+	fprintf(file, "unsigned char random_get() {\n");
 	fprintf(file, "\t/*\n");
 	fprintf(file, "\t\tSince this is a unsigned char,\n");
 	fprintf(file, "\t\tit will loop back to 0 when it goes over 255\n");
 	fprintf(file, "\t*/\n");
-	fprintf(file, "\tindex++;\n");
-	fprintf(file, "\treturn;\n");
-	fprintf(file, "}\n");
-	fprintf(file, "\n");
-	fprintf(file, "unsigned char random_get() {\n");
-	fprintf(file, "\trandom_increase();\n");
-	fprintf(file, "\treturn table[index];\n");
+	fprintf(file, "\trandom_index++;\n");
+	fprintf(file, "\treturn table[random_index];\n");
 	fprintf(file, "}");
 	return 0;
 }

@@ -18,7 +18,7 @@ static entity_t *main_player;
 
 static void input() {
 	if (GetKeyPressed()) {
-		random_increase();
+		random_index++;
 		if (IsKeyPressed(KEY_UP)) {
 			main_player->direction = ENTITY_DIR_UP;
 			*main_timerStart = 1;

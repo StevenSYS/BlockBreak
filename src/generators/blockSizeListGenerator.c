@@ -30,7 +30,7 @@
 #endif
 
 /* - Macro Functions - */
-#define HEADER(_ptr, _name) fprintf(_ptr, "#ifndef __" _name "__\n#define __" _name "__\n\n")
+#define HEADER(_ptr, _name) fprintf(_ptr, "/* [AUTO GENERATED] */\n#ifndef __" _name "__\n#define __" _name "__\n\n")
 #define FOOTER(_ptr) fprintf(_ptr, " #endif\n")
 #define ADDENTRY(_ptr, _w, _h) fprintf(_ptr, "\t{ %u, %u }", _w, _h)
 #define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }

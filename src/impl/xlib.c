@@ -34,7 +34,7 @@ static GC gc;
 
 static void handleInput() {
 	if (event.type == KeyPress) {
-		random_increase();
+		random_index++;
 		switch (
 		#ifdef XLIB_LEGACY
 			XKeycodeToKeysym(

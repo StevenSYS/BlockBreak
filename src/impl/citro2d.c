@@ -28,22 +28,22 @@ static void input() {
 	
 	inputDown = hidKeysDown();
 	if ((inputDown & KEY_UP) || (inputDown & KEY_X)) {
-		random_increase();
+		random_index++;
 		*main_timerStart = 1;
 		main_player->direction = ENTITY_DIR_UP;
 	}
 	if ((inputDown & KEY_DOWN) || (inputDown & KEY_B)) {
-		random_increase();
+		random_index++;
 		*main_timerStart = 1;
 		main_player->direction = ENTITY_DIR_DOWN;
 	}
 	if ((inputDown & KEY_LEFT) || (inputDown & KEY_Y)) {
-		random_increase();
+		random_index++;
 		*main_timerStart = 1;
 		main_player->direction = ENTITY_DIR_LEFT;
 	}
 	if ((inputDown & KEY_RIGHT) || (inputDown & KEY_A)) {
-		random_increase();
+		random_index++;
 		*main_timerStart = 1;
 		main_player->direction = ENTITY_DIR_RIGHT;
 	}

@@ -77,7 +77,7 @@ static void handleInput() {
 		}
 	} else {
 		if (!increasePressed) {
-			random_increase();
+			random_index++;
 			increasePressed = 1;
 		}
 		switch (keyCode & 0x7F) {

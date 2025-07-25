@@ -16,7 +16,7 @@ static void input(
 	unsigned char key,
 	int x, int y
 ) {
-	random_increase();
+	random_index++;
 	switch (key) {
 		case '\r': /* Enter */
 			main_reset();
@@ -36,7 +36,7 @@ static void inputSpecial(
 	int key,
 	int x, int y
 ) {
-	random_increase();
+	random_index++;
 	switch (key) {
 		case GLUT_KEY_UP:
 			main_player->direction  = ENTITY_DIR_UP;
