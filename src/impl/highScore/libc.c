@@ -20,12 +20,16 @@ unsigned int hssImpl_get() {
 	unsigned char buffer[HSSIMPL_LENGTH_BUFFER];
 	unsigned int newScore = 0;
 	long correctSize = strlen(HSSIMPL_SIGNATURE) + sizeof(unsigned int);
-	if (fseeko(file, 0, SEEK_END) != 0) {
+	long fileSize;
+	
+	if (fseek(file, 0, SEEK_END) != 0) {
 		perror(HSSIMPL_STRING_FILE_FAILREAD);
 		return 0;
 	}
-	off_t fileSize = ftello(file);
-	if (fseeko(file, 0, SEEK_SET) != 0) {
+	
+	fileSize = ftell(file);
+	
+	if (fseek(file, 0, SEEK_SET) != 0) {
 		perror(HSSIMPL_STRING_FILE_FAILREAD);
 		return 0;
 	}

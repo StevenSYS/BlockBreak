@@ -1,4 +1,5 @@
 /* Xlib Implementation */
+#define _DEFAULT_SOURCE
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #ifndef XLIB_LEAGCY

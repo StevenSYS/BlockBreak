@@ -18,7 +18,12 @@ option(USE_BLOCKSIZELIST "Uses the block size list instead of doing the block si
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Only)" OFF)
 option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-rpath=.")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -MD")
+
+if(NOT IMPL STREQUAL "DJGPP")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+endif()
+
 if(IMPL STREQUAL "DJGPP")
  	set(CMAKE_C_COMPILER "i586-pc-msdosdjgpp-gcc")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRENDER_WIDTH=320 -DRENDER_HEIGHT=200 -DFONT_WIDTH=8 -DFONT_HEIGHT=8 -DPLAYER_HEIGHT=7 -DPLAYER_SPEED=4 -DFILENAME83")

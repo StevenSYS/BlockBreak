@@ -1,4 +1,5 @@
 /* GLFW3 Implementation */
+#define _DEFAULT_SOURCE
 #define IMPL_NAME "GLFW3"
 #include <unistd.h>
 

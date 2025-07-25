@@ -1,4 +1,5 @@
 /* citro2d Implementation */
+#define _DEFAULT_SOURCE
 #include <citro2d.h>
 #include <unistd.h>
 #include <random.h>
