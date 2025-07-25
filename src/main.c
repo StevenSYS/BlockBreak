@@ -186,7 +186,13 @@ void draw() {
 	return;
 }
 
-int main(
+int
+#ifdef CUSTOM_MAIN_NAME
+CUSTOM_MAIN_NAME
+#else
+main
+#endif
+(
 	int argc,
 	char *argv[]
 ) {

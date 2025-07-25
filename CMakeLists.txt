@@ -18,10 +18,10 @@ option(USE_BLOCKSIZELIST "Uses the block size list instead of doing the block si
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Only)" OFF)
 option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -MD")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -MD")
 
 if(NOT IMPL STREQUAL "DJGPP")
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -std=c99")
 endif()
 
 if(IMPL STREQUAL "DJGPP")
@@ -90,6 +90,7 @@ if(NOT BUILD_ONLY_IMPL)
 	file(GLOB SOURCE_FILES "src/*.c")
 	
 	if(BUILD_AS_LIBRARY)
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DCUSTOM_MAIN_NAME=blockBreakC_main")
 		add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 	else()
 		add_executable(${PROJECT_NAME} ${RESOURCE_FILES} ${SOURCE_FILES})
