@@ -17,10 +17,7 @@ elseif(IMPL STREQUAL "GLFW3")
 elseif(IMPL STREQUAL "SDL3GL")
 	find_package(SDL3 REQUIRED)
 	find_package(OpenGL REQUIRED)
-	include_directories(
-		${SDL3_INCLUDE_DIRS}
-		${OPENGL_INCLUDE_DIRS}
-	)
+	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "sdl3GL.c")
 elseif(IMPL STREQUAL "raylib")
 	find_package(raylib 3.0 REQUIRED)

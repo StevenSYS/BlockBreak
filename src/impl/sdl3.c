@@ -17,6 +17,8 @@ static void (*main_reset)();
 static char running = 1;
 static char *main_timerStart;
 
+static int waitTime;
+
 static unsigned int lastTime;
 
 static SDL_Event event;
@@ -164,13 +166,15 @@ void impl_init(
 		handleEvent();
 		draw();
 		
-		SDL_Delay(
-			(
-				((float)1000.0f) / MAX_FPS
-			) - (
-				SDL_GetTicks() - lastTime
-			)
+		waitTime = (
+			1000 / MAX_FPS
+		) - (
+			SDL_GetTicks() - lastTime
 		);
+		
+		if (waitTime > 0) {
+			SDL_Delay(waitTime);
+		}
 		
 		handleEvent();
 	}
