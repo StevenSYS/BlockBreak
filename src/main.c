@@ -44,7 +44,7 @@ entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 void generateLevel(unsigned char level) {
 	blockCount = 0;
 	
-	if (level) {
+	if (level > 0) {
 		unsigned short blockSize[2];
 		#ifdef USE_BLOCKSIZELIST
 		blockSize[0] = blockSizeList[level][0];
