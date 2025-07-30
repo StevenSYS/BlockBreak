@@ -6,7 +6,7 @@
 #include "entity.HC"
 #include "progInfo.HH"
 
-#define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
+static U8 x, y;
 
 Bool timerStart = FALSE;
 
@@ -24,7 +24,6 @@ U8 randomColors[12] = {
 	LTPURPLE,
 	YELLOW
 };
-U8 x, y;
 U8 oldRandomColor = 13;
 U8 randomColor = 13;
 U8 level = 1;
@@ -39,22 +38,31 @@ U32 score = 0;
 CDC *dc = DCAlias;
 
 entity_t player;
-entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
 RegExe(PROGRAM_NAME);
+
+U0 lessThanSetU16(
+	U16 *var,
+	U16 value
+) {
+	if (var < value) {
+		*var = value;
+	}
+	return;
+}
 
 U0 generateLevel(U8 level) {
 	blockCount = 0;
 	
 	if (level > 0) {
-		U16 blockSize[2] = {
-			RENDER_WIDTH / level,
-			RENDER_HEIGHT / (level * 1.5)
-		};
+		U16 blockSize[2];
+		blockSize[0] = RENDER_WIDTH / level;
+		blockSize[1] = RENDER_HEIGHT / (level * 1.5);
 		
-		LESSTHANSET(blockSize[0], 1);
-		LESSTHANSET(blockSize[1], 1);
+		lessThanSetU16(&blockSize[0], 1);
+		lessThanSetU16(&blockSize[1], 1);
 		
 		for (y = 0; y < level; y++) {
 			oldRandomColor = randomColor;
@@ -69,13 +77,11 @@ U0 generateLevel(U8 level) {
 					(y * blockSize[1] < RENDER_HEIGHT)
 				) {
 					blockCount++;
-					entity_init(
+					object_init(
 						&blocks[y][x],
 						randomColor,
-						ENTITY_DIR_NONE,
 						blockSize[0], blockSize[1],
 						x * blockSize[0], y * blockSize[1],
-						0,
 						TRUE
 					);
 				}
@@ -114,9 +120,9 @@ U0 reset() {
 	level = 1;
 	score = 0;
 	timerStart = FALSE;
-	for (i = 0; i < MAX_BLOCKS; i++) {
-		for (j = 0; j < MAX_BLOCKS; j++) {
-			blocks[j][i].visible = FALSE;
+	for (y = 0; y < MAX_BLOCKS; y++) {
+		for (x = 0; x < MAX_BLOCKS; x++) {
+			blocks[x][y].visible = FALSE;
 		}
 	}
 	init();
@@ -137,28 +143,26 @@ U0 draw(CTask *task, CDC *dc) {
 		init();
 	}
 	
-	if (player.position[1] <= SCREEN_EDGE_UP) {
+	if (player.object.position[1] <= SCREEN_EDGE_UP) {
 		player.direction = ENTITY_DIR_DOWN;
-		player.position[1] = SCREEN_EDGE_UP;
-	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
+		player.object.position[1] = SCREEN_EDGE_UP;
+	} else if (player.object.position[1] >= SCREEN_EDGE_DOWN) {
 		player.direction = ENTITY_DIR_UP;
-		player.position[1] = SCREEN_EDGE_DOWN;
-	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
+		player.object.position[1] = SCREEN_EDGE_DOWN;
+	} else if (player.object.position[0] <= SCREEN_EDGE_LEFT) {
 		player.direction = ENTITY_DIR_RIGHT;
-		player.position[0] = SCREEN_EDGE_LEFT;
-	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
+		player.object.position[0] = SCREEN_EDGE_LEFT;
+	} else if (player.object.position[0] >= SCREEN_EDGE_RIGHT) {
 		player.direction = ENTITY_DIR_LEFT;
-		player.position[0] = SCREEN_EDGE_RIGHT;
+		player.object.position[0] = SCREEN_EDGE_RIGHT;
 	}
 	
-	entity_draw(dc, &player, TRUE);
-	
-	for (i = 0; i < level; i++) {
-		for (j = 0; j < level; j++) {
-			if (blocks[j][i].visible) {
-				entity_draw(dc, &blocks[j][i], FALSE);	
-				if (entity_collision(&player, &blocks[j][i])) {
-					blocks[j][i].visible = FALSE;
+	entity_draw(dc, &player);
+	for (y = 0; y < level; y++) {
+		for (x = 0; x < level; x++) {
+			if (object_draw(dc, &blocks[x][y])) {
+				if (object_collision(&player.object, &blocks[x][y])) {
+					blocks[x][y].visible = FALSE;
 					blockCount--;
 					score += 10;
 				}
@@ -244,11 +248,11 @@ U0 main() {
 				break;
 			case CH_ESC:
 			case CH_SHIFT_ESC:
-				goto uninit;
+				goto unInit;
 		}
 	}
 	
-	uninit:
+	unInit:
 	DocClear();
 	
 	DCClear();
