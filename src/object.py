@@ -1,0 +1,35 @@
+import pygame
+from sharedVars import *
+class objectClass:
+    def __init__(
+        self,
+        red, green, blue,
+        width, height,
+        x, y,
+        visible
+        ):
+        self.color = [ red, green, blue ]
+        self.size = [ width, height ]
+        self.position = [ x, y ]
+        self.visible = visible
+        return
+    def collision(self, object):
+        if (
+            ((self.position[0] + self.size[0]) >= object.position[0]) and
+            (self.position[0] <= (object.position[0] + object.size[0])) and
+            (self.position[1] <= (object.position[1] + object.size[1])) and
+            ((self.position[1] + self.size[1]) >= object.position[1])
+            ):
+            return true
+        return false
+    def draw(
+        self,
+        screen
+        ):
+        if (self.visible):
+            pygame.draw.rect(
+                screen,
+                self.color,
+                (self.position, self.size)
+                )
+        return self.visible

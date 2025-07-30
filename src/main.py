@@ -63,14 +63,12 @@ def generateLevel(level):
                     (y * blockSize[1] < RENDER_HEIGHT)
                     ):
                     blockCount += 1
-                    blocks.append(entity(
+                    blocks.append(objectClass(
                             randomColors[randomColor][0],
                             randomColors[randomColor][1],
                             randomColors[randomColor][2],
-                            ENTITY_DIR_NONE,
                             blockSize[0], blockSize[1],
                             x * blockSize[0], y * blockSize[1],
-                            0,
                             true
                             ))
     return
@@ -122,26 +120,27 @@ def draw():
             level += 1
         init()
     screen.fill((0x00, 0x00, 0x00))
-    if (player.position[1] <= SCREEN_EDGE_UP):
+    if (player.object.position[1] <= SCREEN_EDGE_UP):
         player.direction = ENTITY_DIR_DOWN
-        player.position[1] = SCREEN_EDGE_UP
-    elif (player.position[1] >= SCREEN_EDGE_DOWN):
+        player.object.position[1] = SCREEN_EDGE_UP
+    elif (player.object.position[1] >= SCREEN_EDGE_DOWN):
         player.direction = ENTITY_DIR_UP
-        player.position[1] = SCREEN_EDGE_DOWN
-    elif (player.position[0] <= SCREEN_EDGE_LEFT):
+        player.object.position[1] = SCREEN_EDGE_DOWN
+    elif (player.object.position[0] <= SCREEN_EDGE_LEFT):
         player.direction = ENTITY_DIR_RIGHT
-        player.position[0] = SCREEN_EDGE_LEFT
-    elif (player.position[0] >= SCREEN_EDGE_RIGHT):
+        player.object.position[0] = SCREEN_EDGE_LEFT
+    elif (player.object.position[0] >= SCREEN_EDGE_RIGHT):
         player.direction = ENTITY_DIR_LEFT
-        player.position[0] = SCREEN_EDGE_RIGHT
-    player.draw(screen, true)
+        player.object.position[0] = SCREEN_EDGE_RIGHT
+    player.draw(screen)
     for block in blocks:
-        if (block.visible):
-            block.draw(screen, false)
-            if (player.collision(block)):
-                block.visible = false
-                blockCount -= 1
-                score += 10
+        if (
+            block.draw(screen) and
+            block.collision(player.object)
+            ):
+            block.visible = false
+            blockCount -= 1
+            score += 10
     screen.blit(
         font.render(str(timer), false, (0xFF, 0xFF, 0xFF)),
         (0, RENDER_HEIGHT - (FONT_HEIGHT * 4))
@@ -190,7 +189,7 @@ def main():
                 if (event.key == pygame.K_ESCAPE):
                     running = false
             if (event.type == pygame.QUIT):
-                running = 0
+                running = true
         draw()
     pygame.quit()
     return
