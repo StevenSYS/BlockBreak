@@ -39,7 +39,7 @@ unsigned int score = 0;
 unsigned int highScore;
 
 entity_t player;
-entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 void generateLevel(unsigned char level) {
 	blockCount = 0;
@@ -67,13 +67,11 @@ void generateLevel(unsigned char level) {
 			for (x = 0; x < level; x++) {
 				if ((x * blockSize[0] < RENDER_WIDTH) && (y * blockSize[1] < RENDER_HEIGHT)) {
 					blockCount++;
-					entity_init(
+					object_init(
 						&blocks[x][y],
 						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
-						ENTITY_DIR_NONE,
 						blockSize[0], blockSize[1],
 						x * blockSize[0], y * blockSize[1],
-						0,
 						1
 					);
 				}
@@ -136,26 +134,26 @@ void draw() {
 		init();
 	}
 	
-	if (player.position[1] <= SCREEN_EDGE_UP) {
+	if (player.object.position[1] <= SCREEN_EDGE_UP) {
 		player.direction = ENTITY_DIR_DOWN;
-		player.position[1] = SCREEN_EDGE_UP;
-	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
+		player.object.position[1] = SCREEN_EDGE_UP;
+	} else if (player.object.position[1] >= SCREEN_EDGE_DOWN) {
 		player.direction = ENTITY_DIR_UP;
-		player.position[1] = SCREEN_EDGE_DOWN;
-	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
+		player.object.position[1] = SCREEN_EDGE_DOWN;
+	} else if (player.object.position[0] <= SCREEN_EDGE_LEFT) {
 		player.direction = ENTITY_DIR_RIGHT;
-		player.position[0] = SCREEN_EDGE_LEFT;
-	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
+		player.object.position[0] = SCREEN_EDGE_LEFT;
+	} else if (player.object.position[0] >= SCREEN_EDGE_RIGHT) {
 		player.direction = ENTITY_DIR_LEFT;
-		player.position[0] = SCREEN_EDGE_RIGHT;
+		player.object.position[0] = SCREEN_EDGE_RIGHT;
 	}
 	
-	entity_draw(&player, 1);
+	entity_draw(&player);
 	for (y =  0; y < level; y++) {
 		for (x = 0; x < level; x++) {
 			if (blocks[x][y].visible) {
-				entity_draw(&blocks[x][y], 0);	
-				if (entity_collision(&player, &blocks[x][y])) {
+				object_draw(&blocks[x][y]);
+				if (object_collision(&player.object, &blocks[x][y])) {
 					blocks[x][y].visible = 0;
 					blockCount--;
 					score += 10;

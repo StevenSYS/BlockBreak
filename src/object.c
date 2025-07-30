@@ -1,0 +1,48 @@
+#include <impl.h>
+
+#include "object.h"
+
+unsigned char object_collision(
+	object_t *object1,
+	object_t *object2
+) {
+	if (
+		((object1->position[0] + object1->size[0]) >= object2->position[0]) &&
+		(object1->position[0] <= (object2->position[0] + object2->size[0])) &&
+		(object1->position[1] <= (object2->position[1] + object2->size[1])) &&
+		((object1->position[1] + object1->size[1]) >= object2->position[1])
+	) {
+		return 1;
+	}
+	return 0;
+}
+
+void object_init(
+	object_t *object,
+	unsigned char red, unsigned char green,	unsigned char blue,
+	unsigned short width, unsigned short height,
+	signed short x, signed short y,
+	char visible
+) {
+	object->color[0] = red;
+	object->color[1] = green;
+	object->color[2] = blue;
+	object->size[0] = width;
+	object->size[1] = height;
+	object->position[0] = x;
+	object->position[1] = y;
+	object->visible = visible;
+	return;
+}
+
+void object_draw(object_t *object) {
+	if (object->visible) {
+		impl_setColor(object->color[0], object->color[1], object->color[2]);
+		impl_drawFillRect(
+			object->position[0],
+			object->position[1],
+			object->size[0],
+			object->size[1]
+		);
+	}
+}

@@ -1,6 +1,9 @@
 #ifndef __ENTITY__
 #define __ENTITY__
 
+#include "object.h"
+
+/* Enums */
 enum entity_directions {
 	ENTITY_DIR_NONE,
 	ENTITY_DIR_UP,
@@ -9,24 +12,17 @@ enum entity_directions {
 	ENTITY_DIR_RIGHT
 };
 
+/* Structs */
 typedef struct {
-	unsigned char color[3];
 	unsigned char direction;
-	unsigned short size[2];
-	signed short position[2];
 	signed short speed;
-	
-	char visible;
+	object_t object;
 } entity_t;
 
-unsigned char entity_collision(
-	entity_t *entity1,
-	entity_t *entity2
-);
-
+/* Functions */
 void entity_init(
 	entity_t *entity,
-	unsigned char red, unsigned char green,	unsigned char blue,
+	unsigned char red, unsigned char green, unsigned char blue,
 	unsigned char direction,
 	unsigned short width, unsigned short height,
 	signed short x, signed short y,
@@ -34,9 +30,6 @@ void entity_init(
 	char visible
 );
 
-void entity_draw(
-	entity_t *entity,
-	char useDirection
-);
+void entity_draw(entity_t *entity);
 
 #endif
