@@ -22,7 +22,7 @@ void entity_init(
 	return;
 }
 
-void entity_draw(entity_t *entity) {
+char entity_draw(entity_t *entity) {
 	switch (entity->direction) {
 		case ENTITY_DIR_UP:
 			entity->object.position[1] -= entity->speed;
@@ -40,6 +40,5 @@ void entity_draw(entity_t *entity) {
 			break;
 	}
 	
-	object_draw(&entity->object);
-	return;
+	return object_draw(&entity->object);
 }

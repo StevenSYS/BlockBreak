@@ -35,7 +35,7 @@ void object_init(
 	return;
 }
 
-void object_draw(object_t *object) {
+char object_draw(object_t *object) {
 	if (object->visible) {
 		impl_setColor(object->color[0], object->color[1], object->color[2]);
 		impl_drawFillRect(
@@ -45,4 +45,5 @@ void object_draw(object_t *object) {
 			object->size[1]
 		);
 	}
+	return object->visible;
 }

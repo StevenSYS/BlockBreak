@@ -30,6 +30,6 @@ void entity_init(
 	char visible
 );
 
-void entity_draw(entity_t *entity);
+char entity_draw(entity_t *entity);
 
 #endif

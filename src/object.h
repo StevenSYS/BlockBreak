@@ -24,6 +24,6 @@ void object_init(
 	char visible
 );
 
-void object_draw(object_t *object);
+char object_draw(object_t *object);
 
 #endif
