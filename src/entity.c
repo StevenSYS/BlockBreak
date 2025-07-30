@@ -9,16 +9,15 @@ void entity_init(
 	signed short speed,
 	char visible
 ) {
-	entity->object.color[0] = red;
-	entity->object.color[1] = green;
-	entity->object.color[2] = blue;
 	entity->direction = direction;
-	entity->object.size[0] = width;
-	entity->object.size[1] = height;
-	entity->object.position[0] = x;
-	entity->object.position[1] = y;
 	entity->speed = speed;
-	entity->object.visible = visible;
+	object_init(
+		&entity->object,
+		red, green, blue,
+		width, height,
+		x, y,
+		visible
+	);
 	return;
 }
 
