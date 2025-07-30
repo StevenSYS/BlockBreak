@@ -23,14 +23,15 @@ U0 entity_init(
 	I16 speed,
 	Bool visible
 ) {
-	entity->object.color = color;
 	entity->direction = direction;
-	entity->object.size[0] = width;
-	entity->object.size[1] = height;
-	entity->object.position[0] = x;
-	entity->object.position[1] = y;
 	entity->speed = speed;
-	entity->object.visible = visible;
+	object_init(
+		&entity->object,
+		color,
+		width, height,
+		x, y,
+		visible
+	);
 	return;
 }
 
@@ -55,5 +56,5 @@ Bool entity_draw(
 			break;
 	}
 	
-	return object_draw(dc, &entity->object);
+	return object_draw(dc, &entity->object);
 }
