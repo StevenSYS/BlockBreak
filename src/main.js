@@ -130,7 +130,7 @@ function generateLevel(level) {
 	blockCount = 0;
 	blocks = [];
 	
-	if (level) {
+	if (level > 0) {
 		blockSize = [
 			Math.round(element_canvas.width / level),
 			Math.round(element_canvas.height / (level * 1.5))
