@@ -100,19 +100,19 @@ function input(event) {
 	random_increase();
 	switch (event.keyCode) {
 		case 38: /* Up */
-			player.direction = directions.UP;
+			player.direction = entity_directions.UP;
 			timerStart = true;
 			break;
 		case 40: /* Down */
-			player.direction = directions.DOWN;
+			player.direction = entity_directions.DOWN;
 			timerStart = true;
 			break;
 		case 37: /* Left */
-			player.direction = directions.LEFT;
+			player.direction = entity_directions.LEFT;
 			timerStart = true;
 			break;
 		case 39: /* Right */
-			player.direction = directions.RIGHT;
+			player.direction = entity_directions.RIGHT;
 			timerStart = true;
 			break;
 		case 13: /* Enter */
@@ -149,12 +149,10 @@ function generateLevel(level) {
 			for (var x = 0; x < level; x++) {
 				if ((x * blockSize[0] < element_canvas.width) && (y * blockSize[1] < element_canvas.height)) {
 					blockCount++;
-					blocks.push(new entity(
+					blocks.push(new object(
 						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
-						directions.NONE,
 						blockSize[0], blockSize[1],
 						x * blockSize[0], y * blockSize[1],
-						0,
 						true
 					));
 				}
@@ -174,7 +172,7 @@ function init() {
 	
 	player = new entity(
 		0xFF, 0xFF, 0xFF,
-		directions.NONE,
+		entity_directions.NONE,
 		PLAYER_WIDTH, PLAYER_HEIGHT,
 		PLAYER_START_X, PLAYER_START_Y,
 		PLAYER_SPEED,
@@ -210,18 +208,18 @@ function draw() {
 		init();
 	}
 	
-	if (player.position[1] <= SCREEN_EDGE_UP) {
-		player.direction = directions.DOWN;
-		player.position[1] = SCREEN_EDGE_UP;
-	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
-		player.direction = directions.UP;
-		player.position[1] = SCREEN_EDGE_DOWN;
-	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
-		player.direction = directions.RIGHT;
-		player.position[0] = SCREEN_EDGE_LEFT;
-	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
-		player.direction = directions.LEFT;
-		player.position[0] = SCREEN_EDGE_RIGHT;
+	if (player.object.position[1] <= SCREEN_EDGE_UP) {
+		player.direction = entity_directions.DOWN;
+		player.object.position[1] = SCREEN_EDGE_UP;
+	} else if (player.object.position[1] >= SCREEN_EDGE_DOWN) {
+		player.direction = entity_directions.UP;
+		player.object.position[1] = SCREEN_EDGE_DOWN;
+	} else if (player.object.position[0] <= SCREEN_EDGE_LEFT) {
+		player.direction = entity_directions.RIGHT;
+		player.object.position[0] = SCREEN_EDGE_LEFT;
+	} else if (player.object.position[0] >= SCREEN_EDGE_RIGHT) {
+		player.direction = entity_directions.LEFT;
+		player.object.position[0] = SCREEN_EDGE_RIGHT;
 	}	
 	
 	player.draw(context, true);
@@ -229,7 +227,7 @@ function draw() {
 	for (i in blocks) {
 		if (blocks[i].visible) {
 			blocks[i].draw(context, false);
-			if (player.collision(blocks[i])) {
+			if (blocks[i].collision(player.object)) {
 				blocks[i].visible = false;
 				blockCount--;
 				score += 10;
@@ -244,7 +242,7 @@ function draw() {
 		}
 		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT) - 1, score);
 		impl_setColor(0xFF, 0xFF, 0xC0);
-		/* In the JavaScript version, `impl_drawNumber` can draw text as well */
+		/* In the JavaScript version, `impl_drawNumber` can draw letters as well */
 		impl_drawNumber(0, 0, "Custom Settings");
 	} else {
 		impl_drawNumber(0, (RENDER_HEIGHT - FONT_HEIGHT * 4) - 1, timer);
