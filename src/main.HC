@@ -47,7 +47,7 @@ RegExe(PROGRAM_NAME);
 U0 generateLevel(U8 level) {
 	blockCount = 0;
 	
-	if (level) {
+	if (level > 0) {
 		U16 blockSize[2] = {
 			RENDER_WIDTH / level,
 			RENDER_HEIGHT / (level * 1.5)
