@@ -225,13 +225,13 @@ function draw() {
 	player.draw(context, true);
 	
 	for (i in blocks) {
-		if (blocks[i].visible) {
-			blocks[i].draw(context, false);
-			if (blocks[i].collision(player.object)) {
-				blocks[i].visible = false;
-				blockCount--;
-				score += 10;
-			}
+		if (
+			blocks[i].draw() &&
+			blocks[i].collision(player.object)
+		) {
+			blocks[i].visible = false;
+			blockCount--;
+			score += 10;
 		}
 	}
 	
