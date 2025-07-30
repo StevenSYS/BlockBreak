@@ -46,7 +46,7 @@ def generateLevel(level):
     global blockCount
     global blocks
     blockCount = 0
-    if (level):
+    if (level > 0):
         blockSize = [
         round(RENDER_WIDTH / level),
         round(RENDER_HEIGHT / (level * 1.5))
