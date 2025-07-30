@@ -160,12 +160,13 @@ U0 draw(CTask *task, CDC *dc) {
 	entity_draw(dc, &player);
 	for (y = 0; y < level; y++) {
 		for (x = 0; x < level; x++) {
-			if (object_draw(dc, &blocks[x][y])) {
-				if (object_collision(&player.object, &blocks[x][y])) {
-					blocks[x][y].visible = FALSE;
-					blockCount--;
-					score += 10;
-				}
+			if (
+				object_draw(dc, &blocks[x][y]) &&
+				object_collision(&player.object, &blocks[x][y])
+			) {
+				blocks[x][y].visible = FALSE;
+				blockCount--;
+				score += 10;
 			}
 		}
 	}
