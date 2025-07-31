@@ -9,9 +9,6 @@
 	#include <SDL3/SDL.h>
 	#include <GL/gl.h>
 #endif
-#ifdef ENABLE_SCREENSHOT
-	#include <sImpl.h>
-#endif
 
 static char running = 1;
 
@@ -28,36 +25,32 @@ static void handleEvent() {
 	
 	switch (event.type) {
 		case SDL_EVENT_KEY_DOWN:
-			random_index++;
 			switch (event.key.scancode) {
 				case SDL_SCANCODE_UP:
-					main_player->direction = ENTITY_DIR_UP;
-					*main_timerStart = 1;
+					input(INPUT_UP);
 					break;
 				case SDL_SCANCODE_DOWN:
-					main_player->direction = ENTITY_DIR_DOWN;
-					*main_timerStart = 1;
+					input(INPUT_DOWN);
 					break;
 				case SDL_SCANCODE_LEFT:
-					main_player->direction = ENTITY_DIR_LEFT;
-					*main_timerStart = 1;
+					input(INPUT_LEFT);
 					break;
 				case SDL_SCANCODE_RIGHT:
-					main_player->direction = ENTITY_DIR_RIGHT;
-					*main_timerStart = 1;
+					input(INPUT_RIGHT);
 					break;
 				case SDL_SCANCODE_RETURN:
-					main_reset();
+					input(INPUT_RESET);
 					break;
 				case SDL_SCANCODE_ESCAPE:
 					running = 0;
 					break;
 				#ifdef ENABLE_SCREENSHOT
 				case SDL_SCANCODE_S:
-					sImpl_take = 1;
+					input(INPUT_SCREENSHOT);
 					break;
 				#endif
 				default:
+					input(INPUT_NONE);
 					break;
 			}
 			break;
@@ -79,8 +72,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void(*draw)()
+	void(*draw)()
 ) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,
@@ -100,10 +92,7 @@ void impl_init(
 		return;
 	}
 	
-	glSharedInit(
-		timerStart, player,
-		reset
-	);
+	glSharedInit();
 	
 	while (running) {
 		lastTime = SDL_GetTicks();

@@ -6,41 +6,32 @@
 #endif
 
 #include "entity.h"
+#include "input.h"
 #include "progInfo.h"
-
-static void (*main_reset)();
-
-static char *main_timerStart;
 
 static Color currentColor;
 
-static entity_t *main_player;
-
-static void input() {
+static void raylibInput() {
 	if (GetKeyPressed()) {
 		random_index++;
 		if (IsKeyPressed(KEY_UP)) {
-			main_player->direction = ENTITY_DIR_UP;
-			*main_timerStart = 1;
+			input(INPUT_UP);
 		}
 		if (IsKeyPressed(KEY_DOWN)) {
-			main_player->direction = ENTITY_DIR_DOWN;
-			*main_timerStart = 1;
+			input(INPUT_DOWN);
 		}
 		if (IsKeyPressed(KEY_LEFT)) {
-			main_player->direction = ENTITY_DIR_LEFT;
-			*main_timerStart = 1;
+			input(INPUT_LEFT);
 		}
 		if (IsKeyPressed(KEY_RIGHT)) {
-			main_player->direction = ENTITY_DIR_RIGHT;
-			*main_timerStart = 1;
+			input(INPUT_RIGHT);
 		}
 		if (IsKeyPressed(KEY_ENTER)) {
-			main_reset();
+			input(INPUT_RESET);
 		}
 		#ifdef ENABLE_SCREENSHOT
 		if (IsKeyPressed(KEY_S)) {
-			sImpl_take = 1;
+			input(INPUT_SCREENSHOT);
 		}
 		#endif
 	}
@@ -111,19 +102,14 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
 	InitWindow(RENDER_WIDTH, RENDER_HEIGHT, PROGRAM_NAME " v" PROGRAM_VERSION " - raylib");
 	
 	SetTargetFPS(MAX_FPS);
 	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
-	
 	while (!WindowShouldClose()) {
-		input();
+		raylibInput();
 		draw();
 	}
 	

@@ -16,7 +16,7 @@ static GLFWwindow *window;
 static double lastTime;
 static double sleepTime;
 
-static void input(
+static void glfwInput(
 	GLFWwindow *window,
 	int key,
 	int scancode,
@@ -27,30 +27,26 @@ static void input(
 		random_index++;
 		switch (key) {
 			case GLFW_KEY_UP:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_UP;
+				input(INPUT_UP);
 				break;
 			case GLFW_KEY_DOWN:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_DOWN;
+				input(INPUT_DOWN);
 				break;
 			case GLFW_KEY_LEFT:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_LEFT;
+				input(INPUT_LEFT);
 				break;
 			case GLFW_KEY_RIGHT:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_RIGHT;
+				input(INPUT_RIGHT);
 				break;
 			case GLFW_KEY_ENTER:
-				main_reset();
+				input(INPUT_RESET);
 				break;
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(window, GL_TRUE);
 				break;
 			#ifdef ENABLE_SCREENSHOT
 			case GLFW_KEY_S:
-				sImpl_take = 1;
+				input(INPUT_SCREENSHOT);
 				break;
 			#endif
 			default:
@@ -71,8 +67,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void(*draw)()
+	void(*draw)()
 ) {
 	if (!glfwInit()) {
 		return;
@@ -96,12 +91,9 @@ void impl_init(
 	);
 	
 	glfwMakeContextCurrent(window);
-	glfwSetKeyCallback(window, input);
+	glfwSetKeyCallback(window, glfwInput);
 	
-	glSharedInit(
-		timerStart, player,
-		reset
-	);
+	glSharedInit();
 	
 	while (!glfwWindowShouldClose(window)) {
 		lastTime = glfwGetTime();

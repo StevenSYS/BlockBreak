@@ -4,18 +4,15 @@
 #else
 	#include <SDL3/SDL.h>
 #endif
-#include <random.h>
 #ifdef ENABLE_SCREENSHOT
 	#include <sImpl.h>
 #endif
 
 #include "entity.h"
+#include "input.h"
 #include "progInfo.h"
 
-static void (*main_reset)();
-
 static char running = 1;
-static char *main_timerStart;
 
 static int waitTime;
 
@@ -26,48 +23,44 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_FRect rect;
 
-static entity_t *main_player;
-
 static void handleEvent() {
 	SDL_PollEvent(&event);
 	
 	switch (event.type) {
 		case SDL_EVENT_KEY_DOWN:
-			random_index++;
 			switch (event.key.scancode) {
 				case SDL_SCANCODE_UP:
-					main_player->direction = ENTITY_DIR_UP;
-					*main_timerStart = 1;
+					input(INPUT_UP);
 					break;
 				case SDL_SCANCODE_DOWN:
-					main_player->direction = ENTITY_DIR_DOWN;
-					*main_timerStart = 1;
+					input(INPUT_DOWN);
 					break;
 				case SDL_SCANCODE_LEFT:
-					main_player->direction = ENTITY_DIR_LEFT;
-					*main_timerStart = 1;
+					input(INPUT_LEFT);
 					break;
 				case SDL_SCANCODE_RIGHT:
-					main_player->direction = ENTITY_DIR_RIGHT;
-					*main_timerStart = 1;
+					input(INPUT_RIGHT);
 					break;
 				case SDL_SCANCODE_RETURN:
-					main_reset();
+					input(INPUT_RESET);
 					break;
 				case SDL_SCANCODE_ESCAPE:
 					running = 0;
 					break;
 				#ifdef ENABLE_SCREENSHOT
 				case SDL_SCANCODE_S:
-					sImpl_take = 1;
+					input(INPUT_SCREENSHOT);
 					break;
 				#endif
 				default:
+					input(INPUT_NONE);
 					break;
 			}
 			break;
 		case SDL_EVENT_QUIT:
 			running = 0;
+			break;
+		default:
 			break;
 	}
 	return;
@@ -132,9 +125,10 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
+	SDL_SetAppMetadata(PROGRAM_NAME, PROGRAM_VERSION, "com.stevensys.blockbreakc");
+	
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
 		RENDER_WIDTH, RENDER_HEIGHT,
@@ -155,10 +149,6 @@ void impl_init(
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create renderer: %s\n", SDL_GetError());
 		return;
 	}
-	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
 	
 	while (running) {
 		lastTime = SDL_GetTicks();

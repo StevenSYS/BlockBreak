@@ -12,22 +12,23 @@
 	#include <sImpl.h>
 #endif
 
-static void input(
+static void glutInput(
 	unsigned char key,
 	int x, int y
 ) {
 	random_index++;
 	switch (key) {
 		case '\r': /* Enter */
-			main_reset();
+			input(INPUT_RESET);
 			break;
 		#ifdef ENABLE_SCREENSHOT
 		case 's':
 		case 'S':
-			sImpl_take = 1;
+			input(INPUT_SCREENSHOT);
 			break;
 		#endif
 		default:
+			input(INPUT_NONE);
 			break;
 	}
 }
@@ -39,22 +40,19 @@ static void inputSpecial(
 	random_index++;
 	switch (key) {
 		case GLUT_KEY_UP:
-			main_player->direction  = ENTITY_DIR_UP;
-			*main_timerStart = 1;
+			input(INPUT_UP);
 			break;
 		case GLUT_KEY_DOWN:
-			main_player->direction = ENTITY_DIR_DOWN;
-			*main_timerStart = 1;
+			input(INPUT_DOWN);
 			break;
 		case GLUT_KEY_LEFT:
-			main_player->direction = ENTITY_DIR_LEFT;
-			*main_timerStart = 1;
+			input(INPUT_LEFT);
 			break;
 		case GLUT_KEY_RIGHT:
-			main_player->direction = ENTITY_DIR_RIGHT;
-			*main_timerStart = 1;
+			input(INPUT_RIGHT);
 			break;
 		default:
+			input(INPUT_NONE);
 			break;
 	}
 	return;
@@ -77,8 +75,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
 	glutInit(&argc, argv);
 	
@@ -86,12 +83,9 @@ void impl_init(
 	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME);
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
-	glSharedInit(
-		timerStart, player,
-		reset
-	);
+	glSharedInit();
 	
-	glutKeyboardFunc(input);
+	glutKeyboardFunc(glutInput);
 	glutSpecialFunc(inputSpecial);
 	glutDisplayFunc(draw);
 	glutTimerFunc(1000 / MAX_FPS, drawLoop, 0);

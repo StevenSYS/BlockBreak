@@ -5,11 +5,11 @@
 
 /* Enums */
 enum entity_directions {
-	ENTITY_DIR_NONE,
 	ENTITY_DIR_UP,
 	ENTITY_DIR_DOWN,
 	ENTITY_DIR_LEFT,
-	ENTITY_DIR_RIGHT
+	ENTITY_DIR_RIGHT,
+	ENTITY_DIR_NONE
 };
 
 /* Structs */

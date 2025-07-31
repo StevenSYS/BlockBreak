@@ -9,11 +9,9 @@
 
 #include "progInfo.h"
 #include "entity.h"
-
-static void (*main_reset)();
+#include "input.h"
 
 static char buffer[11];
-static char *main_timerStart;
 
 static unsigned char x, y, i;
 
@@ -31,13 +29,7 @@ static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 };
 static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1];
 
-static entity_t *main_player;
-
-static void glSharedInit(
-	char *timerStart,
-	entity_t *player,
-	void (*reset)()
-) {
+static void glSharedInit() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
 	
@@ -52,10 +44,6 @@ static void glSharedInit(
 			numberSheetGL[x][y] = numberSheet[x][y / 4];
 		}
 	}
-	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
 	return;
 }
 

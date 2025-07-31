@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <random.h>
+#include <input.h>
 #ifdef ENABLE_SCREENSHOT
 	#include <sImpl.h>
 #endif
@@ -17,13 +18,8 @@
 #include "entity.h"
 #include "progInfo.h"
 
-static void (*main_reset)();
-
 static char running = 1;
 static char buffer[11];
-static char *main_timerStart;
-
-static entity_t *main_player;
 
 static clock_t lastTime;
 static clock_t sleepTime;
@@ -53,23 +49,19 @@ static void handleInput() {
 		#endif
 		) {
 			case XK_Up:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_UP;
+				input(INPUT_UP);
 				break;
 			case XK_Down:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_DOWN;
+				input(INPUT_DOWN);
 				break;
 			case XK_Left:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_LEFT;
+				input(INPUT_LEFT);
 				break;
 			case XK_Right:
-				*main_timerStart = 1;
-				main_player->direction = ENTITY_DIR_RIGHT;
+				input(INPUT_RIGHT);
 				break;
 			case XK_Return:
-				main_reset();
+				input(INPUT_RESET);
 				break;
 			case XK_Escape:
 				running = 0;
@@ -77,7 +69,7 @@ static void handleInput() {
 			#ifdef ENABLE_SCREENSHOT
 			case XK_s:
 			case XK_S:
-				sImpl_take = 1;
+				input(INPUT_SCREENSHOT);
 				break;
 			#endif
 		}
@@ -157,8 +149,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
 	int screen;
 	
@@ -189,10 +180,6 @@ void impl_init(
 	XSelectInput(display, window, ExposureMask | KeyPressMask);
 	XMapWindow(display, window);
 	gc = XCreateGC(display, window, 0, NULL);
-	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
 	
 	while (1) {
 		XNextEvent(display, &event);

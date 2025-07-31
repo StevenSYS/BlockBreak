@@ -43,7 +43,7 @@ endif()
 
 add_library(Impl ${IMPL_FILES})
 
-target_link_libraries(Impl Random)
+target_link_libraries(Impl Shared)
 
 if(ENABLE_SCREENSHOT)
 	target_link_libraries(Impl SImpl)

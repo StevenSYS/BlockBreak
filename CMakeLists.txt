@@ -21,7 +21,11 @@ option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -MD")
 
 if(NOT IMPL STREQUAL "DJGPP")
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -std=c99")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+	message(${CMAKE_SYSTEM_PROCESSOR})
+	if (NOT ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "mips")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+	endif()
 endif()
 
 if(IMPL STREQUAL "DJGPP")
@@ -33,7 +37,7 @@ elseif(IMPL STREQUAL "citro2d")
 	if (NINTENDO_3DS)
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRENDER_WIDTH=400 -DRENDER_HEIGHT=240 -DFONT_WIDTH=8 -DFONT_HEIGHT=8 -DPLAYER_SPEED=5")
 	else()
-		message(FATAL_ERROR "To build the citro2d implementation you must be using the devkitPro 3DS toolchain")
+		message(FATAL_ERROR "To build the citro2d implementation you must be using the devkitPro 3DS toolchain: -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/3DS.cmake")
 	endif()
 else()
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
@@ -71,10 +75,11 @@ endif()
 
 include_directories(
 	"src"
-	"src/random"
 	"src/impl"
 	"src/impl/highScore"
 	"src/impl/screenshot"
+	"src/random"
+	"src/input"
 )
 
 add_subdirectory(src/impl)
@@ -82,7 +87,11 @@ if(ENABLE_SCREENSHOT)
 	add_subdirectory(src/impl/screenshot)
 endif()
 
-add_library(Random STATIC "src/random/random.c")
+add_library(
+	Shared
+	"src/random/random.c"
+	"src/input/input.c"
+)
 
 if(NOT BUILD_ONLY_IMPL)
 	add_subdirectory(src/impl/highScore)
@@ -111,7 +120,7 @@ if(NOT BUILD_ONLY_IMPL)
 		${PROJECT_NAME}
 		Impl
 		HSSImpl
-		Random
+		Shared
 	)
 	set_property(TARGET ${PROJECT_NAME} PROPERTY BUILD_RPATH ".")
 endif()

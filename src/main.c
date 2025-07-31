@@ -1,7 +1,7 @@
-#include <random.h>
 #include <impl.h>
 #include <hssImpl.h>
 
+#include "random.h"
 #include "entity.h"
 #include "progInfo.h"
 #ifdef USE_BLOCKSIZELIST
@@ -201,8 +201,7 @@ main
 	
 	impl_init(
 		argc, argv,
-		&timerStart, &player,
-		&reset, &draw
+		&draw
 	);
 	
 	hssImpl_close();

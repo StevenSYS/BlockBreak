@@ -27,8 +27,7 @@ void impl_loopEnd();
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 );
 
 #endif

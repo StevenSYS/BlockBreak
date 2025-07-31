@@ -6,6 +6,7 @@
 #include <pc.h>
 #include <sys/movedata.h>
 #include <random.h>
+#include <input.h>
 #ifdef ENABLE_SCREENSHOT
 	#include <sImpl.h>
 #endif
@@ -14,14 +15,11 @@
 #include "entity.h"
 #include "progInfo.h"
 
-static void (*main_reset)();
-
 static char running = 1;
 static char frameBuffer[RENDER_WIDTH * RENDER_HEIGHT];
 static char buffer[11];
 static char increasePressed = 0;
 static char resetPressed = 0;
-static char *main_timerStart;
 
 static unsigned char i;
 static unsigned char oldVideoMode;
@@ -49,8 +47,6 @@ static unsigned char currentColor;
 
 static unsigned short x2, y2;
 
-static entity_t *main_player;
-
 static uclock_t lastTime;
 
 static unsigned char getVideoMode() {
@@ -76,30 +72,22 @@ static void handleInput() {
 			resetPressed = 0;
 		}
 	} else {
-		if (!increasePressed) {
-			random_index++;
-			increasePressed = 1;
-		}
 		switch (keyCode & 0x7F) {
 			case 0x48: /* Up */
-				main_player->direction = ENTITY_DIR_UP;
-				*main_timerStart = 1;
+				input(INPUT_UP);
 				break;
 			case 0x50: /* Down */
-				main_player->direction = ENTITY_DIR_DOWN;
-				*main_timerStart = 1;
+				input(INPUT_DOWN);
 				break;
 			case 0x4B: /* Left */
-				main_player->direction = ENTITY_DIR_LEFT;
-				*main_timerStart = 1;
+				input(INPUT_LEFT);
 				break;
 			case 0x4D: /* Right */
-				main_player->direction = ENTITY_DIR_RIGHT;
-				*main_timerStart = 1;
+				input(INPUT_RIGHT);
 				break;
 			case 0x1C: /* Reset */
 				if (!resetPressed) {
-					main_reset();
+					input(INPUT_RESET);
 					resetPressed = 1;
 				}
 				break;
@@ -108,10 +96,14 @@ static void handleInput() {
 				break;
 			#ifdef ENABLE_SCREENSHOT
 			case 0x1F: /* Screenshot */
-				sImpl_take = 1;
+				input(INPUT_SCREENSHOT);
 				break;
 			#endif
 			default:
+				if (!increasePressed) {
+					input(INPUT_NONE);
+					increasePressed = 1;
+				}
 				break;
 		}
 	}
@@ -197,8 +189,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
 	oldVideoMode = getVideoMode();
 	setVideoMode(0x13);
@@ -215,9 +206,6 @@ void impl_init(
 		] = i;
 	}
 	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
 	while (running) {
 		lastTime = uclock();
 		

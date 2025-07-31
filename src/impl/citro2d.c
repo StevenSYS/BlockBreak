@@ -3,6 +3,7 @@
 #include <citro2d.h>
 #include <unistd.h>
 #include <random.h>
+#include <input.h>
 #ifdef ENABLE_SCREENSHOT
 	#include <sImpl.h>
 #endif
@@ -10,50 +11,37 @@
 #include "entity.h"
 #include "progInfo.h"
 
-static void (*main_reset)();
-
 static char running = 1;
-static char *main_timerStart;
 
 static unsigned int currentColor;
 static unsigned int inputDown;
 
 static unsigned long long lastTime;
 
-static entity_t *main_player;
-
 static C3D_RenderTarget *renderTarget;
 
-static void input() {
+static void c2dInput() {
 	hidScanInput();
 	
 	inputDown = hidKeysDown();
 	if ((inputDown & KEY_UP) || (inputDown & KEY_X)) {
-		random_index++;
-		*main_timerStart = 1;
-		main_player->direction = ENTITY_DIR_UP;
+		input(INPUT_UP);
 	}
 	if ((inputDown & KEY_DOWN) || (inputDown & KEY_B)) {
-		random_index++;
-		*main_timerStart = 1;
-		main_player->direction = ENTITY_DIR_DOWN;
+		input(INPUT_DOWN);
 	}
 	if ((inputDown & KEY_LEFT) || (inputDown & KEY_Y)) {
-		random_index++;
-		*main_timerStart = 1;
-		main_player->direction = ENTITY_DIR_LEFT;
+		input(INPUT_LEFT);
 	}
 	if ((inputDown & KEY_RIGHT) || (inputDown & KEY_A)) {
-		random_index++;
-		*main_timerStart = 1;
-		main_player->direction = ENTITY_DIR_RIGHT;
+		input(INPUT_RIGHT);
 	}
 	if (inputDown & KEY_SELECT) {
-		main_reset();
+		input(INPUT_RESET);
 	}
 	#ifdef ENABLE_SCREENSHOT
 	if (inputDown & (KEY_L |KEY_R)) {
-		sImpl_take = 1;
+		input(INPUT_SCREENSHOT);
 	}
 	#endif
 	if (inputDown & KEY_START) {
@@ -128,8 +116,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player,
-	void (*reset)(), void (*draw)()
+	void (*draw)()
 ) {
 	gfxInitDefault();
 	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
@@ -139,18 +126,14 @@ void impl_init(
 	
 	renderTarget = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
 	
-	main_timerStart = timerStart;
-	main_player = player;
-	main_reset = reset;
-	
 	while (aptMainLoop() && running) {
 		lastTime = svcGetSystemTick();
 		
-		input();
+		c2dInput();
 		draw();
 		
 		while (svcGetSystemTick() < lastTime + (CPU_TICKS_PER_MSEC * MAX_FPS)) {
-			input();
+			c2dInput();
 			usleep(1000);
 		}
 	}
