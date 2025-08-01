@@ -95,19 +95,19 @@ void impl_init(
 	glSharedInit();
 	
 	while (running) {
-		lastTime = SDL_GetTicks();
+		lastTime = SDL_GetTicksNS();
 		
 		handleEvent();
 		draw();
 		
 		waitTime = (
-			1000 / MAX_FPS
+			1000000000 / MAX_FPS
 		) - (
-			SDL_GetTicks() - lastTime
+			SDL_GetTicksNS() - lastTime
 		);
 		
 		if (waitTime > 0) {
-			SDL_Delay(waitTime);
+			SDL_DelayNS(waitTime);
 		}
 		
 		handleEvent();
