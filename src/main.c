@@ -12,12 +12,10 @@
 
 static unsigned char y, x;
 
-char timerStart = 0;
-
-unsigned char oldRandomColor = 13;
-unsigned char randomColor = 13;
-unsigned char level = 1;
-const unsigned char colors[12][3] = {
+static unsigned char oldRandomColor = 13;
+static unsigned char randomColor = 13;
+static unsigned char level = 1;
+static const unsigned char colors[12][3] = {
 	{ 0x00, 0x00, 0xAA },
 	{ 0x00, 0xAA, 0x00 },
 	{ 0x00, 0xAA, 0xAA },
@@ -32,14 +30,17 @@ const unsigned char colors[12][3] = {
 	{ 0xFF, 0xFF, 0x55 }
 };
 
-unsigned short blockCount = 0;
-unsigned short timer = 0;
+static unsigned short blockCount = 0;
+static unsigned short timer = 0;
 
-unsigned int score = 0;
-unsigned int highScore;
+static unsigned int score = 0;
+static unsigned int highScore;
+
+static object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+
+char timerStart = 0;
 
 entity_t player;
-object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 void generateLevel(unsigned char level) {
 	blockCount = 0;
