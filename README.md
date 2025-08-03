@@ -71,12 +71,12 @@ A port of BlockBreakHC from HolyC to C
 
 # Controls (3DS/2DS)
 
-| Button                             | Action                                         | 
-| ---------------------------------- | ---------------------------------------------- | 
-| D-Pad Up - Circle Pad Up - X       | Move Up                                        | 
-| D-Pad Down - Circle Pad Down - B   | Move Down                                      | 
-| D-Pad Left - Circle Pad Left - Y   | Move Left                                      | 
-| D-Pad Right - Circle Pad Right - A | Move Right                                     | 
-| Select                             | Restart                                        | 
-| Start                              | Quit                                           |
-| L + R                              | Screenshot (Only in screenshot enabled builds) |
+| Button                           | Action                                         | 
+| -------------------------------- | ---------------------------------------------- | 
+| D-Pad Up, Circle Pad Up, X       | Move Up                                        | 
+| D-Pad Down, Circle Pad Down, B   | Move Down                                      | 
+| D-Pad Left, Circle Pad Left, Y   | Move Left                                      | 
+| D-Pad Right, Circle Pad Right, A | Move Right                                     | 
+| Select                           | Restart                                        | 
+| Start                            | Quit                                           |
+| L, R                             | Screenshot (Only in screenshot enabled builds) |

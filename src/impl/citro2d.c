@@ -40,7 +40,7 @@ static void c2dInput() {
 		input(INPUT_RESET);
 	}
 	#ifdef ENABLE_SCREENSHOT
-	if (inputDown & (KEY_L |KEY_R)) {
+	if ((inputDown & KEY_L) | (inputDown & KEY_R)) {
 		input(INPUT_SCREENSHOT);
 	}
 	#endif
