@@ -9,12 +9,11 @@ A HolyC version of a game I originally made in JavaScript + jQuery
 
 # Controls
 
-| Key            | Action     |
-| -------------- | ---------- |
-| Up             | Move Up    |
-| Down           | Move Down  |
-| Left           | Move Left  |
-| Right          | Move Right |
-| Enter          | Restart    |
-| Escape         | Quit       |
-| Shift + Escape | Quit       |
+| Key                    | Action     |
+| ---------------------- | ---------- |
+| Up                     | Move Up    |
+| Down                   | Move Down  |
+| Left                   | Move Left  |
+| Right                  | Move Right |
+| Enter                  | Restart    |
+| Escape, Shift + Escape | Quit       |
