@@ -13,27 +13,25 @@ static Color currentColor;
 
 static void raylibInput() {
 	if (GetKeyPressed()) {
-		random_index++;
 		if (IsKeyPressed(KEY_UP)) {
 			input(INPUT_UP);
-		}
-		if (IsKeyPressed(KEY_DOWN)) {
+		} else if (IsKeyPressed(KEY_DOWN)) {
 			input(INPUT_DOWN);
-		}
-		if (IsKeyPressed(KEY_LEFT)) {
+		} else if (IsKeyPressed(KEY_LEFT)) {
 			input(INPUT_LEFT);
-		}
-		if (IsKeyPressed(KEY_RIGHT)) {
+		} else if (IsKeyPressed(KEY_RIGHT)) {
 			input(INPUT_RIGHT);
-		}
-		if (IsKeyPressed(KEY_ENTER)) {
+		} else if (IsKeyPressed(KEY_ENTER)) {
 			input(INPUT_RESET);
 		}
 		#ifdef ENABLE_SCREENSHOT
-		if (IsKeyPressed(KEY_S)) {
+		else if (IsKeyPressed(KEY_S)) {
 			input(INPUT_SCREENSHOT);
 		}
 		#endif
+		else {
+			input(INPUT_NONE);
+		}
 	}
 	return;
 }
