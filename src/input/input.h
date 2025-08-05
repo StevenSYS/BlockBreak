@@ -1,6 +1,8 @@
 #ifndef __INPUT__
 #define __INPUT__
 
+#include "entity.h"
+
 /* Enums */
 enum inputs {
 	INPUT_UP,
