@@ -24,7 +24,6 @@ static void glfwInput(
 	int mods
 ) {
 	if (action == GLFW_PRESS) {
-		random_index++;
 		switch (key) {
 			case GLFW_KEY_UP:
 				input(INPUT_UP);
@@ -50,6 +49,7 @@ static void glfwInput(
 				break;
 			#endif
 			default:
+				input(INPUT_NONE);
 				break;
 		}
 	}

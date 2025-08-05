@@ -37,7 +37,6 @@ static void inputSpecial(
 	int key,
 	int x, int y
 ) {
-	random_index++;
 	switch (key) {
 		case GLUT_KEY_UP:
 			input(INPUT_UP);

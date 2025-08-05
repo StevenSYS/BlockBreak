@@ -1,6 +1,7 @@
 #ifndef __INPUT__
 #define __INPUT__
 
+/* Enums */
 enum inputs {
 	INPUT_UP,
 	INPUT_DOWN,
@@ -13,6 +14,13 @@ enum inputs {
 	INPUT_NONE
 };
 
+/* Functions */
 void input(unsigned char key);
+
+void input_init(
+	void (*reset)(),
+	char *timerStart,
+	entity_t *player
+);
 
 #endif

@@ -6,11 +6,11 @@
 #include "entity.h"
 #include "input.h"
 
-void reset();
+static void (*main_reset)();
 
-extern char timerStart;
+static char *main_timerStart;
 
-extern entity_t player;
+static entity_t *main_player;
 
 void input(unsigned char key) {
 	random_index++;
@@ -19,13 +19,13 @@ void input(unsigned char key) {
 		case INPUT_DOWN:
 		case INPUT_LEFT:
 		case INPUT_RIGHT:
-			player.direction = key;
-			if (!timerStart) {
-				timerStart = 1;
+			main_player->direction = key;
+			if (!*main_timerStart) {
+				*main_timerStart = 1;
 			}
 			break;
 		case INPUT_RESET:
-			reset();
+			main_reset();
 			break;
 		#ifdef ENABLE_SCREENSHOT
 		case INPUT_SCREENSHOT:
@@ -35,5 +35,16 @@ void input(unsigned char key) {
 		default:
 			break;
 	}
+	return;
+}
+
+void input_init(
+	void (*reset)(),
+	char *timerStart,
+	entity_t *player
+) {
+	main_reset = reset;
+	main_timerStart = timerStart;
+	main_player = player;
 	return;
 }

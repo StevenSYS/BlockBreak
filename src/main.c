@@ -3,6 +3,7 @@
 
 #include "random.h"
 #include "entity.h"
+#include "input.h"
 #include "progInfo.h"
 #ifdef USE_BLOCKSIZELIST
 #include "blockSizeList.h"
@@ -199,6 +200,12 @@ main
 	highScore = hssImpl_get();
 	
 	init();
+	
+	input_init(
+		&reset,
+		&timerStart,
+		&player
+	);
 	
 	impl_init(
 		argc, argv,

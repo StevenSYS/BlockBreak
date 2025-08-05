@@ -26,26 +26,24 @@ static void c2dInput() {
 	inputDown = hidKeysDown();
 	if ((inputDown & KEY_UP) || (inputDown & KEY_X)) {
 		input(INPUT_UP);
-	}
-	if ((inputDown & KEY_DOWN) || (inputDown & KEY_B)) {
+	} else if ((inputDown & KEY_DOWN) || (inputDown & KEY_B)) {
 		input(INPUT_DOWN);
-	}
-	if ((inputDown & KEY_LEFT) || (inputDown & KEY_Y)) {
+	} else if ((inputDown & KEY_LEFT) || (inputDown & KEY_Y)) {
 		input(INPUT_LEFT);
-	}
-	if ((inputDown & KEY_RIGHT) || (inputDown & KEY_A)) {
+	} else if ((inputDown & KEY_RIGHT) || (inputDown & KEY_A)) {
 		input(INPUT_RIGHT);
-	}
-	if (inputDown & KEY_SELECT) {
+	} else if (inputDown & KEY_SELECT) {
 		input(INPUT_RESET);
 	}
 	#ifdef ENABLE_SCREENSHOT
-	if ((inputDown & KEY_L) | (inputDown & KEY_R)) {
+	else if ((inputDown & KEY_L) | (inputDown & KEY_R)) {
 		input(INPUT_SCREENSHOT);
 	}
 	#endif
-	if (inputDown & KEY_START) {
+	else if (inputDown & KEY_START) {
 		running = 0;
+	} else {
+		input(INPUT_NONE);
 	}
 	return;
 }

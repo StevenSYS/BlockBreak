@@ -31,7 +31,6 @@ static GC gc;
 
 static void handleInput() {
 	if (event.type == KeyPress) {
-		random_index++;
 		switch (
 		#ifdef XLIB_LEGACY
 			XKeycodeToKeysym(
@@ -72,6 +71,9 @@ static void handleInput() {
 				input(INPUT_SCREENSHOT);
 				break;
 			#endif
+			default:
+				input(INPUT_NONE);
+				break;
 		}
 	}
 	return;
