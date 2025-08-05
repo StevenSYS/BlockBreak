@@ -26,9 +26,7 @@ void sImpl_end();
 /* Needed for the WebAssembly version */
 void sImpl_setTake(const char newValue);
 
-#ifndef SIMPL_NOEXTERNS
 /* Externs */
 extern char sImpl_take;
-#endif
 
 #endif
