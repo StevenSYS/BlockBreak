@@ -13,6 +13,6 @@ enum inputs {
 	INPUT_NONE
 };
 
-extern void input(unsigned char key);
+void input(unsigned char key);
 
 #endif
