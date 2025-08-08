@@ -218,9 +218,6 @@ U0 main() {
 	Fs->text_attr = BLACK;
 	Fs->draw_it = &draw;
 	
-	dc->color = WHITE;
-	GrPrint(dc, 0, 0, PROGRAM_NAME " v" PROGRAM_VERSION);
-	
 	while (TRUE) {
 		switch (GetKey(&sc)) {
 			default:
@@ -262,6 +259,8 @@ U0 main() {
 	
 	MenuPop();
 	SettingsPop();
+
+	Print(PROGRAM_NAME " v" PROGRAM_VERSION "\n");
 	return;
 }
 
