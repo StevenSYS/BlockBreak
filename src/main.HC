@@ -260,7 +260,7 @@ U0 main() {
 	MenuPop();
 	SettingsPop();
 
-	Print(PROGRAM_NAME " v" PROGRAM_VERSION "\n");
+	Print(PROGRAM_NAME " v" PROGRAM_VERSION "\n");
 	return;
 }
 
