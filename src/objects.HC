@@ -43,7 +43,7 @@ Bool object_draw(
 ) {
 	if (object->visible) {
 		dc->color = object->color;
-		GrRect(
+		GrRect(
 			dc,
 			object->position[0],
 			object->position[1],

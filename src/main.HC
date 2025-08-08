@@ -129,7 +129,7 @@ U0 reset() {
 	return;
 }
 
-U0 draw(CTask *task, CDC *dc) {
+U0 draw(CTask *, CDC *dc) {
 	if (!blockCount) {
 		if (score + (timer / 4) > 0xFFFFFFFF) {
 			score = 0xFFFFFFFF;
