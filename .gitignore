@@ -21,6 +21,6 @@ dosbox-x.conf
 Lile
 
 # High Score File
-*.5hs
+*.1hs
 
 .DS_Store
