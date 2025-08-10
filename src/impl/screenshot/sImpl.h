@@ -23,10 +23,7 @@ void sImpl_start(const char *impl);
 
 void sImpl_end();
 
-/* Needed for the WebAssembly version */
+/* This needs to be a function or else the WebAssembly version doesn't work */
 void sImpl_setTake(const char newValue);
-
-/* Externs */
-extern char sImpl_take;
 
 #endif

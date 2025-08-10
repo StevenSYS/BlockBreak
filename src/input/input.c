@@ -29,7 +29,7 @@ void input(unsigned char key) {
 			break;
 		#ifdef ENABLE_SCREENSHOT
 		case INPUT_SCREENSHOT:
-			sImpl_take = 1;
+			sImpl_setTake(1);
 			break;
 		#endif
 		default:
