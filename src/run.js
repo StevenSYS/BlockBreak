@@ -45,13 +45,13 @@ WebAssembly.instantiateStreaming(
 				&&
 				touch_deltaY < -touch_positiveX
 			) {
-				result.instance.exports.input(38); /* Up */
+				result.instance.exports.jsInput(38); /* Up */
 			} else if (
 				touch_deltaY > touchDeadZone
 				&&
 				touch_deltaY > touch_positiveX
 			) {
-				result.instance.exports.input(40); /* Down */
+				result.instance.exports.jsInput(40); /* Down */
 			}
 			
 			if (
@@ -59,13 +59,13 @@ WebAssembly.instantiateStreaming(
 				&&
 				touch_deltaX < -touch_positiveY
 			) {
-				result.instance.exports.input(37); /* Left */
+				result.instance.exports.jsInput(37); /* Left */
 			} else if (
 				touch_deltaX > touchDeadZone
 				&&
 				touch_deltaX > touch_positiveY
 			) {
-				result.instance.exports.input(39); /* Right */
+				result.instance.exports.jsInput(39); /* Right */
 			}
 		}
 		return;
@@ -76,7 +76,7 @@ WebAssembly.instantiateStreaming(
 	
 	/* Keyboard Input */
 	function input(event) {
-		result.instance.exports.input(event.keyCode);
+		result.instance.exports.jsInput(event.keyCode);
 		return;
 	}
 	
@@ -85,14 +85,14 @@ WebAssembly.instantiateStreaming(
 		element_screenshotButton.addEventListener(
 			"click",
 			function() {
-				result.instance.exports.input(83);
+				result.instance.exports.jsInput(83);
 			},
 			false
 		);
 		element_screenshotButton.addEventListener(
 			"touchstart",
 			function() {
-				result.instance.exports.input(83);
+				result.instance.exports.jsInput(83);
 			},
 			false
 		);
