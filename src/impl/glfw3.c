@@ -80,7 +80,7 @@ void impl_init(
 	);
 	
 	if (window == NULL) {
-		fprintf(stderr, "ERROR: Failed to initalize GLFW\n");
+		fprintf(stderr, "ERROR: Failed to create window\n");
 		glfwTerminate();
 		return;
 	}
@@ -111,6 +111,7 @@ void impl_init(
 		glfwPollEvents();
 	}
 	
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	return;
 }
