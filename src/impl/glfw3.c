@@ -80,6 +80,7 @@ void impl_init(
 	);
 	
 	if (window == NULL) {
+		fprintf(stderr, "ERROR: Failed to initalize GLFW\n");
 		glfwTerminate();
 		return;
 	}
