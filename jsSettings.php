@@ -38,7 +38,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>BlockBreak Web Versions</title>
 		<link rel="stylesheet" href="style.css">
@@ -54,18 +54,18 @@
 		<form action="JS">
 			<?php
 				$items = array(
-					array("name" => "Game Width", "argName" => "width", "type" => "number", "default" => "640", "min" => "1", "max" => "9999", "step" => "0"),
-					array("name" => "Game Height", "argName" => "height", "type" => "number", "default" => "472", "min" => "1", "max" => "9999", "step" => "0"),
-					array("name" => "Player Speed", "argName" => "playerSpeed", "type" => "number", "default" => "8", "min" => "1", "max" => "999", "step" => "0"),
-					array("name" => "Player Width", "argName" => "playerWidth", "type" => "number", "default" => "16", "min" => "1", "max" => "9999", "step" => "0"),
-					array("name" => "Player Height", "argName" => "playerHeight", "type" => "number", "default" => "16", "min" => "1", "max" => "9999", "step" => "0"),
+					array("name" => "Game Width", "argName" => "width", "type" => "number", "default" => "640", "min" => "1", "max" => "9999", "step" => "1.0"),
+					array("name" => "Game Height", "argName" => "height", "type" => "number", "default" => "472", "min" => "1", "max" => "9999", "step" => "1.0"),
+					array("name" => "Player Speed", "argName" => "playerSpeed", "type" => "number", "default" => "8", "min" => "1", "max" => "999", "step" => "1.0"),
+					array("name" => "Player Width", "argName" => "playerWidth", "type" => "number", "default" => "16", "min" => "1", "max" => "9999", "step" => "1.0"),
+					array("name" => "Player Height", "argName" => "playerHeight", "type" => "number", "default" => "16", "min" => "1", "max" => "9999", "step" => "1.0"),
 					array("name" => "Font Size", "argName" => "fontSize", "type" => "number", "default" => "16", "min" => "1", "max" => "999", "step" => "0.01"),
-					array("name" => "Touch Dead Zone", "argName" => "touchDeadZone", "type" => "number", "default" => "32", "min" => "1", "max" => "999", "step" => "0"),
+					array("name" => "Touch Dead Zone", "argName" => "touchDeadZone", "type" => "number", "default" => "32", "min" => "1", "max" => "999", "step" => "1.0"),
 					array("name" => "Timer Speed", "argName" => "timerSpeed", "type" => "number", "default" => "1", "min" => "0", "max" => "999", "step" => "0.01"),
-					array("name" => "Max Blocks", "argName" => "maxBlocks", "type" => "number", "default" => "255", "min" => "1", "max" => "999", "step" => "0"),
-					array("name" => "FPS", "argName" => "fps", "type" => "number", "default" => "30", "min" => "1", "max" => "240", "step" => "0"),
-					array("name" => "Disable Border", "argName" => "noBorder", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "0"),
-					array("name" => "Disable Screenshot Button", "argName" => "noSButton", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "0")
+					array("name" => "Max Blocks", "argName" => "maxBlocks", "type" => "number", "default" => "255", "min" => "1", "max" => "999", "step" => "1.0"),
+					array("name" => "FPS", "argName" => "fps", "type" => "number", "default" => "30", "min" => "1", "max" => "240", "step" => "1.0"),
+					array("name" => "Disable Border", "argName" => "noBorder", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "1.0"),
+					array("name" => "Disable Screenshot Button", "argName" => "noSButton", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "1.0")
 				);
 				foreach ($items as $item) {
 					createOption(
