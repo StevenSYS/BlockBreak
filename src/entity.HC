@@ -1,4 +1,4 @@
-#include "objects.HC"
+#include "object.HC"
 
 /* Enum - entity_directions */
 #define ENTITY_DIR_NONE 0
