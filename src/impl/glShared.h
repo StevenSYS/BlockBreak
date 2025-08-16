@@ -37,9 +37,7 @@ static void glSharedInit() {
 		for (y = 0; y <= FONT_HEIGHT * 4; y++) {
 			numberSheetGL[x][y] = 0;
 		}
-	}
-	
-	for (x = 0; x < 10; x++) {
+		
 		for (y = 0; y <= FONT_HEIGHT * 4; y += 4) {
 			numberSheetGL[x][y] = numberSheet[x][y / 4];
 		}
