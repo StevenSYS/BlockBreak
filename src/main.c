@@ -11,8 +11,7 @@
 
 #define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
 
-static unsigned char y, x;
-
+static unsigned char x, y;
 static unsigned char oldRandomColor = 13;
 static unsigned char randomColor = 13;
 static unsigned char level = 1;

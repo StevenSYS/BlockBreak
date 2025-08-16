@@ -72,7 +72,7 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	void(*draw)()
+	void (*draw)()
 ) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,

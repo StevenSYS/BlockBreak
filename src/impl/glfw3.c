@@ -67,9 +67,10 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	void(*draw)()
+	void (*draw)()
 ) {
 	if (!glfwInit()) {
+		fprintf(stderr, "ERROR: Failed initalize GLFW\n");
 		return;
 	}
 	
