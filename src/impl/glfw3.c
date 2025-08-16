@@ -74,6 +74,8 @@ void impl_init(
 		return;
 	}
 	
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	
 	window = glfwCreateWindow(
 		RENDER_WIDTH, RENDER_HEIGHT,
 		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,
@@ -85,12 +87,6 @@ void impl_init(
 		glfwTerminate();
 		return;
 	}
-	
-	glfwSetWindowSizeLimits(
-		window,
-		RENDER_WIDTH, RENDER_HEIGHT,
-		RENDER_WIDTH, RENDER_HEIGHT
-	);
 	
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, glfwInput);
