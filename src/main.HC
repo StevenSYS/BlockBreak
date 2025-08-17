@@ -43,6 +43,32 @@ object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
 RegExe(PROGRAM_NAME);
 
+U0 safeAddU16(
+	U16 *var,
+	U16 value,
+	U16 max
+) {
+	if ((*var + value) > max) {
+		*var = max;
+	} else {
+		*var += value;
+	}
+	return;
+}
+
+U0 safeAddU32(
+	U32 *var,
+	U32 value,
+	U32 max
+) {
+	if ((*var + value) > max) {
+		*var = max;
+	} else {
+		*var += value;
+	}
+	return;
+}
+
 U0 lessThanSetU16(
 	U16 *var,
 	U16 value
@@ -93,11 +119,7 @@ U0 generateLevel(U8 level) {
 }
 
 U0 init() {
-	if (timer + (level * 35) > 0xFFFF) {
-		timer = 0xFFFF;
-	} else {
-		timer += level * 35;
-	}
+	safeAddU16(&timer, level * 35, 0xFFFF);
 	
 	entity_init(
 		&player,
@@ -131,11 +153,7 @@ U0 reset() {
 
 U0 draw(CTask *, CDC *dc) {
 	if (!blockCount) {
-		if (score + (timer / 4) > 0xFFFFFFFF) {
-			score = 0xFFFFFFFF;
-		} else {
-			score += timer / 4;
-		}
+		safeAddU32(&score, timer / 4, 0xFFFFFFFF);
 		
 		if (level < MAX_BLOCKS) {
 			level++;
@@ -160,13 +178,13 @@ U0 draw(CTask *, CDC *dc) {
 	entity_draw(dc, &player);
 	for (y = 0; y < level; y++) {
 		for (x = 0; x < level; x++) {
-			if (
-				object_draw(dc, &blocks[x][y]) &&
-				object_collision(&player.object, &blocks[x][y])
-			) {
-				blocks[x][y].visible = FALSE;
-				blockCount--;
-				score += 10;
+			if (blocks[x][y].visible) {
+				object_draw(dc, &blocks[x][y]);
+				if (object_collision(&player.object, &blocks[x][y])) {
+					blocks[x][y].visible = FALSE;
+					blockCount--;
+					score += 10;
+				}
 			}
 		}
 	}

@@ -39,22 +39,24 @@ Bool entity_draw(
 	CDC *dc,
 	entity_t *entity
 ) {
-	switch (entity->direction) {
-		case ENTITY_DIR_UP:
-			entity->object.position[1] -= entity->speed;
-			break;
-		case ENTITY_DIR_DOWN:
-			entity->object.position[1] += entity->speed;
-			break;
-		case ENTITY_DIR_LEFT:
-			entity->object.position[0] -= entity->speed;
-			break;
-		case ENTITY_DIR_RIGHT:
-			entity->object.position[0] += entity->speed;
-			break;
-		default:
-			break;
+	if (entity->object.visible) {
+		object_draw(dc, &entity->object);
+		switch (entity->direction) {
+			case ENTITY_DIR_UP:
+				entity->object.position[1] -= entity->speed;
+				break;
+			case ENTITY_DIR_DOWN:
+				entity->object.position[1] += entity->speed;
+				break;
+			case ENTITY_DIR_LEFT:
+				entity->object.position[0] -= entity->speed;
+				break;
+			case ENTITY_DIR_RIGHT:
+				entity->object.position[0] += entity->speed;
+				break;
+			default:
+				break;
+		}
 	}
-	
-	return object_draw(dc, &entity->object);
+	return;
 }

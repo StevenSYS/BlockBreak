@@ -6,19 +6,16 @@ class object_t {
 	Bool visible;
 };
 
-U8 object_collision(
+Bool object_collision(
 	object_t *object1,
 	object_t *object2
 ) {
-	if (
+	return (
 		((object1->position[0] + object1->size[0]) >= object2->position[0]) &&
 		(object1->position[0] <= (object2->position[0] + object2->size[0])) &&
 		(object1->position[1] <= (object2->position[1] + object2->size[1])) &&
 		((object1->position[1] + object1->size[1]) >= object2->position[1])
-	) {
-		return 1;
-	}
-	return 0;
+	);
 }
 
 U0 object_init(
@@ -37,7 +34,7 @@ U0 object_init(
 	return;
 }
 
-Bool object_draw(
+U0 object_draw(
 	CDC *dc,
 	object_t *object
 ) {
@@ -51,5 +48,5 @@ Bool object_draw(
 			object->size[1]
 		);
 	}
-	return object->visible;
+	return;
 }
