@@ -21,23 +21,25 @@ void entity_init(
 	return;
 }
 
-char entity_draw(entity_t *entity) {
-	switch (entity->direction) {
-		case ENTITY_DIR_UP:
-			entity->object.position[1] -= entity->speed;
-			break;
-		case ENTITY_DIR_DOWN:
-			entity->object.position[1] += entity->speed;
-			break;
-		case ENTITY_DIR_LEFT:
-			entity->object.position[0] -= entity->speed;
-			break;
-		case ENTITY_DIR_RIGHT:
-			entity->object.position[0] += entity->speed;
-			break;
-		default:
-			break;
+void entity_draw(entity_t *entity) {
+	if (entity->object.visible) {
+		switch (entity->direction) {
+			case ENTITY_DIR_UP:
+				entity->object.position[1] -= entity->speed;
+				break;
+			case ENTITY_DIR_DOWN:
+				entity->object.position[1] += entity->speed;
+				break;
+			case ENTITY_DIR_LEFT:
+				entity->object.position[0] -= entity->speed;
+				break;
+			case ENTITY_DIR_RIGHT:
+				entity->object.position[0] += entity->speed;
+				break;
+			default:
+				break;
+		}
+		object_draw(entity->object);
 	}
-	
-	return object_draw(&entity->object);
+	return;
 }

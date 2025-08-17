@@ -11,6 +11,8 @@
 
 #define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
 
+#define SAFEADD(_var, _value, _max) if ((_var + _value) > _max) { _var = _max; } else { _var += _value; }
+
 static unsigned char x, y;
 static unsigned char oldRandomColor = 13;
 static unsigned char randomColor = 13;
@@ -83,11 +85,7 @@ void generateLevel(unsigned char level) {
 }
 
 void init() {
-	if (timer + (level * 35) > 0xFFFF) {
-		timer = 0xFFFF;
-	} else {
-		timer += level * 35;
-	}
+	SAFEADD(timer, level * 35, 0xFFFF);
 	
 	entity_init(
 		&player,
@@ -123,11 +121,7 @@ void draw() {
 	impl_loopStart();
 	
 	if (!blockCount) {
-		if (score + (timer / 4) > 0xFFFFFFFF) {
-			score = 0xFFFFFFFF;
-		} else {
-			score += timer / 4;
-		}
+		SAFEADD(score, timer / 4, 0xFFFFFFFF);
 		
 		if (level < MAX_BLOCKS) {
 			level++;
@@ -152,13 +146,13 @@ void draw() {
 	entity_draw(&player);
 	for (y =  0; y < level; y++) {
 		for (x = 0; x < level; x++) {
-			if (
-				object_draw(&blocks[x][y]) &&
-				object_collision(&player.object, &blocks[x][y])
-			) {
-				blocks[x][y].visible = 0;
-				blockCount--;
-				score += 10;
+			if (blocks[x][y].visible) {
+				object_draw(blocks[x][y]);
+				if (object_collision(player.object, blocks[x][y])) {
+					blocks[x][y].visible = 0;
+					blockCount--;
+					score += 10;
+				}
 			}
 		}
 	}
