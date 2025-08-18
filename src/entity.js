@@ -31,21 +31,23 @@ class entity {
 	}
 	
 	draw() {
-		switch (this.direction) {
-			case entity_directions.UP:
-				this.object.position[1] -= this.speed;
-				break;
-			case entity_directions.DOWN:
-				this.object.position[1] += this.speed;
-				break;
-			case entity_directions.LEFT:
-				this.object.position[0] -= this.speed;
-				break;
-			case entity_directions.RIGHT:
-				this.object.position[0] += this.speed;
-				break;
+		if (this.object.visible) {
+			switch (this.direction) {
+				case entity_directions.UP:
+					this.object.position[1] -= this.speed;
+					break;
+				case entity_directions.DOWN:
+					this.object.position[1] += this.speed;
+					break;
+				case entity_directions.LEFT:
+					this.object.position[0] -= this.speed;
+					break;
+				case entity_directions.RIGHT:
+					this.object.position[0] += this.speed;
+					break;
+			}
+			this.object.draw();
 		}
-		
-		return this.object.draw();
+		return;
 	}
 };

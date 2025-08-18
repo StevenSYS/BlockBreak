@@ -42,6 +42,6 @@ class object {
 				this.size[0], this.size[1]
 			);
 		}
-		return this.visible;
+		return;
 	}
 };

@@ -28,6 +28,14 @@ const randomColors = [
 	[ 0xFF, 0xFF, 0x55 ]
 ];
 
+function safeAdd(vari, value, max) {
+	if ((vari + value) > max) {
+		return max;
+	} else {
+		return vari + value;
+	}
+}
+
 function lessThanSet(vari, value) {
 	if (vari < value) {
 		return value;
@@ -164,11 +172,7 @@ function generateLevel(level) {
 }
 
 function init() {
-	if (timer + (level * 35) > 0xFFFF) {
-		timer = 0xFFFF;
-	} else {
-		timer += level * 35;
-	}
+	timer = safeAdd(timer, level * 35, 0xFFFF);
 	
 	player = new entity(
 		0xFF, 0xFF, 0xFF,
@@ -196,11 +200,7 @@ function draw() {
 	impl_loopStart();
 	
 	if (!blockCount) {
-		if (score + (timer / 4) > 0xFFFFFFFF) {
-			score = 0xFFFFFFFF;
-		} else {
-			score += Math.round(timer / 4);
-		}
+		score = safeAdd(score, Math.round(timer / 4), 0xFFFFFFFF);
 		
 		if (level < MAX_BLOCKS) {
 			level++;
@@ -225,13 +225,13 @@ function draw() {
 	player.draw(context, true);
 	
 	for (i in blocks) {
-		if (
-			blocks[i].draw() &&
-			blocks[i].collision(player.object)
-		) {
-			blocks[i].visible = false;
-			blockCount--;
-			score += 10;
+		if (blocks[i].visible) {
+			blocks[i].draw();
+			if (blocks[i].collision(player.object)) {
+				blocks[i].visible = false;
+				blockCount--;
+				score = safeAdd(score, 10, 0xFFFFFFFF);
+			}
 		}
 	}
 	
