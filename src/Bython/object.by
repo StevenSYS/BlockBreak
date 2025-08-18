@@ -40,6 +40,6 @@ class objectClass {
 				(self.position, self.size)
 			);
 		}
-		return self.visible;
+		return;
 	}
 }

@@ -32,4 +32,4 @@ class objectClass:
                 self.color,
                 (self.position, self.size)
                 )
-        return self.visible
+        return

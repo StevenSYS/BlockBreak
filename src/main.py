@@ -35,6 +35,11 @@ font = pygame.font.SysFont(
     pygame.font.get_default_font(),
     FONT_HEIGHT
     )
+def safeAdd(var, value, maxVal):
+    if ((var + value) > maxVal):
+        return maxVal
+    else:
+        return var + value
 def lessThanSet(var, value):
     if (var < value):
         return value
@@ -76,10 +81,7 @@ def init():
     global level
     global timer
     global player
-    if (timer + (level * 35) > 0xFFFF):
-        timer = 0xFFFF
-    else:
-        timer += level * 35
+    timer = safeAdd(timer, level * 35, 0xFFFF)
     player = entity(
         0xFF, 0xFF, 0xFF,
         ENTITY_DIR_NONE,
@@ -112,10 +114,7 @@ def draw():
     global highScore
     clock.tick(MAX_FPS)
     if (blockCount < 1):
-        if (score + (timer / 4) > 0xFFFFFFFF):
-            score = 0xFFFFFFFF
-        else:
-            score += round(timer / 4)
+        score = safeAdd(score, round(timer / 4), 0xFFFFFFFF)
         if (level < MAX_BLOCKS):
             level += 1
         init()
@@ -134,13 +133,12 @@ def draw():
         player.object.position[0] = SCREEN_EDGE_RIGHT
     player.draw(screen)
     for block in blocks:
-        if (
-            block.draw(screen) and
-            block.collision(player.object)
-            ):
-            block.visible = false
-            blockCount -= 1
-            score += 10
+        if (block.visible):
+            block.draw(screen)
+            if (block.collision(player.object)):
+                block.visible = false
+                blockCount -= 1
+                score = safeAdd(score, 10, 0xFFFFFFFF)
     screen.blit(
         font.render(str(timer), false, (0xFF, 0xFF, 0xFF)),
         (0, RENDER_HEIGHT - (FONT_HEIGHT * 4))

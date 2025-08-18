@@ -31,13 +31,15 @@ class entity:
         self,
         screen
         ):
-        #/* Why doesn't Python have switches? */
-        if (self.direction == ENTITY_DIR_UP):
-            self.object.position[1] -= self.speed
-        elif (self.direction == ENTITY_DIR_DOWN):
-            self.object.position[1] += self.speed
-        elif (self.direction == ENTITY_DIR_LEFT):
-            self.object.position[0] -= self.speed
-        elif (self.direction == ENTITY_DIR_RIGHT):
-            self.object.position[0] += self.speed
-        return self.object.draw(screen)
+        if (self.object.visible):
+            #/* Why doesn't Python have switches? */
+            if (self.direction == ENTITY_DIR_UP):
+                self.object.position[1] -= self.speed
+            elif (self.direction == ENTITY_DIR_DOWN):
+                self.object.position[1] += self.speed
+            elif (self.direction == ENTITY_DIR_LEFT):
+                self.object.position[0] -= self.speed
+            elif (self.direction == ENTITY_DIR_RIGHT):
+                self.object.position[0] += self.speed
+            self.object.draw(screen)
+        return
