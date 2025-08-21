@@ -22,12 +22,10 @@ compile() {
 		-I ../src/BlockBreakC/src/impl \
 		-I ../src/BlockBreakC/src/impl/highScore \
 		-I ../src/BlockBreakC/src/impl/screenshot \
-		-I ../src/BlockBreakC/src/input \
-		-I ../src/BlockBreakC/src/random \
+		-I ../src/BlockBreakC/src/shared \
 		-I ../src/BlockBreakC/src \
 		../src/impl/shared.c \
-		../src/BlockBreakC/src/input/input.c \
-		../src/BlockBreakC/src/random/random.c \
+		../src/BlockBreakC/src/shared/*.c \
 		../src/BlockBreakC/src/*.c
 	
 	wasm-strip "$output"
