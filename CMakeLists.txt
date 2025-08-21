@@ -77,8 +77,7 @@ include_directories(
 	"src/impl"
 	"src/impl/highScore"
 	"src/impl/screenshot"
-	"src/random"
-	"src/input"
+	"src/shared"
 )
 
 add_subdirectory(src/impl)
@@ -86,11 +85,9 @@ if(ENABLE_SCREENSHOT)
 	add_subdirectory(src/impl/screenshot)
 endif()
 
-add_library(
-	Shared
-	"src/random/random.c"
-	"src/input/input.c"
-)
+file(GLOB SHARED_SOURCE_FILES "src/shared/*.c")
+
+add_library(Shared ${SHARED_SOURCE_FILES})
 
 if(NOT BUILD_ONLY_IMPL)
 	add_subdirectory(src/impl/highScore)
