@@ -21,8 +21,6 @@ randomColors = [
 [ 0xFF, 0x55, 0xFF ],
 [ 0xFF, 0xFF, 0x55 ]
 ]
-oldRandomColor = 13
-randomColor = 13
 level = 1
 blockCount = 0
 timer = 0
@@ -46,10 +44,10 @@ def lessThanSet(var, value):
     else:
         return var
 def generateLevel(level):
-    global oldRandomColor
-    global randomColor
     global blockCount
     global blocks
+    prevRandomColor = 13
+    randomColor = 13
     blockCount = 0
     if (level > 0):
         blockSize = [
@@ -59,8 +57,8 @@ def generateLevel(level):
         blockSize[0] = lessThanSet(blockSize[0], 1)
         blockSize[1] = lessThanSet(blockSize[1], 1)
         for y in range(level):
-            oldRandomColor = randomColor
-            while (randomColor == oldRandomColor):
+            prevRandomColor = randomColor
+            while (randomColor == prevRandomColor):
                 randomColor = random_get()
             for x in range(level):
                 if (
