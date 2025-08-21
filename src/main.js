@@ -2,8 +2,6 @@ document.addEventListener("keydown", input);
 document.addEventListener("touchstart", touchStart);
 document.addEventListener("touchend", touchEnd);
 
-var oldRandomColor = 13;
-var randomColor = 13;
 var level = 1;
 var blockCount = 0;
 var timer = 0;
@@ -135,6 +133,8 @@ function input(event) {
 }
 
 function generateLevel(level) {
+	prevRandomColor = 13;
+	randomColor = 13;
 	blockCount = 0;
 	blocks = [];
 	
@@ -148,9 +148,9 @@ function generateLevel(level) {
 		blockSize[1] = lessThanSet(blockSize[1], 1);
 		
 		for (var y = 0; y < level; y++) {
-			oldRandomColor = randomColor;
+			prevRandomColor = randomColor;
 			
-			while (randomColor == oldRandomColor) {
+			while (randomColor == prevRandomColor) {
 				randomColor = random_get();
 			}
 			
