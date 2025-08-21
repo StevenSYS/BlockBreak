@@ -6,11 +6,9 @@
 #include "entity.HC"
 #include "progInfo.HH"
 
-static U8 x, y;
+static Bool timerStart = FALSE;
 
-Bool timerStart = FALSE;
-
-U8 randomColors[12] = {
+static U8 randomColors[12] = {
 	BLUE,
 	GREEN,
 	CYAN,
@@ -24,21 +22,20 @@ U8 randomColors[12] = {
 	LTPURPLE,
 	YELLOW
 };
-U8 oldRandomColor = 13;
-U8 randomColor = 13;
-U8 level = 1;
+static U8 level = 1;
 
-I16 sc;
+static I16 sc;
 
-U16 blockCount = 0;
-U16 timer = 0;
+static U16 blockCount = 0;
+static U16 timer = 0;
 
-U32 score = 0;
+static U32 score = 0;
 
-CDC *dc = DCAlias;
+static CDC *dc = DCAlias;
 
-entity_t player;
-object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+static object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+
+static entity_t player;
 
 RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
 RegExe(PROGRAM_NAME);
@@ -80,10 +77,14 @@ U0 lessThanSetU16(
 }
 
 U0 generateLevel(U8 level) {
+	U8 x, y;
+	U8 prevRandomColor;
+	U8 randomColor;
+	U16 blockSize[2];
+	
 	blockCount = 0;
 	
 	if (level > 0) {
-		U16 blockSize[2];
 		blockSize[0] = RENDER_WIDTH / level;
 		blockSize[1] = RENDER_HEIGHT / (level * 1.5);
 		
@@ -91,9 +92,9 @@ U0 generateLevel(U8 level) {
 		lessThanSetU16(&blockSize[1], 1);
 		
 		for (y = 0; y < level; y++) {
-			oldRandomColor = randomColor;
+			prevRandomColor = randomColor;
 			
-			while (randomColor == oldRandomColor) {
+			while (randomColor == prevRandomColor) {
 				randomColor = randomColors[random_get()];
 			}
 			
@@ -138,6 +139,8 @@ U0 init() {
 }
 
 U0 reset() {
+	U8 x, y;
+	
 	timer = 0;
 	level = 1;
 	score = 0;
@@ -152,6 +155,8 @@ U0 reset() {
 }
 
 U0 draw(CTask *, CDC *dc) {
+	U8 x, y;
+	
 	if (!blockCount) {
 		safeAddU32(&score, timer / 4, 0xFFFFFFFF);
 		
@@ -183,7 +188,7 @@ U0 draw(CTask *, CDC *dc) {
 				if (object_collision(&player.object, &blocks[x][y])) {
 					blocks[x][y].visible = FALSE;
 					blockCount--;
-					score += 10;
+					safeAddU32(&score, 10, 0xFFFFFFFF);
 				}
 			}
 		}
