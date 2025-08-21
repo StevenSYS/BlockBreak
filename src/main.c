@@ -6,16 +6,21 @@
 #include "input.h"
 #include "progInfo.h"
 #ifdef USE_BLOCKSIZELIST
-#include "blockSizeList.h"
+	#include "blockSizeList.h"
 #endif
 
-#define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
+#define LESSTHANSET(_var, _value) \
+	if (_var < _value) { \
+		_var = _value; \
+	}
 
-#define SAFEADD(_var, _value, _max) if ((_var + _value) > _max) { _var = _max; } else { _var += _value; }
+#define SAFEADD(_var, _value, _max) \
+	if ((_var + _value) > _max) { \
+		_var = _max; \
+	} else { \
+		_var += _value; \
+	}
 
-static unsigned char x, y;
-static unsigned char oldRandomColor = 13;
-static unsigned char randomColor = 13;
 static unsigned char level = 1;
 static const unsigned char colors[12][3] = {
 	{ 0x00, 0x00, 0xAA },
@@ -45,10 +50,14 @@ char timerStart = 0;
 entity_t player;
 
 void generateLevel(unsigned char level) {
+	unsigned char x, y;
+	unsigned char prevRandomColor = 0;
+	unsigned char randomColor = 13;
+	unsigned short blockSize[2];
+	
 	blockCount = 0;
 	
 	if (level > 0) {
-		unsigned short blockSize[2];
 		#ifdef USE_BLOCKSIZELIST
 		blockSize[0] = blockSizeList[level][0];
 		blockSize[1] = blockSizeList[level][1];
@@ -60,10 +69,10 @@ void generateLevel(unsigned char level) {
 		LESSTHANSET(blockSize[0], 1);
 		LESSTHANSET(blockSize[1], 1);
 		
-		for (y =  0; y < level; y++) {
-			oldRandomColor = randomColor;
+		for (y = 0; y < level; y++) {
+			prevRandomColor = randomColor;
 			
-			while (randomColor == oldRandomColor) {
+			while (randomColor == prevRandomColor) {
 				randomColor = random_get();
 			}
 			
@@ -104,6 +113,8 @@ void init() {
 }
 
 void reset() {
+	unsigned char x, y;
+	
 	timer = 0;
 	level = 1;
 	score = 0;
@@ -118,6 +129,8 @@ void reset() {
 }
 
 void draw() {
+	unsigned char x, y;
+	
 	impl_loopStart();
 	
 	if (!blockCount) {
@@ -151,7 +164,7 @@ void draw() {
 				if (object_collision(player.object, blocks[x][y])) {
 					blocks[x][y].visible = 0;
 					blockCount--;
-					score += 10;
+					SAFEADD(score, 10, 0xFFFFFFFF);
 				}
 			}
 		}
