@@ -38,9 +38,9 @@ static void raylibInput() {
 
 /* Drawing */
 void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 ) {
 	currentColor = (Color){ red, green, blue, 0xFF };
 	#ifdef ENABLE_SCREENSHOT
@@ -50,8 +50,8 @@ void impl_setColor(
 }
 
 void impl_drawNumber(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 ) {
 	DrawText(
 		TextFormat("%u", number),
@@ -66,8 +66,8 @@ void impl_drawNumber(
 }
 
 void impl_drawFillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 ) {
 	DrawRectangle(
 		x, y,

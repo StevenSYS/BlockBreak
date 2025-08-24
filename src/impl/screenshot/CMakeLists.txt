@@ -22,7 +22,7 @@ else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"libcSVG\", \"SDL3SVG\", \"FMODSVG\", \"libcPPM\", \"SDL3PPM\", \"FMODPPM\" or \"Dummy\"")
 endif()
 
-add_library(SImpl ${SIMPL_FILES})
+add_library(SImpl "setTake.c" ${SIMPL_FILES})
 
 if(SIMPL_TYPE STREQUAL "libc")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSIMPL=1")

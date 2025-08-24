@@ -49,7 +49,7 @@ char timerStart = 0;
 
 entity_t player;
 
-void generateLevel(unsigned char level) {
+void generateLevel(const unsigned char level) {
 	unsigned char x, y;
 	unsigned char prevRandomColor = 0;
 	unsigned char randomColor = 13;

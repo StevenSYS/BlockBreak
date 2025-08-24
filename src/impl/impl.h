@@ -5,19 +5,19 @@
 
 /* Draw */
 void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 );
 
 void impl_drawNumber(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 );
 
 void impl_drawFillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 );
 
 /* Misc. */

@@ -16,10 +16,10 @@ char object_collision(
 
 void object_init(
 	object_t *object,
-	unsigned char red, unsigned char green,	unsigned char blue,
-	unsigned short width, unsigned short height,
-	signed short x, signed short y,
-	char visible
+	const unsigned char red, const unsigned char green, unsigned char blue,
+	const unsigned short width, const unsigned short height,
+	const signed short x, const signed short y,
+	const char visible
 ) {
 	object->color[0] = red;
 	object->color[1] = green;

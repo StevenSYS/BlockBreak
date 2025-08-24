@@ -13,8 +13,8 @@ void sImpl_setColor(
 }
 
 void sImpl_number(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 ) {
 	if (sImpl_take == 2) {
 	}
@@ -22,8 +22,8 @@ void sImpl_number(
 }
 
 void sImpl_fillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 ) {
 	if (sImpl_take == 2) {
 	}

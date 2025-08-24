@@ -17,7 +17,7 @@ enum inputs {
 };
 
 /* Functions */
-void input(unsigned char key);
+void input(const enum inputs input);
 
 void input_init(
 	void (*reset)(),

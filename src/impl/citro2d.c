@@ -50,9 +50,9 @@ static void c2dInput() {
 
 /* Drawing */
 void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 ) {
 	currentColor = C2D_Color32(red, green, blue, 0xFF);
 	#ifdef ENABLE_SCREENSHOT
@@ -62,8 +62,8 @@ void impl_setColor(
 }
 
 void impl_drawNumber(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 ) {
 	printf("\x1b[%i;%iH", (y / FONT_HEIGHT) + 1, (x / FONT_WIDTH) + 1); /* Sets the cursor position */
 	printf("\x1b[97m"); /* Sets the foreground color to bright white */
@@ -76,8 +76,8 @@ void impl_drawNumber(
 }
 
 void impl_drawFillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 ) {
 	C2D_DrawRectSolid(
 		x, y, 0,

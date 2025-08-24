@@ -56,7 +56,7 @@ static unsigned char getVideoMode() {
 	return r.h.al;
 }
 
-static void setVideoMode(unsigned char videoMode) {
+static void setVideoMode(const unsigned char videoMode) {
 	__dpmi_regs r;
 	r.x.ax = videoMode;
 	__dpmi_int(0x10, &r);
@@ -112,9 +112,9 @@ static void handleInput() {
 
 /* Drawing */
 void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 ) {
 	currentColor = colorPaletteMap[
 		red / 85
@@ -154,8 +154,8 @@ void impl_drawNumber(
 }
 
 void impl_drawFillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 ) {
 	for (y2 = 0; y2 < height; y2++) {
 		for (x2 = 0; x2 < width; x2++) {

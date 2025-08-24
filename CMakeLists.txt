@@ -89,6 +89,10 @@ file(GLOB SHARED_SOURCE_FILES "src/shared/*.c")
 
 add_library(Shared ${SHARED_SOURCE_FILES})
 
+if(ENABLE_SCREENSHOT)
+	target_link_libraries(Shared SImpl)
+endif()
+
 if(NOT BUILD_ONLY_IMPL)
 	add_subdirectory(src/impl/highScore)
 	
@@ -118,5 +122,8 @@ if(NOT BUILD_ONLY_IMPL)
 		HSSImpl
 		Shared
 	)
+	if(ENABLE_SCREENSHOT)
+		target_link_libraries(${PROJECT_NAME} SImpl)
+	endif()
 	set_property(TARGET ${PROJECT_NAME} PROPERTY BUILD_RPATH ".")
 endif()

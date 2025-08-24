@@ -2,12 +2,12 @@
 
 void entity_init(
 	entity_t *entity,
-	unsigned char red, unsigned char green, unsigned char blue,
-	unsigned char direction,
-	unsigned short width, unsigned short height,
-	signed short x, signed short y,
-	signed short speed,
-	char visible
+	const unsigned char red, const unsigned char green, const unsigned char blue,
+	const unsigned char direction,
+	const unsigned short width, const unsigned short height,
+	const signed short x, const signed short y,
+	const signed short speed,
+	const char visible
 ) {
 	entity->direction = direction;
 	entity->speed = speed;

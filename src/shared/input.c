@@ -12,14 +12,14 @@ static char *main_timerStart;
 
 static entity_t *main_player;
 
-void input(unsigned char key) {
+void input(const enum inputs input) {
 	random_index++;
-	switch (key) {
+	switch (input) {
 		case INPUT_UP:
 		case INPUT_DOWN:
 		case INPUT_LEFT:
 		case INPUT_RIGHT:
-			main_player->direction = key;
+			main_player->direction = input;
 			if (!*main_timerStart) {
 				*main_timerStart = 1;
 			}

@@ -14,9 +14,9 @@ static char colorHex[7];
 
 /* Drawing */
 void sImpl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 ) {
 	if (sImpl_take == 2) {
 		SIMPL_SNPRINTF(colorHex, 7, "%02X%02X%02X", red, green, blue);
@@ -25,8 +25,8 @@ void sImpl_setColor(
 }
 
 void sImpl_number(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 ) {
 	if (sImpl_take == 2) {
 		SIMPL_FPRINTF(file, "\t<text x=\"%i\" y=\"%i\" fill=\"#%s\">%u</text>\n", x, y + FONT_HEIGHT, colorHex, number);
@@ -35,8 +35,8 @@ void sImpl_number(
 }
 
 void sImpl_fillRect(
-	signed short x, signed short y,
-	unsigned short width, unsigned short height
+	const signed short x, const signed short y,
+	const unsigned short width, const unsigned short height
 ) {
 	if (sImpl_take == 2) {
 		SIMPL_FPRINTF(file, "\t<rect width=\"%u\" height=\"%u\" x=\"%i\" y=\"%i\" fill=\"#%s\"/>\n", width, height, x, y, colorHex);

@@ -58,7 +58,7 @@ unsigned int hssImpl_get() {
 	return newScore;
 }
 
-void hssImpl_set(unsigned int highScore) {
+void hssImpl_set(const unsigned int highScore) {
 	if (fileStatus == FILE_BROKEN) {
 		fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
 		return;

@@ -22,9 +22,9 @@ static unsigned short x2, y2;
 
 /* Drawing */
 void sImpl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
+	const unsigned char red,
+	const unsigned char green,
+	const unsigned char blue
 ) {
 	if (sImpl_take == 2) {
 		currentColor[0] = red;
@@ -35,8 +35,8 @@ void sImpl_setColor(
 }
 
 void sImpl_number(
-	signed short x, signed short y,
-	unsigned int number
+	const signed short x, const signed short y,
+	const unsigned int number
 ) {
 	SIMPL_SNPRINTF(buffer, 11, "%u", number);
 	if (sImpl_take == 2) {
