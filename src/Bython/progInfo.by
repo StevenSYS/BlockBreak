@@ -1,6 +1,6 @@
 /* - Program - */
 PROGRAM_NAME = "BlockBreakPy";
-PROGRAM_VERSION = "1.2pre";
+PROGRAM_VERSION = "1.2";
 
 /* - Render - */
 RENDER_WIDTH = 640;

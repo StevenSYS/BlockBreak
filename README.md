@@ -1,4 +1,7 @@
 # BlockBreakPy
+> [!WARNING]
+> This port is no longer being maintained
+
 A port of BlockBreakHC from HolyC to Python using PyGame
 
 # Screenshots
