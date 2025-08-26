@@ -32,7 +32,7 @@ importList["impl_drawNumber"] = function(
 	x, y,
 	number
 ) {
-	context.fillText(number, x, y + (fontSize - 1));
+	context.fillText(number, x, y + (fontSize - 2));
 	sImpl_number(x, y, number);
 	return;
 }
