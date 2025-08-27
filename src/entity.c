@@ -3,7 +3,7 @@
 void entity_init(
 	entity_t *entity,
 	const unsigned char red, const unsigned char green, const unsigned char blue,
-	const unsigned char direction,
+	const enum entity_directions direction,
 	const unsigned short width, const unsigned short height,
 	const signed short x, const signed short y,
 	const signed short speed,
