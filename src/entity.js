@@ -1,9 +1,9 @@
 const entity_directions = {
-	NONE: 0,
-	UP: 1,
-	DOWN: 2,
-	LEFT: 3,
-	RIGHT: 4
+	UP: 0,
+	DOWN: 1,
+	LEFT: 2,
+	RIGHT: 3,
+	NONE: 4
 };
 
 class entity {
@@ -32,19 +32,12 @@ class entity {
 	
 	draw() {
 		if (this.object.visible) {
-			switch (this.direction) {
-				case entity_directions.UP:
-					this.object.position[1] -= this.speed;
-					break;
-				case entity_directions.DOWN:
-					this.object.position[1] += this.speed;
-					break;
-				case entity_directions.LEFT:
-					this.object.position[0] -= this.speed;
-					break;
-				case entity_directions.RIGHT:
-					this.object.position[0] += this.speed;
-					break;
+			if (this.direction != entity_directions.NONE) {
+				this.object.position[
+					this.direction >= entity_directions.LEFT ? 0 : 1
+				] += (
+					this.direction % 2
+				) == 0 ? -this.speed : this.speed;
 			}
 			this.object.draw();
 		}
