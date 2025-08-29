@@ -1,11 +1,11 @@
 #include "object.HC"
 
 /* Enum - entity_directions */
-#define ENTITY_DIR_NONE 0
-#define ENTITY_DIR_UP 1
-#define ENTITY_DIR_DOWN 2
-#define ENTITY_DIR_LEFT 3
-#define ENTITY_DIR_RIGHT 4
+#define ENTITY_DIR_UP 0
+#define ENTITY_DIR_DOWN 1
+#define ENTITY_DIR_LEFT 2
+#define ENTITY_DIR_RIGHT 3
+#define ENTITY_DIR_NONE 4
 /* Enum End */
 
 class entity_t {
