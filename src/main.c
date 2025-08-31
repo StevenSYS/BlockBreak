@@ -1,6 +1,7 @@
 #include <impl.h>
 #include <hssImpl.h>
 
+#include "misc.h"
 #include "random.h"
 #include "entity.h"
 #include "input.h"
@@ -8,18 +9,6 @@
 #ifdef USE_BLOCKSIZELIST
 	#include "blockSizeList.h"
 #endif
-
-#define LESSTHANSET(_var, _value) \
-	if (_var < _value) { \
-		_var = _value; \
-	}
-
-#define SAFEADD(_var, _value, _max) \
-	if ((_var + _value) > _max) { \
-		_var = _max; \
-	} else { \
-		_var += _value; \
-	}
 
 static unsigned char level = 1;
 static const unsigned char colors[12][3] = {
@@ -43,7 +32,7 @@ static unsigned short timer = 0;
 static unsigned int score = 0;
 static unsigned int highScore;
 
-static object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+static object_t blocks[MAX_LEVEL][MAX_LEVEL];
 
 char timerStart = 0;
 
@@ -51,13 +40,13 @@ entity_t player;
 
 void generateLevel(const unsigned char level) {
 	unsigned char x, y;
-	unsigned char prevRandomColor = 0;
-	unsigned char randomColor = 13;
+	unsigned char randomColor = 0;
+	unsigned char prevRandomColor;
 	unsigned short blockSize[2];
 	
 	blockCount = 0;
 	
-	if (level > 0) {
+	if (level > 0 && level <= MAX_LEVEL) {
 		#ifdef USE_BLOCKSIZELIST
 		blockSize[0] = blockSizeList[level][0];
 		blockSize[1] = blockSizeList[level][1];
@@ -77,7 +66,10 @@ void generateLevel(const unsigned char level) {
 			}
 			
 			for (x = 0; x < level; x++) {
-				if ((x * blockSize[0] < RENDER_WIDTH) && (y * blockSize[1] < RENDER_HEIGHT)) {
+				if (
+					(x * blockSize[0] < RENDER_WIDTH) &&
+					(y * blockSize[1] < RENDER_HEIGHT)
+				) {
 					blockCount++;
 					object_init(
 						&blocks[x][y],
@@ -119,8 +111,8 @@ void reset() {
 	level = 1;
 	score = 0;
 	timerStart = 0;
-	for (y =  0; y < MAX_BLOCKS; y++) {
-		for (x = 0; x < MAX_BLOCKS; x++) {
+	for (y =  0; y < MAX_LEVEL; y++) {
+		for (x = 0; x < MAX_LEVEL; x++) {
 			blocks[x][y].visible = 0;
 		}
 	}
@@ -135,10 +127,7 @@ void draw() {
 	
 	if (!blockCount) {
 		SAFEADD(score, timer / 4, 0xFFFFFFFF);
-		
-		if (level < MAX_BLOCKS) {
-			level++;
-		}
+		SAFEADD(level, 1, MAX_LEVEL);
 		init();
 	}
 	

@@ -64,14 +64,14 @@
 #define SCREEN_EDGE_RIGHT RENDER_WIDTH - PLAYER_WIDTH
 
 /* - Max - */
-#ifndef MAX_BLOCKS
-	#define MAX_BLOCKS 255
+#ifndef MAX_LEVEL
+	#define MAX_LEVEL 255
 #endif
 #define MAX_FPS 30
 /* Safe Guards */
-#if MAX_BLOCKS < 1
-	#undef MAX_BLOCKS
-	#define MAX_BLOCKS 1
+#if MAX_LEVEL < 1
+	#undef MAX_LEVEL
+	#define MAX_LEVEL 1
 #endif
 #if MAX_FPS < 1
 	#undef MAX_FPS
