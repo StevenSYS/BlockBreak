@@ -17,4 +17,3 @@ A **recreation** of BlockBreak in C#
 | Right          | Move Right                                     | 
 | Enter          | Restart                                        | 
 | Escape         | Quit                                           |
-~~| S              | Screenshot (Only in screenshot enabled builds) |~~
