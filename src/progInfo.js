@@ -90,13 +90,13 @@ if (urlParams.has("timerSpeed")) {
 
 /* - Max - */
 if (urlParams.has("maxBlocks")) {
-	MAX_BLOCKS = parseInt(urlParams.get("maxBlocks"));
+	MAX_LEVEL = parseInt(urlParams.get("maxBlocks"));
 	customSettings = true;
 } else {
-	MAX_BLOCKS = 255;
+	MAX_LEVEL = 255;
 }
-if (MAX_BLOCKS < 1) {
-	MAX_BLOCKS = 1;
+if (MAX_LEVEL < 1) {
+	MAX_LEVEL = 1;
 }
 
 if (urlParams.has("fps")) {

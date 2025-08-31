@@ -26,22 +26,6 @@ const randomColors = [
 	[ 0xFF, 0xFF, 0x55 ]
 ];
 
-function safeAdd(vari, value, max) {
-	if ((vari + value) > max) {
-		return max;
-	} else {
-		return vari + value;
-	}
-}
-
-function lessThanSet(vari, value) {
-	if (vari < value) {
-		return value;
-	} else {
-		return vari;
-	}
-}
-
 /* Touch Input */
 var touch_startX, touch_deltaX;
 var touch_startY, touch_deltaY;
@@ -133,8 +117,8 @@ function input(event) {
 }
 
 function generateLevel(level) {
-	prevRandomColor = 13;
-	randomColor = 13;
+	randomColor = 0;
+	prevRandomColor = 0;
 	blockCount = 0;
 	blocks = [];
 	
@@ -144,8 +128,8 @@ function generateLevel(level) {
 			Math.round(element_canvas.height / (level * 1.5))
 		];
 		
-		blockSize[0] = lessThanSet(blockSize[0], 1);
-		blockSize[1] = lessThanSet(blockSize[1], 1);
+		blockSize[0] = lessThan(blockSize[0], 1);
+		blockSize[1] = lessThan(blockSize[1], 1);
 		
 		for (var y = 0; y < level; y++) {
 			prevRandomColor = randomColor;
@@ -155,7 +139,10 @@ function generateLevel(level) {
 			}
 			
 			for (var x = 0; x < level; x++) {
-				if ((x * blockSize[0] < element_canvas.width) && (y * blockSize[1] < element_canvas.height)) {
+				if (
+					(x * blockSize[0] < element_canvas.width) &&
+					(y * blockSize[1] < element_canvas.height)
+				) {
 					blockCount++;
 					blocks.push(new object(
 						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
@@ -201,10 +188,7 @@ function draw() {
 	
 	if (!blockCount) {
 		score = safeAdd(score, Math.round(timer / 4), 0xFFFFFFFF);
-		
-		if (level < MAX_BLOCKS) {
-			level++;
-		}
+		level = safeAdd(level, 1, MAX_LEVEL);
 		init();
 	}
 	
