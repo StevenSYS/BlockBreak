@@ -85,7 +85,15 @@ U0 generateLevel(U8 level) {
 }
 
 U0 init() {
+	U8 x, y;
+	
 	safeAddU16(&timer, level * 35, 0xFFFF);
+	
+	for (y = 0; y < MAX_LEVEL; y++) {
+		for (x = 0; x < MAX_LEVEL; x++) {
+			blocks[x][y].visible = FALSE;
+		}
+	}
 	
 	entity_init(
 		&player,
@@ -104,17 +112,10 @@ U0 init() {
 }
 
 U0 reset() {
-	U8 x, y;
-	
 	timer = 0;
 	level = 1;
 	score = 0;
 	timerStart = FALSE;
-	for (y = 0; y < MAX_LEVEL; y++) {
-		for (x = 0; x < MAX_LEVEL; x++) {
-			blocks[x][y].visible = FALSE;
-		}
-	}
 	init();
 	return;
 }
