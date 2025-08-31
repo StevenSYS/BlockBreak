@@ -2,6 +2,7 @@
 	Cd(__DIR__);
 };
 
+#include "misc.HC"
 #include "random.HC"
 #include "entity.HC"
 #include "progInfo.HH"
@@ -33,58 +34,22 @@ static U32 score = 0;
 
 static CDC *dc = DCAlias;
 
-static object_t blocks[MAX_BLOCKS][MAX_BLOCKS];
+static object_t blocks[MAX_LEVEL][MAX_LEVEL];
 
 static entity_t player;
 
 RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
 RegExe(PROGRAM_NAME);
 
-U0 safeAddU16(
-	U16 *var,
-	U16 value,
-	U16 max
-) {
-	if ((*var + value) > max) {
-		*var = max;
-	} else {
-		*var += value;
-	}
-	return;
-}
-
-U0 safeAddU32(
-	U32 *var,
-	U32 value,
-	U32 max
-) {
-	if ((*var + value) > max) {
-		*var = max;
-	} else {
-		*var += value;
-	}
-	return;
-}
-
-U0 lessThanSetU16(
-	U16 *var,
-	U16 value
-) {
-	if (var < value) {
-		*var = value;
-	}
-	return;
-}
-
 U0 generateLevel(U8 level) {
 	U8 x, y;
+	U8 randomColor = 0;
 	U8 prevRandomColor;
-	U8 randomColor;
 	U16 blockSize[2];
 	
 	blockCount = 0;
 	
-	if (level > 0) {
+	if (level > 0 && level <= MAX_LEVEL) {
 		blockSize[0] = RENDER_WIDTH / level;
 		blockSize[1] = RENDER_HEIGHT / (level * 1.5);
 		
@@ -145,8 +110,8 @@ U0 reset() {
 	level = 1;
 	score = 0;
 	timerStart = FALSE;
-	for (y = 0; y < MAX_BLOCKS; y++) {
-		for (x = 0; x < MAX_BLOCKS; x++) {
+	for (y = 0; y < MAX_LEVEL; y++) {
+		for (x = 0; x < MAX_LEVEL; x++) {
 			blocks[x][y].visible = FALSE;
 		}
 	}
@@ -159,10 +124,7 @@ U0 draw(CTask *, CDC *dc) {
 	
 	if (!blockCount) {
 		safeAddU32(&score, timer / 4, 0xFFFFFFFF);
-		
-		if (level < MAX_BLOCKS) {
-			level++;
-		}
+		safeAddU8(&level, 1, MAX_LEVEL);
 		init();
 	}
 	
