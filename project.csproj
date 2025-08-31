@@ -1,0 +1,27 @@
+<Project>
+	<PropertyGroup>
+		<Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+		<OutputPath>build/$(Configuration)</OutputPath>
+		<AssemblyName>BlockBreakCSharp</AssemblyName>
+		<ApplicationIcon>src/icon.ico</ApplicationIcon>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<Optimize>false</Optimize>
+		<DebugType>pdbonly</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Compile Include="src/*.cs"/>
+		<Compile Include="src/impl/windowsForm.cs"/>
+	</ItemGroup>
+	
+	<Target Name="build">
+		<Csc Sources="@(Compile)" OutputAssembly="$(OutputPath)/$(AssemblyName).exe"/>
+	</Target>
+</Project>
