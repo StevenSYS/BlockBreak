@@ -86,7 +86,15 @@ void generateLevel(const unsigned char level) {
 }
 
 void init() {
+	unsigned char x, y;
+	
 	SAFEADD(timer, level * 35, 0xFFFF);
+	
+	for (y =  0; y < MAX_LEVEL; y++) {
+		for (x = 0; x < MAX_LEVEL; x++) {
+			blocks[x][y].visible = 0;
+		}
+	}
 	
 	entity_init(
 		&player,
@@ -105,17 +113,10 @@ void init() {
 }
 
 void reset() {
-	unsigned char x, y;
-	
 	timer = 0;
 	level = 1;
 	score = 0;
 	timerStart = 0;
-	for (y =  0; y < MAX_LEVEL; y++) {
-		for (x = 0; x < MAX_LEVEL; x++) {
-			blocks[x][y].visible = 0;
-		}
-	}
 	init();
 	return;
 }

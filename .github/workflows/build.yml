@@ -1,4 +1,4 @@
-name: Build
+name: C - Build
 on: [push, pull_request]
 defaults:
   run:

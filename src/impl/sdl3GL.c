@@ -1,4 +1,4 @@
-/* SDL3 + GL Implementation */
+/* SDL3/OpenGL Implementation */
 #define IMPL_NAME "SDL3 + GL"
 #include "glShared.h"
 
