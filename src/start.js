@@ -1,4 +1,4 @@
-const element_canvas = document.createElement("canvas");
+const element_canvas = document.getElementById("canvas");
 
 element_canvas.width = RENDER_WIDTH;
 element_canvas.height = RENDER_HEIGHT;
@@ -7,8 +7,6 @@ element_canvas.style.maxHeight = RENDER_HEIGHT + "px";
 if (!urlParams.has("noBorder")) {
 	element_canvas.classList.add("border");
 }
-
-document.body.appendChild(element_canvas);
 
 const element_screenshotButton = document.createElement("div");
 if (!urlParams.has("noSButton")) {
