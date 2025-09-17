@@ -117,19 +117,30 @@ function input(event) {
 }
 
 function generateLevel(level) {
-	randomColor = 0;
-	prevRandomColor = 0;
+	var x2 = 0;
+	var y2 = 0;
+	var randomColor = 0;
+	var prevRandomColor = 0;
+	
 	blockCount = 0;
 	blocks = [];
 	
-	if (level > 0) {
-		blockSize = [
+	if (level > 0 && level <= MAX_LEVEL) {
+		var blockSize = [
 			Math.round(element_canvas.width / level),
 			Math.round(element_canvas.height / (level * 1.5))
 		];
 		
 		blockSize[0] = lessThan(blockSize[0], 1);
 		blockSize[1] = lessThan(blockSize[1], 1);
+		
+		if (blockSize[0] < PLAYER_WIDTH) {
+			x2 = PLAYER_WIDTH - blockSize[0];
+		}
+		
+		if (blockSize[1] < PLAYER_HEIGHT) {
+			y2 = PLAYER_HEIGHT - blockSize[1];
+		}
 		
 		for (var y = 0; y < level; y++) {
 			prevRandomColor = randomColor;
@@ -140,14 +151,14 @@ function generateLevel(level) {
 			
 			for (var x = 0; x < level; x++) {
 				if (
-					(x * blockSize[0] < element_canvas.width) &&
-					(y * blockSize[1] < element_canvas.height)
+					(((x * blockSize[0]) + x2) < element_canvas.width) &&
+					(((y * blockSize[1]) + y2) < element_canvas.height)
 				) {
 					blockCount++;
 					blocks.push(new object(
 						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
 						blockSize[0], blockSize[1],
-						x * blockSize[0], y * blockSize[1],
+						(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
 						true
 					));
 				}
