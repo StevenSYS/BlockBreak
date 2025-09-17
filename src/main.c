@@ -40,6 +40,8 @@ entity_t player;
 
 void generateLevel(const unsigned char level) {
 	unsigned char x, y;
+	unsigned char x2 = 0;
+	unsigned char y2 = 0;
 	unsigned char randomColor = 0;
 	unsigned char prevRandomColor;
 	unsigned short blockSize[2];
@@ -58,6 +60,14 @@ void generateLevel(const unsigned char level) {
 		LESSTHANSET(blockSize[0], 1);
 		LESSTHANSET(blockSize[1], 1);
 		
+		if (blockSize[0] < PLAYER_WIDTH) {
+			x2 = PLAYER_WIDTH - blockSize[0];
+		}
+		
+		if (blockSize[1] < PLAYER_HEIGHT) {
+			y2 = PLAYER_HEIGHT - blockSize[1];
+		}
+		
 		for (y = 0; y < level; y++) {
 			prevRandomColor = randomColor;
 			
@@ -67,15 +77,15 @@ void generateLevel(const unsigned char level) {
 			
 			for (x = 0; x < level; x++) {
 				if (
-					(x * blockSize[0] < RENDER_WIDTH) &&
-					(y * blockSize[1] < RENDER_HEIGHT)
+					(((x * blockSize[0]) + x2) < RENDER_WIDTH) &&
+					(((y * blockSize[1]) + y2) < RENDER_HEIGHT)
 				) {
 					blockCount++;
 					object_init(
 						&blocks[x][y],
 						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
 						blockSize[0], blockSize[1],
-						x * blockSize[0], y * blockSize[1],
+						(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
 						1
 					);
 				}
