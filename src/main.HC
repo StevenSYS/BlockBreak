@@ -43,6 +43,8 @@ RegExe(PROGRAM_NAME);
 
 U0 generateLevel(U8 level) {
 	U8 x, y;
+	U8 x2 = 0;
+	U8 y2 = 0;
 	U8 randomColor = 0;
 	U8 prevRandomColor;
 	U16 blockSize[2];
@@ -56,6 +58,14 @@ U0 generateLevel(U8 level) {
 		lessThanSetU16(&blockSize[0], 1);
 		lessThanSetU16(&blockSize[1], 1);
 		
+		if (blockSize[0] < PLAYER_WIDTH) {
+			x2 = PLAYER_WIDTH - blockSize[0];
+		}
+		
+		if (blockSize[1] < PLAYER_HEIGHT) {
+			y2 = PLAYER_HEIGHT - blockSize[1];
+		}
+		
 		for (y = 0; y < level; y++) {
 			prevRandomColor = randomColor;
 			
@@ -65,15 +75,15 @@ U0 generateLevel(U8 level) {
 			
 			for (x = 0; x < level; x++) {
 				if (
-					(x * blockSize[0] < RENDER_WIDTH) &&
-					(y * blockSize[1] < RENDER_HEIGHT)
+					(((x * blockSize[0]) + x2) < RENDER_WIDTH) &&
+					(((y * blockSize[1]) + y2) < RENDER_HEIGHT)
 				) {
 					blockCount++;
 					object_init(
 						&blocks[y][x],
 						randomColor,
 						blockSize[0], blockSize[1],
-						x * blockSize[0], y * blockSize[1],
+						(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
 						TRUE
 					);
 				}
