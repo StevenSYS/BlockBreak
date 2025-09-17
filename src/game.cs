@@ -44,6 +44,8 @@ class class_game {
 	internal List<class_object> blocks = new List<class_object>();
 	
 	internal void generateLevel(byte level) {
+		byte x2 = 0;
+		byte y2 = 0;
 		byte randomColor = 0;
 		byte prevRandomColor;
 		int[] blockSize = {
@@ -52,6 +54,14 @@ class class_game {
 		};
 		
 		blockCount = 0;
+		
+		if (blockSize[0] < PLAYER_WIDTH) {
+			x2 = (byte)(PLAYER_WIDTH - blockSize[0]);
+		}
+		
+		if (blockSize[1] < PLAYER_HEIGHT) {
+			y2 = (byte)(PLAYER_HEIGHT - blockSize[1]);
+		}
 		
 		if (level > 0 && level <= MAX_LEVEL) {
 			for (byte y = 0; y < level; y++) {
@@ -63,15 +73,15 @@ class class_game {
 				
 				for (byte x = 0; x < level; x++) {
 					if (
-						(x * blockSize[0] < RENDER_WIDTH) &&
-						(y * blockSize[1] < RENDER_HEIGHT)
+						(((x * blockSize[0]) + x2) < RENDER_WIDTH) &&
+						(((y * blockSize[1]) + y2) < RENDER_HEIGHT)
 					) {
 						blockCount++;
 						blocks.Add(
 							new class_object(
 								colors[randomColor, 0], colors[randomColor, 1], colors[randomColor, 2],
 								blockSize[0], blockSize[1],
-								x * blockSize[0], y * blockSize[1],
+								(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
 								true
 							)
 						);
