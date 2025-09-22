@@ -1,4 +1,4 @@
-# BlockBreakJS
+# [BlockBreakJS](https://github.com/StevenSYS/BlockBreak/tree/js)
 A port of BlockBreakC from C to JavaScript
 
 # Screenshots
