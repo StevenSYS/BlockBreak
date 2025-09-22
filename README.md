@@ -1,4 +1,4 @@
-# BlockBreakHC
+# [BlockBreakHC](https://github.com/StevenSYS/BlockBreak/tree/holyc)
 A HolyC version of a game I originally made in JavaScript + jQuery
 
 # Screenshots
