@@ -1,4 +1,4 @@
-# BlockBreakC-WASM
+# [BlockBreakC-WASM](https://github.com/StevenSYS/BlockBreak/tree/c-wasm)
 A JavaScript + HTML canvas implementation for BlockBreakC using WebAssembly
 
 # Screenshots
