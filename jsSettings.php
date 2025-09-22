@@ -4,7 +4,7 @@
 		$type,
 		$default,
 		$min = "", $max = "",
-		$step = "1"
+		$step = "1.0"
 	) {
 		printf(
 			"\t<label for=\"%s\">%s:</label>\n",
@@ -38,6 +38,7 @@
 	}
 ?>
 <!DOCTYPE html>
+<!-- AUTO GENERATED -->
 <html lang="en">
 	<head>
 		<title>BlockBreak Web Versions</title>
@@ -67,6 +68,7 @@
 					array("name" => "Disable Border", "argName" => "noBorder", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "1.0"),
 					array("name" => "Disable Screenshot Button", "argName" => "noSButton", "type" => "checkbox", "default" => "Off", "min" => "", "max" => "", "step" => "1.0")
 				);
+				
 				foreach ($items as $item) {
 					createOption(
 						$item["name"], $item["argName"],
