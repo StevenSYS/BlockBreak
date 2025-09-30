@@ -23,48 +23,7 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_FRect rect;
 
-static void handleEvent() {
-	SDL_PollEvent(&event);
-	
-	switch (event.type) {
-		case SDL_EVENT_KEY_DOWN:
-			switch (event.key.scancode) {
-				case SDL_SCANCODE_UP:
-					input(INPUT_UP);
-					break;
-				case SDL_SCANCODE_DOWN:
-					input(INPUT_DOWN);
-					break;
-				case SDL_SCANCODE_LEFT:
-					input(INPUT_LEFT);
-					break;
-				case SDL_SCANCODE_RIGHT:
-					input(INPUT_RIGHT);
-					break;
-				case SDL_SCANCODE_RETURN:
-					input(INPUT_RESET);
-					break;
-				case SDL_SCANCODE_ESCAPE:
-					running = 0;
-					break;
-				#ifdef ENABLE_SCREENSHOT
-				case SDL_SCANCODE_S:
-					input(INPUT_SCREENSHOT);
-					break;
-				#endif
-				default:
-					input(INPUT_NONE);
-					break;
-			}
-			break;
-		case SDL_EVENT_QUIT:
-			running = 0;
-			break;
-		default:
-			break;
-	}
-	return;
-}
+#include "sdl3Input.h"
 
 /* Drawing */
 void impl_setColor(
@@ -153,7 +112,14 @@ void impl_init(
 	while (running) {
 		lastTime = SDL_GetTicksNS();
 		
-		handleEvent();
+		SDL_PollEvent(&event);
+		
+		if (event.type == SDL_EVENT_QUIT) {
+			running = 0;
+			break;
+		}
+		
+		handleInput();
 		draw();
 		
 		waitTime = (
@@ -166,7 +132,9 @@ void impl_init(
 			SDL_DelayNS(waitTime);
 		}
 		
-		handleEvent();
+		SDL_PollEvent(&event);
+		
+		handleInput();
 	}
 	
 	SDL_DestroyRenderer(renderer);
