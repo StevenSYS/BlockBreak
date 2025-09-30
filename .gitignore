@@ -17,7 +17,7 @@ remove*
 # DOSBox-X Config File
 dosbox-x.conf
 
-# Lile is FMOD's file code that I decomplied using Ghidra and made into its own library
+# Lile is FMOD's file code that I decompiled using Ghidra and made into its own library
 # That's why I can't include it in this repository
 Lile
 
