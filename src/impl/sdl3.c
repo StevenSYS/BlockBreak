@@ -112,14 +112,7 @@ void impl_init(
 	while (running) {
 		lastTime = SDL_GetTicksNS();
 		
-		SDL_PollEvent(&event);
-		
-		if (event.type == SDL_EVENT_QUIT) {
-			running = 0;
-			break;
-		}
-		
-		handleInput();
+		handleEvent();
 		draw();
 		
 		waitTime = (
@@ -132,9 +125,7 @@ void impl_init(
 			SDL_DelayNS(waitTime);
 		}
 		
-		SDL_PollEvent(&event);
-		
-		handleInput();
+		handleEvent();
 	}
 	
 	SDL_DestroyRenderer(renderer);
