@@ -8,7 +8,7 @@ using static impl;
 using static random;
 using static progInfo;
 
-class class_game {
+class class_blockBreak {
 	public enum inputs {
 		UP,
 		DOWN,
@@ -208,7 +208,7 @@ class class_game {
 		return;
 	}
 	
-	public class_game() {
+	public class_blockBreak() {
 		this.init();
 		impl.init(this);
 		return;

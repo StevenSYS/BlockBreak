@@ -3,7 +3,7 @@ using System.Timers;
 using System.Windows.Forms;
 using System.Drawing;
 
-using static class_game;
+using static class_blockBreak;
 
 using static progInfo;
 
@@ -50,7 +50,7 @@ static class impl {
 	}
 	
 	/* Misc. */
-	internal static void keyDown(class_game game, object sender, KeyEventArgs evt) {
+	internal static void keyDown(class_blockBreak game, object sender, KeyEventArgs evt) {
 		switch (evt.KeyCode) {
 			case Keys.Up:
 				game.input(inputs.UP);
@@ -78,7 +78,7 @@ static class impl {
 		}
 	}
 	
-	public static void init(class_game game) {
+	public static void init(class_blockBreak game) {
 		/* - Text - */
 		font = new System.Drawing.Font(FONT, FONT_HEIGHT);
 		strFormat = new System.Drawing.StringFormat();
