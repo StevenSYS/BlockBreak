@@ -1,8 +1,5 @@
 name: C - Build
 on: [push, pull_request]
-defaults:
-  run:
-    shell: bash
 jobs:
   build:
     name: Build ${{matrix.build-targets.name}}
@@ -87,8 +84,7 @@ jobs:
       - name: SDL3 - Configure CMake
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
         run: >
-          cmake -S SDL
-          -B build/SDL
+          cmake -S SDL -B build/SDL
           -DCMAKE_C_COMPILER=gcc
           -DCMAKE_BUILD_TYPE=Release
           -DBUILD_SHARED_LIBS=ON
@@ -185,7 +181,7 @@ jobs:
       
       - name: Configure CMake
         run: >
-          cmake -S . -B build
+          cmake -S .
           -DCMAKE_C_COMPILER=gcc
           -DCMAKE_BUILD_TYPE=Release
           -DBUILD_SHARED_LIBS=OFF
@@ -194,9 +190,11 @@ jobs:
           -G "Unix Makefiles"
       
       - name: Build
-        run: cmake --build build
+        run: cmake --build .
       
       - uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.build-targets.output}}
-          path: build/${{matrix.build-targets.upload}}
+          path: |
+            ${{matrix.build-targets.upload}}
+            LICENSE
