@@ -43,6 +43,27 @@ class class_blockBreak {
 	internal class_entity player;
 	internal List<class_object> blocks = new List<class_object>();
 	
+	public void input(inputs input) {
+		random.index++;
+		switch (input) {
+			case inputs.UP:
+			case inputs.DOWN:
+			case inputs.LEFT:
+			case inputs.RIGHT:
+				if (!this.timerStart) {
+					this.timerStart = true;
+				}
+				this.player.direction = (entity_directions)input;
+				break;
+			case inputs.RESET:
+				this.reset();
+				break;
+			default:
+				break;
+		}
+		return;
+	}
+	
 	internal void generateLevel(byte level) {
 		byte x2 = 0;
 		byte y2 = 0;
@@ -123,28 +144,7 @@ class class_blockBreak {
 		this.init();
 		return;
 	}
-	
-	internal void input(inputs input) {
-		random.index++;
-		switch (input) {
-			case inputs.UP:
-			case inputs.DOWN:
-			case inputs.LEFT:
-			case inputs.RIGHT:
-				if (!this.timerStart) {
-					this.timerStart = true;
-				}
-				this.player.direction = (entity_directions)input;
-				break;
-			case inputs.RESET:
-				this.reset();
-				break;
-			default:
-				break;
-		}
-		return;
-	}
-	
+		
 	public void draw(object sender, System.Windows.Forms.PaintEventArgs evt) {
 		if (blockCount == 0) {
 			level = (byte)safeAddU((uint)level, 1, MAX_LEVEL);
@@ -183,11 +183,11 @@ class class_blockBreak {
 		}
 		
 		if (timer == 0) {
-			reset();
 			if (this.score > this.highScore) {
 				this.highScore = this.score;
 				/* Save high score to the high score file */
 			}
+			reset();
 		}
 		
 		impl.drawText(
@@ -197,12 +197,12 @@ class class_blockBreak {
 		);
 		impl.drawText(
 			0xFF, 0xFF, 0xFF,
-			highScore.ToString(),
+			score.ToString(),
 			0, RENDER_HEIGHT - (int)(FONT_HEIGHT * 3)
 		);
 		impl.drawText(
 			0xFF, 0xFF, 0xFF,
-			score.ToString(),
+			highScore.ToString(),
 			0, RENDER_HEIGHT - (int)(FONT_HEIGHT * 1.5)
 		);
 		return;
