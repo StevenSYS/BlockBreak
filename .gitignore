@@ -10,4 +10,10 @@
 *.dylib
 *.so
 
+# Build
+build/Debug/*
+build/Release/*
+!build/Debug/.gitkeep
+!build/Release/.gitkeep
+
 .DS_Store
