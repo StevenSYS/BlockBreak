@@ -20,7 +20,7 @@ static SDL_Event event;
 static SDL_Window *window;
 static SDL_GLContext glContext;
 
-#include "sdl3Input.h"
+#include "sdl3Event.h"
 
 /* Misc. */
 void impl_loopEnd() {

@@ -23,7 +23,7 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_FRect rect;
 
-#include "sdl3Input.h"
+#include "sdl3Event.h"
 
 /* Drawing */
 void impl_setColor(
