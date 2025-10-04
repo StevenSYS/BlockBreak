@@ -105,7 +105,7 @@ if(NOT BUILD_ONLY_IMPL)
 	file(GLOB SOURCE_FILES "src/*.c")
 	
 	if(BUILD_AS_LIBRARY)
-		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DCUSTOM_MAIN_NAME=blockBreakC_main")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DBLOCKBREAKC_MAIN_NAME=blockBreakC_main")
 		add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 	else()
 		add_executable(${PROJECT_NAME} ${RESOURCE_FILES} ${SOURCE_FILES})

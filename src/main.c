@@ -193,8 +193,8 @@ void draw() {
 }
 
 int
-#ifdef CUSTOM_MAIN_NAME
-CUSTOM_MAIN_NAME
+#ifdef BLOCKBREAKC_MAIN_NAME
+BLOCKBREAKC_MAIN_NAME
 #else
 main
 #endif
