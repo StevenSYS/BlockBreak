@@ -1,5 +1,5 @@
 if(IMPL STREQUAL "SDL3")
-	find_package(SDL3 REQUIRED)
+	find_package(SDL3 REQUIRED CONFIG)
 	set(IMPL_FILES "sdl3.c")
 elseif(IMPL STREQUAL "GLUT")
 	find_package(OpenGL REQUIRED)

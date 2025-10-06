@@ -63,41 +63,12 @@ jobs:
         run: sudo apt-get update
       
       # SDL3
-      - name: SDL3 - Install Dependencies
+      - uses: libsdl-org/setup-sdl@main
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: >
-          sudo apt-get install build-essential git make
-          pkg-config cmake ninja-build gnome-desktop-testing libasound2-dev libpulse-dev
-          libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev
-          libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxtst-dev
-          libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev
-          libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev libpipewire-0.3-dev
-          libwayland-dev libdecor-0-dev liburing-dev
-      
-      - name: SDL3 - Clone
-        if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: >
-          git clone
-          --depth 1
-          https://github.com/libsdl-org/SDL.git
-      
-      - name: SDL3 - Configure CMake
-        if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: >
-          cmake -S SDL -B build/SDL
-          -DCMAKE_C_COMPILER=gcc
-          -DCMAKE_BUILD_TYPE=Release
-          -DBUILD_SHARED_LIBS=ON
-          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
-          -G "Unix Makefiles"
-      
-      - name: SDL3 - Build
-        if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: cmake --build build/SDL
-      
-      - name: SDL3 - Install
-        if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: sudo cmake --install build/SDL
+        id: sdl
+        with:
+          install-linux-dependencies: true
+          version: 3-latest
       
       # FreeGLUT
       - name: FreeGLUT - Install
