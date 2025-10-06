@@ -1,5 +1,5 @@
 # [BlockBreakJQ](https://github.com/StevenSYS/BlockBreak/tree/original-archive)
-An archive of every known version of the original BlockBreak
+An archive of every version that I have of the original BlockBreak
 
 # Screenshots
 
