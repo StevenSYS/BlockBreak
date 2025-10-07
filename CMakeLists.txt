@@ -22,6 +22,12 @@ option(BUILD_WITH_RES "Build with the resource file (Windows Compiler Only)" ON)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -MD")
 
+include(TestBigEndian)
+TEST_BIG_ENDIAN(BIG_ENDIAN)
+if (BIG_ENDIAN)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DBIG_ENDIAN")
+endif()
+
 if(
 	NOT IMPL STREQUAL "DJGPP"
 	AND

@@ -59,6 +59,11 @@ unsigned int hssImpl_get() {
 }
 
 void hssImpl_set(const unsigned int highScore) {
+	#ifdef BIG_ENDIAN
+	unsigned char i;
+	unsigned char hsByte[4];
+	#endif
+	
 	if (fileStatus == FILE_BROKEN) {
 		fprintf(stderr, HSSIMPL_STRING_FILE_NOTVALID);
 		return;
@@ -73,12 +78,24 @@ void hssImpl_set(const unsigned int highScore) {
 			return;
 		}
 		fprintf(file, HSSIMPL_SIGNATURE);
+		#ifdef BIG_ENDIAN
+		for (i = 0; i < 4; i++) {
+			hsByte[i] = highScore >> i * 8;
+			fwrite(
+				&hsByte[i],
+				1,
+				sizeof(unsigned char),
+				file
+			);
+		}
+		#else
 		fwrite(
 			&highScore,
 			1,
 			sizeof(unsigned int),
 			file
 		);
+		#endif
 		fflush(file);
 	}
 	return;
