@@ -35,7 +35,7 @@ U0 entity_init(
 	return;
 }
 
-Bool entity_draw(
+U0 entity_draw(
 	CDC *dc,
 	entity_t *entity
 ) {
