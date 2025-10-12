@@ -36,6 +36,9 @@
 #define LESSTHANSET(_var, _value) if (_var < _value) { _var = _value; }
 
 int main() {
+	unsigned short i;
+	unsigned short blockSize[2];
+	
 	FILE *file = fopen("../blockSizeList.h", "w");
 	
 	if (file == NULL) {
@@ -48,8 +51,7 @@ int main() {
 	fprintf(file, "static const unsigned short blockSizeList[%u][2] = {\n", MAX_BLOCKS);
 	ADDENTRY(file, 0, 0);
 	fprintf(file, ",\n");
-	for (unsigned short i = 1; i < MAX_BLOCKS - 1; i++) {
-		unsigned short blockSize[2];
+	for (i = 1; i < MAX_BLOCKS - 1; i++) {
 		blockSize[0] = (unsigned short)(RENDER_WIDTH / i);
 		blockSize[1] = (unsigned short)(RENDER_HEIGHT / (i * 1.5));
 		
