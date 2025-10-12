@@ -18,7 +18,7 @@ int main() {
 	fprintf(
 		file,
 		"/* [AUTO GENERATED] */\n"
-		"U8 table[256] = {\n"
+		"static U8 table[256] = {\n"
 	);
 	
 	for (y = 0; y < 16; y++) {
