@@ -9,8 +9,8 @@ char object_collision(
 	return (
 		((object1.position[0] + object1.size[0]) >= object2.position[0]) &&
 		(object1.position[0] <= (object2.position[0] + object2.size[0])) &&
-		(object1.position[1] <= (object2.position[1] + object2.size[1])) &&
-		((object1.position[1] + object1.size[1]) >= object2.position[1])
+		((object1.position[1] + object1.size[1]) >= object2.position[1]) &&
+		(object1.position[1] <= (object2.position[1] + object2.size[1]))
 	);
 }
 
