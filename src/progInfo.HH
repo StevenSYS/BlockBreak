@@ -3,7 +3,7 @@
 
 /* - Program - */
 #define PROGRAM_NAME "BlockBreakHC"
-#define PROGRAM_VERSION "1.2pre"
+#define PROGRAM_VERSION "1.2"
 
 /* - Render - */
 #define RENDER_WIDTH 640
