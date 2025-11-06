@@ -1,7 +1,7 @@
 struct progInfo {
 	/* - Program - */
 	public const string PROGRAM_NAME = "BlockBreakC#";
-	public const string PROGRAM_VERSION = "1.2pre";
+	public const string PROGRAM_VERSION = "1.3pre";
 	
 	/* - Render - */
 	public const ushort RENDER_WIDTH = 640;

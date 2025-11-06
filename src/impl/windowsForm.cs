@@ -41,7 +41,7 @@ static class impl {
 			text,
 			font,
 			new System.Drawing.SolidBrush(
-				Color.FromArgb(255, red,  green, blue)
+				Color.FromArgb(255, red, green, blue)
 			),
 			x, y,
 			strFormat
