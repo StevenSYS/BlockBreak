@@ -3,7 +3,7 @@
 
 /* - Program - */
 #define PROGRAM_NAME "BlockBreakC"
-#define PROGRAM_VERSION "1.2pre"
+#define PROGRAM_VERSION "1.2"
 
 /* - Render - */
 #ifndef RENDER_WIDTH
