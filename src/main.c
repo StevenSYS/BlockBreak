@@ -38,7 +38,7 @@ char timerStart = 0;
 
 entity_t player;
 
-void generateLevel(const unsigned char level) {
+static void generateLevel(const unsigned char level) {
 	unsigned char x, y;
 	unsigned char x2 = 0;
 	unsigned char y2 = 0;
@@ -95,7 +95,7 @@ void generateLevel(const unsigned char level) {
 	return;
 }
 
-void init() {
+static void init() {
 	unsigned char x, y;
 	
 	SAFEADD(timer, level * 35, 0xFFFF);
@@ -122,7 +122,7 @@ void init() {
 	return;
 }
 
-void reset() {
+static void reset() {
 	timer = 0;
 	level = 1;
 	score = 0;
@@ -131,7 +131,7 @@ void reset() {
 	return;
 }
 
-void draw() {
+static void draw() {
 	unsigned char x, y;
 	
 	impl_loopStart();
