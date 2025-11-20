@@ -4,7 +4,7 @@
 
 char object_collision(
 	object_t *object1,
-	object_t* object2
+	object_t *object2
 ) {
 	return (
 		((object1->position[0] + object1->size[0]) >= object2->position[0]) &&
