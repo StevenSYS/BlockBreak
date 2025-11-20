@@ -12,8 +12,8 @@ typedef struct {
 
 /* Functions */
 char object_collision(
-	object_t object1,
-	object_t object2
+	object_t *object1,
+	object_t *object2
 );
 
 void object_init(
@@ -24,6 +24,6 @@ void object_init(
 	const char visible
 );
 
-void object_draw(object_t object);
+void object_draw(object_t *object);
 
 #endif

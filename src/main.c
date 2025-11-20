@@ -160,8 +160,8 @@ void draw() {
 	for (y =  0; y < level; y++) {
 		for (x = 0; x < level; x++) {
 			if (blocks[x][y].visible) {
-				object_draw(blocks[x][y]);
-				if (object_collision(player.object, blocks[x][y])) {
+				object_draw(&blocks[x][y]);
+				if (object_collision(&player.object,  &blocks[x][y])) {
 					blocks[x][y].visible = 0;
 					blockCount--;
 					SAFEADD(score, 10, 0xFFFFFFFF);

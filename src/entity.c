@@ -30,7 +30,7 @@ void entity_draw(entity_t *entity) {
 				(int)entity->direction % 2
 			) == 0 ? -entity->speed : entity->speed;
 		}
-		object_draw(entity->object);
+		object_draw(&entity->object);
 	}
 	return;
 }

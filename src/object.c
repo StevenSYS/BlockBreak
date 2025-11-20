@@ -3,14 +3,14 @@
 #include "object.h"
 
 char object_collision(
-	object_t object1,
-	object_t object2
+	object_t *object1,
+	object_t* object2
 ) {
 	return (
-		((object1.position[0] + object1.size[0]) >= object2.position[0]) &&
-		(object1.position[0] <= (object2.position[0] + object2.size[0])) &&
-		((object1.position[1] + object1.size[1]) >= object2.position[1]) &&
-		(object1.position[1] <= (object2.position[1] + object2.size[1]))
+		((object1->position[0] + object1->size[0]) >= object2->position[0]) &&
+		(object1->position[0] <= (object2->position[0] + object2->size[0])) &&
+		((object1->position[1] + object1->size[1]) >= object2->position[1]) &&
+		(object1->position[1] <= (object2->position[1] + object2->size[1]))
 	);
 }
 
@@ -32,14 +32,14 @@ void object_init(
 	return;
 }
 
-void object_draw(object_t object) {
-	if (object.visible) {
-		impl_setColor(object.color[0], object.color[1], object.color[2]);
+void object_draw(object_t *object) {
+	if (object->visible) {
+		impl_setColor(object->color[0], object->color[1], object->color[2]);
 		impl_drawFillRect(
-			object.position[0],
-			object.position[1],
-			object.size[0],
-			object.size[1]
+			object->position[0],
+			object->position[1],
+			object->size[0],
+			object->size[1]
 		);
 	}
 	return;
