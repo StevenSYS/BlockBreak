@@ -14,6 +14,7 @@ static entity_t *main_player;
 
 void input(const enum inputs input) {
 	random_index++;
+	
 	switch (input) {
 		case INPUT_UP:
 		case INPUT_DOWN:
