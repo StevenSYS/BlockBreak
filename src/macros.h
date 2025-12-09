@@ -1,5 +1,5 @@
-#ifndef __MISC__
-#define __MISC__
+#ifndef __MACROS__
+#define __MACROS__
 	#define LESSTHANSET(_var, _value) \
 		if (_var < _value) { \
 			_var = _value; \

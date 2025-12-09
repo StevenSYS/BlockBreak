@@ -1,10 +1,10 @@
 #include <impl.h>
 #include <hssImpl.h>
 
-#include "misc.h"
+#include "input.h"
+#include "macros.h"
 #include "random.h"
 #include "entity.h"
-#include "input.h"
 #include "progInfo.h"
 #ifdef USE_BLOCKSIZELIST
 	#include "blockSizeList.h"
