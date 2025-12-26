@@ -1,5 +1,3 @@
-using static impl;
-
 class class_object {
 	public byte[] color = { 0, 0, 0 };
 	public int[] size = { 0, 0 };

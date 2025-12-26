@@ -1,6 +1,3 @@
-using static impl;
-using static class_object;
-
 class class_entity : class_object {
 	public enum entity_directions {
 		UP,
@@ -21,7 +18,7 @@ class class_entity : class_object {
 		int speed,
 		bool visible
 	) : base(
-		red, green ,blue,
+		red, green, blue,
 		width, height,
 		x, y,
 		visible

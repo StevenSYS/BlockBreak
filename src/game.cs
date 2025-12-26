@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using static class_entity;
 
 using static misc;
-using static impl;
-using static random;
 using static progInfo;
 
 class class_blockBreak {
@@ -185,7 +183,7 @@ class class_blockBreak {
 		if (timer == 0) {
 			if (this.score > this.highScore) {
 				this.highScore = this.score;
-				/* Save high score to the high score file */
+				/* TODO: Save high score to the high score file */
 			}
 			reset();
 		}

@@ -1,9 +1,5 @@
 using System;
 
-using static class_blockBreak;
-
-using static impl;
-
 class program {
 	internal static class_blockBreak game;
 	
