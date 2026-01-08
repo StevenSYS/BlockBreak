@@ -1,14 +1,14 @@
 class stringPointer {
 	string = "";
-	memPosition = 0;
+	memPos = 0;
 	
-	init(memoryBuffer) {
+	init(memory) {
 		var stringArray = [];
 		var currentCharacter;
-		var memoryArray = new Uint8Array(memoryBuffer);
+		var memArray = new Uint8Array(memory);
 		
-		for (var i = this.memPosition; i < memoryArray.length; i++) {
-			currentCharacter = String.fromCharCode(memoryArray[i]);
+		for (var i = this.memPos; i < memArray.length; i++) {
+			currentCharacter = String.fromCharCode(memArray[i]);
 			if (currentCharacter == "\0") {
 				break;
 			}

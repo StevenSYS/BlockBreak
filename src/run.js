@@ -8,12 +8,8 @@ if (urlParams.has("touchDeadZone")) {
 	touchDeadZone = 32;
 }
 
-function toPositive(number) {
-	if (number < 0) {
-		return -number;
-	} else {
-		return number;
-	}
+function toPositive(num) {
+	return num > 0 ? num : -num;
 }
 
 WebAssembly.instantiateStreaming(

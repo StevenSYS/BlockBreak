@@ -10,8 +10,8 @@ importList["getMacros"] = function(
 	macro_maxFPS,
 	fontHeight
 ) {
-	programName.memPosition = memPos_programName;
-	programVersion.memPosition = memPos_programVersion;
+	programName.memPos = memPos_programName;
+	programVersion.memPos = memPos_programVersion;
 	maxFPS = macro_maxFPS;
 	element_canvas.width = renderWidth;
 	element_canvas.height = renderHeight;
