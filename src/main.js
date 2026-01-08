@@ -30,12 +30,8 @@ const randomColors = [
 var touch_startX, touch_deltaX;
 var touch_startY, touch_deltaY;
 
-function toPositive(number) {
-	if (number < 0) {
-		return -number;
-	} else {
-		return number;
-	}
+function toPositive(num) {
+	return num > 0 ? num : -num;
 }
 
 function touchStart(event) {
@@ -114,6 +110,7 @@ function input(event) {
 		default:
 			break;
 	}
+	return;
 }
 
 function generateLevel(level) {
