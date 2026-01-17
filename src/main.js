@@ -11,7 +11,7 @@ var timerStart = false;
 var player;
 var blocks = [];
 
-const randomColors = [
+const colors = [
 	[ 0x00, 0x00, 0xAA ],
 	[ 0x00, 0xAA, 0x00 ],
 	[ 0x00, 0xAA, 0xAA ],
@@ -30,10 +30,6 @@ const randomColors = [
 var touch_startX, touch_deltaX;
 var touch_startY, touch_deltaY;
 
-function toPositive(num) {
-	return num > 0 ? num : -num;
-}
-
 function touchStart(event) {
 	for (const touch of event.changedTouches) {
 		touch_startY = touch.pageY;
@@ -47,8 +43,8 @@ function touchEnd(event) {
 	for (const touch of event.changedTouches) {
 		touch_deltaX = touch.pageX - touch_startX;
 		touch_deltaY = touch.pageY - touch_startY;
-		touch_positiveX = toPositive(touch_deltaX);
-		touch_positiveY = toPositive(touch_deltaY);
+		touch_positiveX = Math.abs(touch_deltaX);
+		touch_positiveY = Math.abs(touch_deltaY);
 		
 		if (
 			touch_deltaY < -TOUCH_DEAD_ZONE
@@ -153,7 +149,7 @@ function generateLevel(level) {
 				) {
 					blockCount++;
 					blocks.push(new object(
-						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
+						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
 						blockSize[0], blockSize[1],
 						(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
 						true
