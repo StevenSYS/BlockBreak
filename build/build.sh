@@ -1,6 +1,6 @@
 #!/bin/bash
 compile() {
-	output="$1".wasm
+	output="$1.wasm"
 	
 	if [ "$2" = true ]; then
 		screenshotFlags="-DENABLE_SCREENSHOT"

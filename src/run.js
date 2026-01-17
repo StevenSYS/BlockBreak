@@ -8,10 +8,6 @@ if (urlParams.has("touchDeadZone")) {
 	touchDeadZone = 32;
 }
 
-function toPositive(num) {
-	return num > 0 ? num : -num;
-}
-
 WebAssembly.instantiateStreaming(
 	fetch("build/BlockBreakC-WASM.wasm"),
 	{ env: importList }
@@ -33,8 +29,8 @@ WebAssembly.instantiateStreaming(
 		for (const touch of event.changedTouches) {
 			touch_deltaX = touch.pageX - touch_startX;
 			touch_deltaY = touch.pageY - touch_startY;
-			touch_positiveX = toPositive(touch_deltaX);
-			touch_positiveY = toPositive(touch_deltaY);
+			touch_positiveX = Math.abs(touch_deltaX);
+			touch_positiveY = Math.abs(touch_deltaY);
 			
 			if (
 				touch_deltaY < -touchDeadZone
