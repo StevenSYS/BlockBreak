@@ -76,14 +76,14 @@ WebAssembly.instantiateStreaming(
 	if (!urlParams.has("noSButton")) {
 		element_screenshotButton.addEventListener(
 			"click",
-			function() {
+			function () {
 				result.instance.exports.jsInput(83);
 			},
 			false
 		);
 		element_screenshotButton.addEventListener(
 			"touchstart",
-			function() {
+			function () {
 				result.instance.exports.jsInput(83);
 			},
 			false

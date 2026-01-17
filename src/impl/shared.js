@@ -4,7 +4,7 @@ var fontSize;
 var programName = new stringPointer;
 var programVersion = new stringPointer;
 
-importList["getMacros"] = function(
+importList["getMacros"] = function (
 	ptrName, ptrVersion,
 	renderWidth, renderHeight,
 	fps,

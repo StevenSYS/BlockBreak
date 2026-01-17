@@ -82,7 +82,7 @@ importList["sImpl_end"] = function () {
 	return;
 }
 
-importList["sImpl_setTake"] = function(newValue) {
+importList["sImpl_setTake"] = function (newValue) {
 	sImpl_take = newValue;
 	return;
 }

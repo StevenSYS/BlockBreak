@@ -6,7 +6,7 @@ function impl_init(fontSize, fontName) {
 	return;
 }
 
-importList["impl_loopStart"] = function() {
+importList["impl_loopStart"] = function () {
 	context.clearRect(
 		0, 0,
 		element_canvas.width, element_canvas.height
@@ -22,13 +22,13 @@ importList["impl_loopStart"] = function() {
 }
 
 /* Drawing */
-importList["impl_setColor"] = function(red, green, blue) {
+importList["impl_setColor"] = function (red, green, blue) {
 	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
 	sImpl_setColor(red, green, blue);
 	return;
 }
 
-importList["impl_drawNumber"] = function(
+importList["impl_drawNumber"] = function (
 	x, y,
 	number
 ) {
@@ -37,7 +37,7 @@ importList["impl_drawNumber"] = function(
 	return;
 }
 
-importList["impl_drawFillRect"] = function(
+importList["impl_drawFillRect"] = function (
 	x, y,
 	width, height
 ) {
