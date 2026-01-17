@@ -10,9 +10,9 @@
 int main(int argc, char *argv[]);
 
 void getMacros(
-	char *memPos_programName, char *memPos_programVersion,
+	char *ptrName, char *ptrVersion,
 	int renderWidth, int renderHeight,
-	int macro_maxFPS,
+	int fps,
 	int fontHeight
 );
 
