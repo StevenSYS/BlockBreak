@@ -38,7 +38,7 @@ static inline void handleEvent() {
 				running = 0;
 				continue;
 			default:
-				break;
+				continue;
 		}
 	}
 	return;
