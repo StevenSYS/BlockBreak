@@ -72,6 +72,11 @@ static class impl {
 				Application.Exit();
 				uninit();
 				break;
+			case Keys.S:
+				if (ENABLE_SCREENSHOT) {
+					Console.WriteLine("Not implemented yet");
+				}
+				break;
 			default:
 				game.input(inputs.NONE);
 				break;

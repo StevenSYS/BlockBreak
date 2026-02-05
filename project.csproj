@@ -22,6 +22,6 @@
 	</ItemGroup>
 	
 	<Target Name="build">
-		<Csc Sources="@(Compile)" OutputAssembly="$(OutputPath)/$(AssemblyName).exe"/>
+		<Csc Sources="@(Compile)" TargetType="winexe" OutputAssembly="$(OutputPath)/$(AssemblyName).exe"/>
 	</Target>
 </Project>
