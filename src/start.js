@@ -1,4 +1,4 @@
-var importList = {};
+var imports = {};
 const urlParams = new URLSearchParams(window.location.search);
 
 const element_canvas = document.getElementById("canvas");

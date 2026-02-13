@@ -64,7 +64,7 @@ function sImpl_start(impl) {
 	return;
 }
 
-importList["sImpl_end"] = function () {
+imports.sImpl_end = function () {
 	if (sImpl_take == 2) {
 		sImpl_take = 0;
 		sImpl_svgData += "</svg>";
@@ -82,7 +82,7 @@ importList["sImpl_end"] = function () {
 	return;
 }
 
-importList["sImpl_setTake"] = function (newValue) {
+imports.sImpl_setTake = function (newValue) {
 	sImpl_take = newValue;
 	return;
 }

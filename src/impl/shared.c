@@ -1,11 +1,10 @@
 /* C Shared Stuff */
-#define SIMPL_NOEXTERNS
-#include <random.h>
 #include <input.h>
 
 #include "sImpl.h"
-#include "entity.h"
 #include "progInfo.h"
+
+void draw(); 
 
 int main(int argc, char *argv[]);
 

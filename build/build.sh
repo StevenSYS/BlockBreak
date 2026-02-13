@@ -15,6 +15,7 @@ compile() {
 		--no-standard-libraries \
 		-Wl,--export-all \
 		-Wl,-allow-undefined-file imports.syms \
+		-Wl,--export-dynamic \
 		-Wall \
 		-o "$output" \
 		-DFONT_HEIGHT=16 \
