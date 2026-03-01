@@ -1,4 +1,7 @@
 # [BlockBreakJS](https://github.com/StevenSYS/BlockBreak/tree/js)
+> [!WARNING]
+> This port is no longer being maintained
+
 A port of BlockBreakC from C to JavaScript
 
 # Screenshots
