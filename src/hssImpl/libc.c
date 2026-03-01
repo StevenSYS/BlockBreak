@@ -6,20 +6,21 @@
 #include "hssImpl.h"
 #include "progInfo.h"
 
-typedef enum {
+enum status {
 	FILE_NONE,
 	FILE_NEWFILE,
 	FILE_BROKEN
-} hssImpl_fileStatus;
+};
 
-static hssImpl_fileStatus fileStatus = FILE_NONE;
+static enum status fileStatus = FILE_NONE;
 
 static FILE *file;
 
 unsigned int hssImpl_get() {
 	unsigned char buffer[HSSIMPL_LENGTH_BUFFER];
+	unsigned char i;
 	unsigned int newScore = 0;
-	long correctSize = strlen(HSSIMPL_SIGNATURE) + sizeof(unsigned int);
+	long correctSize = HSSIMPL_LENGTH_SIGNATURE + sizeof(unsigned int);
 	long fileSize;
 	
 	if (fseek(file, 0, SEEK_END) != 0) {
@@ -38,15 +39,26 @@ unsigned int hssImpl_get() {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 		return 0;
 	} else if (fileStatus == FILE_NONE) {
-		if (fileSize < correctSize || fileSize > correctSize) {
+		if (
+			fileSize < correctSize ||
+			fileSize > correctSize
+		) {
 			fprintf(stderr, HSSIMPL_STRING_FILE_WRONGSIZE, fileSize, correctSize);
 			return 0;
-		} else if (fgets((char *)buffer, HSSIMPL_LENGTH_BUFFER, file) == NULL && fileSize > 0) {
+		} else if (fgets(
+			(char *)buffer,
+			HSSIMPL_LENGTH_BUFFER,
+			file
+		) == NULL && fileSize > 0) {
 			perror(HSSIMPL_STRING_FILE_FAILREAD);
 			return 0;
 		} else {
-			if (strncmp((char *)buffer, HSSIMPL_SIGNATURE, strlen(HSSIMPL_SIGNATURE)) == 0) {
-				for (unsigned char i = 0; i < 4; i++) {
+			if (strncmp(
+				(char *)buffer,
+				HSSIMPL_SIGNATURE,
+				HSSIMPL_LENGTH_SIGNATURE
+			) == 0) {
+				for (i = 0; i < 4; i++) {
 					newScore += buffer[strlen(HSSIMPL_SIGNATURE) + i] << i * 8;
 				}
 			} else {
@@ -71,11 +83,17 @@ void hssImpl_set(const unsigned int highScore) {
 		printf(HSSIMPL_STRING_FILE_NOTINIT);
 	} else {
 		file = fopen(HSSIMPL_FILENAME, "wb+");
+		
 		if (file == NULL) {
 			perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE);
 			return;
 		}
-		fprintf(file, HSSIMPL_SIGNATURE);
+		
+		fprintf(
+			file,
+			HSSIMPL_SIGNATURE
+		);
+		
 		for (i = 0; i < 4; i++) {
 			hsByte[i] = highScore >> i * 8;
 			fwrite(
@@ -94,6 +112,7 @@ void hssImpl_open() {
 	if (fopen(HSSIMPL_FILENAME, "rb") == NULL) {
 		perror(HSSIMPL_STRING_FILE_FAILOPEN_RMODE);
 		file = fopen(HSSIMPL_FILENAME, "wb+");
+		
 		if (file == NULL) {
 			perror(HSSIMPL_STRING_FILE_FAILOPEN_WBPMODE);
 		} else {
@@ -102,6 +121,7 @@ void hssImpl_open() {
 		}
 	} else {
 		file = fopen(HSSIMPL_FILENAME, "rb+");
+		
 		if (file == NULL) {
 			perror(HSSIMPL_STRING_FILE_FAILOPEN_RBPMODE);
 		}

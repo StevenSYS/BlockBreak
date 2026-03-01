@@ -1,14 +1,10 @@
-#include <impl.h>
-#include <hssImpl.h>
-
+#include "impl.h"
 #include "input.h"
 #include "macros.h"
 #include "random.h"
 #include "entity.h"
+#include "hssImpl.h"
 #include "progInfo.h"
-#ifdef USE_BLOCKSIZELIST
-	#include "blockSizeList.h"
-#endif
 
 static unsigned char level = 1;
 static const unsigned char colors[12][3] = {
@@ -34,9 +30,9 @@ static unsigned int highScore;
 
 static object_t blocks[MAX_LEVEL][MAX_LEVEL];
 
-char timerStart = 0;
+char main_timerStart = 0;
 
-entity_t player;
+entity_t main_player;
 
 static void generateLevel(const unsigned char level) {
 	unsigned char x, y;
@@ -49,13 +45,8 @@ static void generateLevel(const unsigned char level) {
 	blockCount = 0;
 	
 	if (level > 0 && level <= MAX_LEVEL) {
-		#ifdef USE_BLOCKSIZELIST
-		blockSize[0] = blockSizeList[level][0];
-		blockSize[1] = blockSizeList[level][1];
-		#else
 		blockSize[0] = (unsigned short)(RENDER_WIDTH / level);
 		blockSize[1] = (unsigned short)(RENDER_HEIGHT / (level * 1.5));
-		#endif
 		
 		LESSTHANSET(blockSize[0], 1);
 		LESSTHANSET(blockSize[1], 1);
@@ -107,7 +98,7 @@ static void init() {
 	}
 	
 	entity_init(
-		&player,
+		&main_player,
 		0xFF, 0xFF, 0xFF,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
@@ -122,11 +113,11 @@ static void init() {
 	return;
 }
 
-static void reset() {
+void main_reset() {
 	timer = 0;
 	level = 1;
 	score = 0;
-	timerStart = 0;
+	main_timerStart = 0;
 	init();
 	return;
 }
@@ -142,26 +133,29 @@ static void draw() {
 		init();
 	}
 	
-	if (player.object.position[1] <= SCREEN_EDGE_UP) {
-		player.direction = ENTITY_DIR_DOWN;
-		player.object.position[1] = SCREEN_EDGE_UP;
-	} else if (player.object.position[1] >= SCREEN_EDGE_DOWN) {
-		player.direction = ENTITY_DIR_UP;
-		player.object.position[1] = SCREEN_EDGE_DOWN;
-	} else if (player.object.position[0] <= SCREEN_EDGE_LEFT) {
-		player.direction = ENTITY_DIR_RIGHT;
-		player.object.position[0] = SCREEN_EDGE_LEFT;
-	} else if (player.object.position[0] >= SCREEN_EDGE_RIGHT) {
-		player.direction = ENTITY_DIR_LEFT;
-		player.object.position[0] = SCREEN_EDGE_RIGHT;
+	if (main_player.object.position[1] <= SCREEN_EDGE_UP) {
+		main_player.direction = ENTITY_DIR_DOWN;
+		main_player.object.position[1] = SCREEN_EDGE_UP;
+	} else if (main_player.object.position[1] >= SCREEN_EDGE_DOWN) {
+		main_player.direction = ENTITY_DIR_UP;
+		main_player.object.position[1] = SCREEN_EDGE_DOWN;
+	} else if (main_player.object.position[0] <= SCREEN_EDGE_LEFT) {
+		main_player.direction = ENTITY_DIR_RIGHT;
+		main_player.object.position[0] = SCREEN_EDGE_LEFT;
+	} else if (main_player.object.position[0] >= SCREEN_EDGE_RIGHT) {
+		main_player.direction = ENTITY_DIR_LEFT;
+		main_player.object.position[0] = SCREEN_EDGE_RIGHT;
 	}
 	
-	entity_draw(&player);
+	entity_draw(&main_player);
 	for (y =  0; y < level; y++) {
 		for (x = 0; x < level; x++) {
 			if (blocks[x][y].visible) {
 				object_draw(&blocks[x][y]);
-				if (object_collision(&player.object,  &blocks[x][y])) {
+				if (object_collision(
+					&main_player.object,
+					&blocks[x][y]
+				)) {
 					blocks[x][y].visible = 0;
 					blockCount--;
 					SAFEADD(score, 10, 0xFFFFFFFF);
@@ -170,7 +164,7 @@ static void draw() {
 		}
 	}
 	
-	if (timerStart) {
+	if (main_timerStart) {
 		timer--;
 	}
 	
@@ -179,7 +173,7 @@ static void draw() {
 			highScore = score;
 			hssImpl_set(highScore);
 		}
-		reset();
+		main_reset();
 	}
 	
 	impl_setColor(0xFF, 0xFF, 0xFF);
@@ -192,26 +186,11 @@ static void draw() {
 	return;
 }
 
-int
-#ifdef BLOCKBREAKC_MAIN_NAME
-BLOCKBREAKC_MAIN_NAME
-#else
-main
-#endif
-(
-	int argc,
-	char *argv[]
-) {
+int main(int argc, char *argv[]) {
 	hssImpl_open();
 	highScore = hssImpl_get();
 	
 	init();
-	
-	input_init(
-		&reset,
-		&timerStart,
-		&player
-	);
 	
 	impl_init(
 		argc, argv,

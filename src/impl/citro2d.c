@@ -2,12 +2,9 @@
 #define _DEFAULT_SOURCE
 #include <citro2d.h>
 #include <unistd.h>
-#include <random.h>
-#include <input.h>
-#ifdef ENABLE_SCREENSHOT
-	#include <sImpl.h>
-#endif
 
+#include "input.h"
+#include "random.h"
 #include "entity.h"
 #include "progInfo.h"
 
@@ -20,7 +17,7 @@ static unsigned long long lastTime;
 
 static C3D_RenderTarget *renderTarget;
 
-static void c2dInput() {
+static void getInput() {
 	hidScanInput();
 	
 	inputDown = hidKeysDown();
@@ -34,13 +31,7 @@ static void c2dInput() {
 		input(INPUT_RIGHT);
 	} else if (inputDown & KEY_SELECT) {
 		input(INPUT_RESET);
-	}
-	#ifdef ENABLE_SCREENSHOT
-	else if ((inputDown & KEY_L) | (inputDown & KEY_R)) {
-		input(INPUT_SCREENSHOT);
-	}
-	#endif
-	else if (inputDown & KEY_START) {
+	} else if (inputDown & KEY_START) {
 		running = 0;
 	} else {
 		input(INPUT_NONE);
@@ -55,9 +46,6 @@ void impl_setColor(
 	const unsigned char blue
 ) {
 	currentColor = C2D_Color32(red, green, blue, 0xFF);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_setColor(red, green, blue);
-	#endif
 	return;
 }
 
@@ -69,9 +57,6 @@ void impl_drawNumber(
 	printf("\x1b[97m"); /* Sets the foreground color to bright white */
 	printf("%u", number);
 	printf("\x1b[K"); /* Clears the current line */
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_number(x, y, number);
-	#endif
 	return;
 }
 
@@ -84,9 +69,6 @@ void impl_drawFillRect(
 		width, height,
 		currentColor
 	);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_fillRect(x, y, width, height);
-	#endif
 	return;
 }
 
@@ -98,17 +80,11 @@ void impl_loopStart() {
 		C2D_Color32(0x00, 0x00, 0x00, 0xFF)
 	);
 	C2D_SceneBegin(renderTarget);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_start("citro2d");
-	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	C3D_FrameEnd(0);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_end();
-	#endif
 	return;
 }
 
@@ -127,11 +103,11 @@ void impl_init(
 	while (aptMainLoop() && running) {
 		lastTime = svcGetSystemTick();
 		
-		c2dInput();
+		getInput();
 		draw();
 		
 		while (svcGetSystemTick() < lastTime + (CPU_TICKS_PER_MSEC * MAX_FPS)) {
-			c2dInput();
+			getInput();
 			usleep(1000);
 		}
 	}

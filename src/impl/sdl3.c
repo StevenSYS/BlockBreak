@@ -4,9 +4,6 @@
 #else
 	#include <SDL3/SDL.h>
 #endif
-#ifdef ENABLE_SCREENSHOT
-	#include <sImpl.h>
-#endif
 
 #include "entity.h"
 #include "input.h"
@@ -32,9 +29,6 @@ void impl_setColor(
 	const unsigned char blue
 ) {
 	SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_setColor(red, green, blue);
-	#endif
 	return;
 }
 
@@ -43,9 +37,6 @@ void impl_drawNumber(
 	const unsigned int number
 ) {
 	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_number(x, y, number);
-	#endif
 	return;
 }
 
@@ -58,9 +49,6 @@ void impl_drawFillRect(
 	rect.w = width,
 	rect.h = height;
 	SDL_RenderFillRect(renderer, &rect);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_fillRect(x, y, width, height);
-	#endif
 	return;
 }
 
@@ -68,17 +56,11 @@ void impl_drawFillRect(
 void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_start("SDL3");
-	#endif
 	return;
 }
 
 void impl_loopEnd() {
 	SDL_RenderPresent(renderer);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_end();
-	#endif
 	return;
 }
 

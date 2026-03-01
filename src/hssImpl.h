@@ -8,6 +8,7 @@
 	#define HSSIMPL_FILENAME "highScore.1hs"
 #endif
 #define HSSIMPL_SIGNATURE "1HS\x57\xE6\xE4\x56\x50"
+#define HSSIMPL_LENGTH_SIGNATURE 8
 #define HSSIMPL_LENGTH_BUFFER 20
 
 /* Functions */

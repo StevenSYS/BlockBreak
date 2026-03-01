@@ -1,5 +1,5 @@
-#ifndef __SDL3INPUT__
-#define __SDL3INPUT__
+#ifndef __SDL3EVENT__
+#define __SDL3EVENT__
 
 static inline void handleEvent() {
 	while (SDL_PollEvent(&event)) {
@@ -24,11 +24,6 @@ static inline void handleEvent() {
 					case SDL_SCANCODE_ESCAPE:
 						running = 0;
 						continue;
-					#ifdef ENABLE_SCREENSHOT
-					case SDL_SCANCODE_S:
-						input(INPUT_SCREENSHOT);
-						continue;
-					#endif
 					default:
 						input(INPUT_NONE);
 						continue;

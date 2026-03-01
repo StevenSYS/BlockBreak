@@ -11,13 +11,16 @@ void impl_setColor(
 );
 
 void impl_drawNumber(
-	const signed short x, const signed short y,
+	const signed short x,
+	const signed short y,
 	const unsigned int number
 );
 
 void impl_drawFillRect(
-	const signed short x, const signed short y,
-	const unsigned short width, const unsigned short height
+	const signed short x,
+	const signed short y,
+	const unsigned short width,
+	const unsigned short height
 );
 
 /* Misc. */

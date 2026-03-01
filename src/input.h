@@ -10,9 +10,6 @@ enum inputs {
 	INPUT_LEFT,
 	INPUT_RIGHT,
 	INPUT_RESET,
-	#ifdef ENABLE_SCREENSHOT
-	INPUT_SCREENSHOT,
-	#endif
 	INPUT_NONE
 };
 

@@ -8,9 +8,6 @@
 	#define GLUT_DISABLE_ATEXIT_HACK
 	#include <GL/glut.h>
 #endif
-#ifdef ENABLE_SCREENSHOT
-	#include <sImpl.h>
-#endif
 
 static void glutInput(
 	unsigned char key,
@@ -21,12 +18,6 @@ static void glutInput(
 		case '\r': /* Enter */
 			input(INPUT_RESET);
 			break;
-		#ifdef ENABLE_SCREENSHOT
-		case 's':
-		case 'S':
-			input(INPUT_SCREENSHOT);
-			break;
-		#endif
 		default:
 			input(INPUT_NONE);
 			break;
@@ -66,9 +57,6 @@ static void drawLoop(int msecs) {
 /* Misc. */
 void impl_loopEnd() {
 	glutSwapBuffers();
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_end();
-	#endif
 	return;
 }
 

@@ -25,9 +25,6 @@ static SDL_GLContext glContext;
 /* Misc. */
 void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_end();
-	#endif
 	return;
 }
 

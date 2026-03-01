@@ -10,7 +10,6 @@ jobs:
           - {
             name: "SDL3 - Linux (x64)",
             os: "ubuntu-latest",
-            cFlags: "",
             impl: "SDL3",
             output: "BlockBreakC-SDL3-Linux-x64",
             upload: "BlockBreakC"
@@ -18,42 +17,15 @@ jobs:
           - {
             name: "FreeGLUT (GLUT) - Linux (x64)",
             os: "ubuntu-latest",
-            cFlags: "",
             impl: "GLUT",
             output: "BlockBreakC-FreeGLUT-Linux-x64",
             upload: "BlockBreakC"
           }
           - {
-            name: "GLFW3 - Linux (x64)",
-            os: "ubuntu-latest",
-            cFlags: "",
-            impl: "GLFW3",
-            output: "BlockBreakC-GLFW3-Linux-x64",
-            upload: "BlockBreakC"
-          }
-          - {
             name: "SDL3 + GL - Linux (x64)",
             os: "ubuntu-latest",
-            cFlags: "",
             impl: "SDL3GL",
             output: "BlockBreakC-SDL3GL-Linux-x64",
-            upload: "BlockBreakC"
-          }
-          - {
-            name: "raylib - Linux (x64)",
-            os: "ubuntu-latest",
-            cFlags: "",
-            impl: "raylib",
-            output: "BlockBreakC-raylib-Linux-x64",
-            upload: "BlockBreakC",
-            raylibVersion: "5.5"
-          }
-          - {
-            name: "Xlib - Linux (x64)",
-            os: "ubuntu-latest",
-            cFlags: "",
-            impl: "Xlib",
-            output: "BlockBreakC-Xlib-Linux-x64",
             upload: "BlockBreakC"
           }
     steps:
@@ -62,7 +34,7 @@ jobs:
       - name: Update Package Lists
         run: sudo apt-get update
       
-      # SDL3
+      # SDL3 (+ GL)
       - uses: libsdl-org/setup-sdl@main
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
         id: sdl
@@ -75,89 +47,12 @@ jobs:
         if: matrix.build-targets.impl == 'GLUT'
         run: sudo apt-get install freeglut3-dev
       
-      # GLFW3
-      - name: GLFW3 - Install Dependencies
-        if: matrix.build-targets.impl == 'GLFW3'
-        run: sudo apt-get install libwayland-dev libxkbcommon-dev xorg-dev
-      
-      - name: GLFW3 - Clone
-        if: matrix.build-targets.impl == 'GLFW3'
-        run: >
-          git clone
-          --depth 1
-          https://github.com/glfw/glfw.git
-      
-      - name: GLFW3 - Configure CMake
-        if: matrix.build-targets.impl == 'GLFW3'
-        run: >
-          cmake -S glfw
-          -B build/GLFW3
-          -DCMAKE_C_COMPILER=gcc
-          -DCMAKE_BUILD_TYPE=Release
-          -DBUILD_SHARED_LIBS=ON
-          -DGLFW_BUILD_EXAMPLES=OFF
-          -DGLFW_BUILD_TESTS=OFF
-          -DGLFW_BUILD_DOCS=OFF
-          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
-          -G "Unix Makefiles"
-      
-      - name: GLFW3 - Build
-        if: matrix.build-targets.impl == 'GLFW3'
-        run: cmake --build build/GLFW3
-      
-      - name: GLFW3 - Install
-        if: matrix.build-targets.impl == 'GLFW3'
-        run: sudo cmake --install build/GLFW3
-      
-      # raylib
-      - name: raylib - Install Dependencies
-        if: matrix.build-targets.impl == 'raylib'
-        run: >
-          sudo apt-get install libasound2-dev libx11-dev libxrandr-dev libxi-dev
-          libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev
-          libxkbcommon-dev
-      
-      - name: raylib - Clone
-        if: matrix.build-targets.impl == 'raylib'
-        run: >
-          git clone
-          --branch ${{matrix.build-targets.raylibVersion}}
-          --depth 1
-          https://github.com/raysan5/raylib.git
-      
-      - name: raylib - Configure CMake
-        if: matrix.build-targets.impl == 'raylib'
-        run: >
-          cmake -S raylib
-          -B build/raylib
-          -DCMAKE_C_COMPILER=gcc
-          -DCMAKE_BUILD_TYPE=Release
-          -DBUILD_SHARED_LIBS=ON
-          -DBUILD_EXAMPLES=OFF
-          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
-          -G "Unix Makefiles"
-      
-      - name: raylib - Build
-        if: matrix.build-targets.impl == 'raylib'
-        run: cmake --build build/raylib
-      
-      - name: raylib - Install
-        if: matrix.build-targets.impl == 'raylib'
-        run: sudo cmake --install build/raylib
-      
-      # Xlib
-      - name: Xlib - Install
-        if: matrix.build-targets.impl == 'Xlib'
-        run: sudo apt-get install xorg-dev
-      
       - name: Configure CMake
         run: >
           cmake -S .
           -DCMAKE_C_COMPILER=gcc
           -DCMAKE_BUILD_TYPE=Release
-          -DBUILD_SHARED_LIBS=OFF
           -DIMPL=${{matrix.build-targets.impl}}
-          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
           -G "Unix Makefiles"
       
       - name: Build
