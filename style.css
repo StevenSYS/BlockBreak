@@ -21,54 +21,6 @@ body {
 	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
 }
 
-input {
-	background-color: #FFF;
-	border: 2px solid #C0C0C0;
-	font-size: 32px;
-	font-family: Fixedsys;
-}
-
-input[type="checkbox"] {
-	display: none;
-}
-
-/* Warning */
-.warning {
-	color: #FFFFC0;
-	background-color: #808000;
-	border: 2px solid #404000;
-}
-
-/* Checkbox */
-.checkbox {
-	position: relative;
-	cursor: pointer;
-	color: #000;
-	display: inline-block;
-	background-color: #FFF;
-	border: 2px solid #C0C0C0;
-	width: 32px;
-	height: 32px;
-	top: 8px;
-}
-
-.checkbox:hover {
-	filter: brightness(50%);
-}
-
-.checkbox:active {
-	filter: brightness(25%);
-}
-
-.checkbox .icon {
-	width: 32px;
-	height: 32px;
-}
-
-.checkbox input[type="checkbox"]:checked ~ .icon {
-	background-image: url("images/cross.png");
-}
-
 /* Buttons */
 .button {
 	color: #FFF;
@@ -96,10 +48,4 @@ input[type="checkbox"] {
 	color: #000;
 	background-color: #FFFF60;
 	border: 2px solid #808030;
-}
-
-.buttonGray {
-	color: #000;
-	background-color: #C0C0C0;
-	border: 2px solid #808080;
 }
