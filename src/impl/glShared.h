@@ -1,12 +1,16 @@
 /* Shared OpenGL Stuff */
+#ifdef __APPLE
+	#include <gl.h>
+#else
+	#include <GL/gl.h>
+#endif
 #include <stdio.h>
 #include <string.h>
-#include <GL/gl.h>
-#include <random.h>
 
-#include "progInfo.h"
-#include "entity.h"
 #include "input.h"
+#include "entity.h"
+#include "random.h"
+#include "progInfo.h"
 
 #define LENGTH_STRINT 11
 
@@ -45,18 +49,18 @@ static void glSharedInit() {
 
 /* Drawing */
 void impl_setColor(
-	const unsigned char red,
-	const unsigned char green,
-	const unsigned char blue
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue
 ) {
 	glColor3ub(red, green, blue);
 	return;
 }
 
 void impl_drawNumber(
-	const signed short x,
-	const signed short y,
-	const unsigned int number
+	signed short x,
+	signed short y,
+	unsigned int number
 ) {
 	static char buffer[11];
 	static unsigned char i;
@@ -84,10 +88,10 @@ void impl_drawNumber(
 }
 
 void impl_drawFillRect(
-	const signed short x,
-	const signed short y,
-	const unsigned short width,
-	const unsigned short height
+	signed short x,
+	signed short y,
+	unsigned short width,
+	unsigned short height
 ) {
 	glRects(
 		x, y,

@@ -5,8 +5,8 @@
 	#include <SDL3/SDL.h>
 #endif
 
-#include "entity.h"
 #include "input.h"
+#include "entity.h"
 #include "progInfo.h"
 
 static char running = 1;
@@ -24,25 +24,38 @@ static SDL_FRect rect;
 
 /* Drawing */
 void impl_setColor(
-	const unsigned char red,
-	const unsigned char green,
-	const unsigned char blue
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue
 ) {
-	SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(
+		renderer,
+		red, green, blue,
+		SDL_ALPHA_OPAQUE
+	);
 	return;
 }
 
 void impl_drawNumber(
-	const signed short x, const signed short y,
-	const unsigned int number
+	signed short x,
+	signed short y,
+	unsigned int number
 ) {
-	SDL_RenderDebugTextFormat(renderer, (float)x, (float)y, "%u", number);
+	SDL_RenderDebugTextFormat
+		(renderer,
+		(float)x,
+		(float)y,
+		"%u",
+		number
+	);
 	return;
 }
 
 void impl_drawFillRect(
-	const signed short x, const signed short y,
-	const unsigned short width, const unsigned short height
+	signed short x,
+	signed short y,
+	unsigned short width,
+	unsigned short height
 ) {
 	rect.x = x;
 	rect.y = y;
@@ -77,7 +90,11 @@ void impl_init(
 	);
 	
 	if (window == NULL) {
-		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create window: %s\n", SDL_GetError());
+		SDL_LogError(
+			SDL_LOG_CATEGORY_ERROR,
+			"Failed to create window: %s\n",
+			SDL_GetError()
+		);
 		return;
 	}
 	
@@ -87,7 +104,11 @@ void impl_init(
 	);
 	
 	if (renderer == NULL) {
-		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create renderer: %s\n", SDL_GetError());
+		SDL_LogError(
+			SDL_LOG_CATEGORY_ERROR,
+			"Failed to create renderer: %s\n",
+			SDL_GetError()
+		);
 		return;
 	}
 	
@@ -109,7 +130,6 @@ void impl_init(
 		
 		handleEvent();
 	}
-	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

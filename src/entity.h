@@ -22,16 +22,16 @@ typedef struct {
 /* Functions */
 void entity_init(
 	entity_t *entity,
-	const unsigned char red,
-	const unsigned char green,
-	const unsigned char blue,
-	const enum entity_directions direction,
-	const unsigned short width,
-	const unsigned short height,
-	const signed short x,
-	const signed short y,
-	const signed short speed,
-	const char visible
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue,
+	enum entity_directions direction,
+	unsigned short width,
+	unsigned short height,
+	signed short x,
+	signed short y,
+	signed short speed,
+	char visible
 );
 
 void entity_draw(entity_t *entity);

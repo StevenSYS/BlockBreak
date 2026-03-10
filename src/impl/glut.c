@@ -61,7 +61,8 @@ void impl_loopEnd() {
 }
 
 void impl_init(
-	int argc, char *argv[],
+	int argc,
+	char *argv[],
 	void (*draw)()
 ) {
 	glutInit(&argc, argv);

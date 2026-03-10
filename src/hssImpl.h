@@ -13,7 +13,7 @@
 
 /* Functions */
 unsigned int hssImpl_get();
-void hssImpl_set(const unsigned int highScore);
+void hssImpl_set(unsigned int highScore);
 
 void hssImpl_open();
 void hssImpl_close();

@@ -14,7 +14,7 @@ enum inputs {
 };
 
 /* Functions */
-void input(const enum inputs input);
+void input(enum inputs input);
 
 void input_init(
 	void (*reset)(),

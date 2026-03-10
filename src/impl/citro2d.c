@@ -41,17 +41,18 @@ static void getInput() {
 
 /* Drawing */
 void impl_setColor(
-	const unsigned char red,
-	const unsigned char green,
-	const unsigned char blue
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue
 ) {
 	currentColor = C2D_Color32(red, green, blue, 0xFF);
 	return;
 }
 
 void impl_drawNumber(
-	const signed short x, const signed short y,
-	const unsigned int number
+	signed short x,
+	signed short y,
+	unsigned int number
 ) {
 	printf("\x1b[%i;%iH", (y / FONT_HEIGHT) + 1, (x / FONT_WIDTH) + 1); /* Sets the cursor position */
 	printf("\x1b[97m"); /* Sets the foreground color to bright white */
@@ -61,8 +62,10 @@ void impl_drawNumber(
 }
 
 void impl_drawFillRect(
-	const signed short x, const signed short y,
-	const unsigned short width, const unsigned short height
+	signed short x,
+	signed short y,
+	unsigned short width,
+	unsigned short height
 ) {
 	C2D_DrawRectSolid(
 		x, y, 0,
@@ -89,7 +92,8 @@ void impl_loopEnd() {
 }
 
 void impl_init(
-	int argc, char *argv[],
+	int argc,
+	char *argv[],
 	void (*draw)()
 ) {
 	gfxInitDefault();

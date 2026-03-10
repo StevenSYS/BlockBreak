@@ -34,7 +34,7 @@ char main_timerStart = 0;
 
 entity_t main_player;
 
-static void generateLevel(const unsigned char level) {
+static void generateLevel(unsigned char level) {
 	unsigned char x, y;
 	unsigned char x2 = 0;
 	unsigned char y2 = 0;

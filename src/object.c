@@ -2,8 +2,8 @@
 #include "object.h"
 
 char object_collision(
-	object_t *object1,
-	object_t *object2
+	const object_t *object1,
+	const object_t *object2
 ) {
 	return (
 		((object1->position[0] + object1->size[0]) >= object2->position[0]) &&
@@ -15,10 +15,14 @@ char object_collision(
 
 void object_init(
 	object_t *object,
-	const unsigned char red, const unsigned char green, unsigned char blue,
-	const unsigned short width, const unsigned short height,
-	const signed short x, const signed short y,
-	const char visible
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue,
+	unsigned short width,
+	unsigned short height,
+	signed short x,
+	signed short y,
+	char visible
 ) {
 	object->color[0] = red;
 	object->color[1] = green;

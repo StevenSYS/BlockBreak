@@ -2,9 +2,9 @@
 	#include <sImpl.h>
 #endif
 
+#include "input.h"
 #include "random.h"
 #include "entity.h"
-#include "input.h"
 
 void main_reset();
 

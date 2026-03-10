@@ -3,7 +3,7 @@ unsigned int hssImpl_get() {
 	return 0;
 }
 
-void hssImpl_set(const unsigned int highScore) {
+void hssImpl_set(unsigned int highScore) {
 	return;
 }
 

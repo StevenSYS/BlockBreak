@@ -6,7 +6,7 @@
 int main() {
 	unsigned char x, y;
 	
-	FILE *file = fopen("../shared/random.c", "w");
+	FILE *file = fopen("../random.c", "w");
 	
 	srand(510);
 	

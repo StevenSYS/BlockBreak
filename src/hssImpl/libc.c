@@ -43,7 +43,12 @@ unsigned int hssImpl_get() {
 			fileSize < correctSize ||
 			fileSize > correctSize
 		) {
-			fprintf(stderr, HSSIMPL_STRING_FILE_WRONGSIZE, fileSize, correctSize);
+			fprintf(
+				stderr,
+				HSSIMPL_STRING_FILE_WRONGSIZE,
+				fileSize,
+				correctSize
+			);
 			return 0;
 		} else if (fgets(
 			(char *)buffer,
@@ -70,7 +75,7 @@ unsigned int hssImpl_get() {
 	return newScore;
 }
 
-void hssImpl_set(const unsigned int highScore) {
+void hssImpl_set(unsigned int highScore) {
 	unsigned char i;
 	unsigned char hsByte[4];
 	

@@ -12,16 +12,20 @@ typedef struct {
 
 /* Functions */
 char object_collision(
-	object_t *object1,
-	object_t *object2
+	const object_t *object1,
+	const object_t *object2
 );
 
 void object_init(
 	object_t *object,
-	const unsigned char red, const unsigned char green, const unsigned char blue,
-	const unsigned short width, const unsigned short height,
-	const signed short x, const signed short y,
-	const char visible
+	unsigned char red
+	unsigned char green
+	unsigned char blue,
+	unsigned short width
+	unsigned short height,
+	signed short x
+	signed short y,
+	char visible
 );
 
 void object_draw(object_t *object);

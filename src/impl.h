@@ -5,22 +5,22 @@
 
 /* Draw */
 void impl_setColor(
-	const unsigned char red,
-	const unsigned char green,
-	const unsigned char blue
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue
 );
 
 void impl_drawNumber(
-	const signed short x,
-	const signed short y,
-	const unsigned int number
+	signed short x,
+	signed short y,
+	unsigned int number
 );
 
 void impl_drawFillRect(
-	const signed short x,
-	const signed short y,
-	const unsigned short width,
-	const unsigned short height
+	signed short x,
+	signed short y,
+	unsigned short width,
+	unsigned short height
 );
 
 /* Misc. */
@@ -29,7 +29,8 @@ void impl_loopStart();
 void impl_loopEnd();
 
 void impl_init(
-	int argc, char *argv[],
+	int argc,
+	char *argv[],
 	void (*draw)()
 );
 
