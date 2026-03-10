@@ -8,6 +8,8 @@
 #include "entity.h"
 #include "progInfo.h"
 
+void main_draw();
+
 static char running = 1;
 
 static unsigned int currentColor;
@@ -91,11 +93,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	gfxInitDefault();
 	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
 	C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
@@ -108,7 +106,7 @@ void impl_init(
 		lastTime = svcGetSystemTick();
 		
 		getInput();
-		draw();
+		main_draw();
 		
 		while (svcGetSystemTick() < lastTime + (CPU_TICKS_PER_MSEC * MAX_FPS)) {
 			getInput();

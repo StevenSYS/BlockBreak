@@ -9,6 +9,8 @@
 #include "entity.h"
 #include "progInfo.h"
 
+void main_draw();
+
 static char running = 1;
 
 static int waitTime;
@@ -77,11 +79,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	SDL_SetAppMetadata(PROGRAM_NAME, PROGRAM_VERSION, "com.stevensys.blockbreakc");
 	
 	window = SDL_CreateWindow(
@@ -117,7 +115,7 @@ void impl_init(
 		lastTime = SDL_GetTicksNS();
 		
 		handleEvent();
-		draw();
+		main_draw();
 		
 		waitTime = (
 			1000000000 / MAX_FPS

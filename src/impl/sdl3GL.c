@@ -28,11 +28,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - " IMPL_NAME,
 		RENDER_WIDTH, RENDER_HEIGHT,
@@ -65,7 +61,7 @@ void impl_init(
 		lastTime = SDL_GetTicksNS();
 		
 		handleEvent();
-		draw();
+		main_draw();
 		
 		waitTime = (
 			1000000000 / MAX_FPS

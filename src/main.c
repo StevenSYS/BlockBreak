@@ -126,7 +126,7 @@ void main_reset() {
 	return;
 }
 
-static void draw() {
+void main_draw() {
 	unsigned char x, y;
 	
 	impl_loopStart();
@@ -196,11 +196,7 @@ int main(int argc, char *argv[]) {
 	
 	init();
 	
-	impl_init(
-		argc,
-		argv,
-		&draw
-	);
+	impl_init(argc, argv);
 	
 	hssImpl_close();
 	return 0;

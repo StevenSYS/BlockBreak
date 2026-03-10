@@ -60,11 +60,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	glutInit(&argc, argv);
 	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
@@ -75,7 +71,7 @@ void impl_init(
 	
 	glutKeyboardFunc(glutInput);
 	glutSpecialFunc(inputSpecial);
-	glutDisplayFunc(draw);
+	glutDisplayFunc(main_draw);
 	glutTimerFunc(1000 / MAX_FPS, drawLoop, 0);
 	
 	glutMainLoop();

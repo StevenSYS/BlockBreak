@@ -35,10 +35,6 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	return;
 }

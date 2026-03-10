@@ -14,6 +14,8 @@
 
 #define LENGTH_STRINT 11
 
+void main_draw();
+
 static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1];
 
 static void glSharedInit() {

@@ -28,10 +28,6 @@ void impl_loopStart();
 
 void impl_loopEnd();
 
-void impl_init(
-	int argc,
-	char *argv[],
-	void (*draw)()
-);
+void impl_init(int argc, char *argv[]);
 
 #endif
