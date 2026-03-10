@@ -46,7 +46,7 @@ static void generateLevel(unsigned char level) {
 	
 	if (level > 0 && level <= MAX_LEVEL) {
 		blockSize[0] = (unsigned short)(RENDER_WIDTH / level);
-		blockSize[1] = (unsigned short)(RENDER_HEIGHT / (level * 1.5));
+		blockSize[1] = (unsigned short)(RENDER_HEIGHT / (level * 1.5f));
 		
 		LESSTHANSET(blockSize[0], 1);
 		LESSTHANSET(blockSize[1], 1);
@@ -74,9 +74,13 @@ static void generateLevel(unsigned char level) {
 					blockCount++;
 					object_init(
 						&blocks[x][y],
-						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
-						blockSize[0], blockSize[1],
-						(x * blockSize[0]) + x2, (y * blockSize[1]) + y2,
+						colors[randomColor][0],
+						colors[randomColor][1],
+						colors[randomColor][2],
+						blockSize[0],
+						blockSize[1],
+						(x * blockSize[0]) + x2,
+						(y * blockSize[1]) + y2,
 						1
 					);
 				}
@@ -193,7 +197,8 @@ int main(int argc, char *argv[]) {
 	init();
 	
 	impl_init(
-		argc, argv,
+		argc,
+		argv,
 		&draw
 	);
 	

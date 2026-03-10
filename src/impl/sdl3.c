@@ -78,7 +78,8 @@ void impl_loopEnd() {
 }
 
 void impl_init(
-	int argc, char *argv[],
+	int argc,
+	char *argv[],
 	void (*draw)()
 ) {
 	SDL_SetAppMetadata(PROGRAM_NAME, PROGRAM_VERSION, "com.stevensys.blockbreakc");

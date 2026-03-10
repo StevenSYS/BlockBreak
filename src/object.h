@@ -18,12 +18,12 @@ char object_collision(
 
 void object_init(
 	object_t *object,
-	unsigned char red
-	unsigned char green
+	unsigned char red,
+	unsigned char green,
 	unsigned char blue,
-	unsigned short width
+	unsigned short width,
 	unsigned short height,
-	signed short x
+	signed short x,
 	signed short y,
 	char visible
 );
