@@ -1,7 +1,3 @@
-#ifdef ENABLE_SCREENSHOT
-	#include <sImpl.h>
-#endif
-
 #include "input.h"
 #include "random.h"
 #include "entity.h"
