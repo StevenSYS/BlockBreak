@@ -1,7 +1,3 @@
-include("impl/" + implFile + ".js");
-include("impl/highScore/" + hssImplFile + ".js");
-include("impl/screenshot/" + sImplFile + ".js");
-
 if (urlParams.has("touchDeadZone")) {
 	touchDeadZone = parseFloat(urlParams.get("touchDeadZone"));
 } else {
@@ -71,24 +67,6 @@ WebAssembly.instantiateStreaming(
 		
 		document.addEventListener("keydown", input);
 		
-		if (!urlParams.has("noSButton")) {
-			function screenshot() {
-				result.instance.exports.jsInput(83);
-			}
-			
-			element_screenshotButton.addEventListener(
-				"click",
-				screenshot,
-				false
-			);
-			
-			element_screenshotButton.addEventListener(
-				"touchstart",
-				screenshot,
-				false
-			);
-		}
-		
 		result.instance.exports._start();
 		
 		programName.init(result.instance.exports.memory.buffer);
@@ -98,7 +76,7 @@ WebAssembly.instantiateStreaming(
 		
 		impl_init(fontSize, "Fixedsys");
 		
-		loop = setInterval(result.instance.exports.draw, 1000 / maxFPS);
+		loop = setInterval(result.instance.exports.main_draw, 1000 / maxFPS);
 		return;
 	}
 );

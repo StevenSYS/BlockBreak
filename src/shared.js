@@ -5,8 +5,10 @@ var programName = new stringPointer;
 var programVersion = new stringPointer;
 
 imports.getMacros = function (
-	ptrName, ptrVersion,
-	renderWidth, renderHeight,
+	ptrName,
+	ptrVersion,
+	renderWidth,
+	renderHeight,
 	fps,
 	fontHeight
 ) {

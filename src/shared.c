@@ -1,7 +1,5 @@
 /* C Shared Stuff */
-#include <input.h>
-
-#include "sImpl.h"
+#include "input.h"
 #include "progInfo.h"
 
 void draw(); 
@@ -9,8 +7,10 @@ void draw();
 int main(int argc, char *argv[]);
 
 void getMacros(
-	char *ptrName, char *ptrVersion,
-	int renderWidth, int renderHeight,
+	char *ptrName,
+	char *ptrVersion,
+	int renderWidth,
+	int renderHeight,
 	int fps,
 	int fontHeight
 );
@@ -29,11 +29,6 @@ void jsInput(unsigned char key) {
 		case 39: /* Right */
 			input(INPUT_RIGHT);
 			break;
-		#ifdef ENABLE_SCREENSHOT
-		case 83: /* S */
-			input(INPUT_SCREENSHOT);
-			break;
-		#endif
 		case 13: /* Enter */
 			input(INPUT_RESET);
 			break;
@@ -45,19 +40,15 @@ void jsInput(unsigned char key) {
 }
 
 void impl_loopEnd() {
-	#ifdef ENABLE_SCREENSHOT
-	sImpl_end();
-	#endif
 	return;
 }
 
-void impl_init(
-	int argc, char *argv[],
-	void (*draw)()
-) {
+void impl_init(int argc, char *argv[]) {
 	getMacros(
-		PROGRAM_NAME, PROGRAM_VERSION,
-		RENDER_WIDTH, RENDER_HEIGHT,
+		PROGRAM_NAME,
+		PROGRAM_VERSION,
+		RENDER_WIDTH,
+		RENDER_HEIGHT,
 		MAX_FPS,
 		FONT_HEIGHT
 	);
