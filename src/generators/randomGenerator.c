@@ -35,14 +35,9 @@ int main() {
 	fprintf(
 		file,
 		"};\n\n"
-		"U8 random_index = 0;\n\n"
+		"U8 random_index = 1;\n\n"
 		"U8 random_get() {\n"
-		"\t/*\n"
-		"\t\tSince this is a U8,\n"
-		"\t\tit will loop back to 0 when it goes over 255\n"
-		"\t*/\n"
-		"\trandom_index++;\n"
-		"\treturn table[random_index];\n"
+		"\treturn table[random_index++];\n"
 		"}"
 	);
 	return 0;
