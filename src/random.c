@@ -18,13 +18,8 @@ static const unsigned char table[256] = {
 	0, 1, 6, 4, 5, 4, 0, 2, 2, 6, 6, 5, 3, 0, 10, 1
 };
 
-unsigned char random_index = 0;
+unsigned char random_index = 1;
 
 unsigned char random_get() {
-	/*
-		Since this is a unsigned char,
-		it will loop back to 0 when it goes over 255
-	*/
-	random_index++;
-	return table[random_index];
+	return table[random_index++];
 }
