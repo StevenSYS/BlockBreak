@@ -1,4 +1,7 @@
 # [BlockBreakC#](https://github.com/StevenSYS/BlockBreak/tree/csharp)
+> [!WARNING]
+> This port is no longer being maintained
+
 A **recreation** of BlockBreak in C#
 
 # Screenshots
